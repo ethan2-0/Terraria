@@ -29,5 +29,8 @@ namespace OpenTerraria {
         public Bitmap getStartingImage() {
             return startingImage;
         }
+        public override string ToString() {
+            return "{BlockPrototype, ID=" + id + ", starting name=" + name + "}";
+        }
     }
 }
