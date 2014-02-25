@@ -17,7 +17,7 @@ namespace OpenTerraria {
         public BlockPrototype getPrototype() {
             return prototype;
         }
-        public void paint(Graphics g) {
+        public void draw(Graphics g) {
             g.DrawImage(image, location);
         }
     }

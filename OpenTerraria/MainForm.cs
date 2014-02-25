@@ -11,9 +11,11 @@ namespace OpenTerraria {
     public partial class MainForm : Form {
         private static MainForm instance;
         public PointF viewOffset;
+        public World world;
         public MainForm() {
             instance = this;
             viewOffset = new Point(0, 0);
+            world = World.createWorld(5, 5);
             InitializeComponent();
             this.Paint += new PaintEventHandler(MainForm_Paint);
         }
@@ -29,8 +31,7 @@ namespace OpenTerraria {
             g.Clear(Color.SkyBlue);
             g.DrawString("OpenTerraria", getNormalFont(), blackBrush, new PointF(5, 5));
             //g.DrawImage(Reference.getImage("grass.png"), new Point(30, 30));
-            Block grass = new Block(BlockPrototype.grass, new Point(30, 30));
-            grass.paint(g);
+            
         }
         public Pen createPen(Color color) {
             return new Pen(createBrush(color));
