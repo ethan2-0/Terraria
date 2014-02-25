@@ -17,7 +17,7 @@ namespace OpenTerraria {
         /// </summary>
         /// <param name="imageName">The image path, including .png. For example, grass.png.</param>
         /// <param name="id">The ID of the block. For example, OpenTerraria:Grass. Case sensitive.</param>
-        public BlockPrototype(String imageName, String id, Point location, String name) {
+        public BlockPrototype(String imageName, String id, String name) {
             this.id = id;
             this.startingImage = Reference.getImage(imageName);
             this.name = name;
