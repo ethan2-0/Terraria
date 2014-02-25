@@ -9,9 +9,11 @@ namespace OpenTerraria {
         public Bitmap image;
         public Point location;
         public PointF momentum;
-        public Entity(String imageName, Point location) {
+        public Rectangle hitBox;
+        public Entity(String imageName, Point location, Rectangle hitBox) {
             this.image = Reference.getImage(imageName);
             this.location = location;
+            this.hitBox = hitBox;
             momentum = new PointF(0, 0);
         }
         public void draw(Graphics g) {
