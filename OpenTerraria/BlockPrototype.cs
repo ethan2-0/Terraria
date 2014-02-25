@@ -6,6 +6,7 @@ using System.Drawing;
 
 namespace OpenTerraria {
     public class BlockPrototype {
+        public static BlockPrototype grass = new BlockPrototype("grass.png", "OpenTerraria:Grass", "Grass");
         /// <summary>
         /// This feild should <b>NEVER</b> be changed, or accessed directly. Use getID() instead.
         /// </summary>

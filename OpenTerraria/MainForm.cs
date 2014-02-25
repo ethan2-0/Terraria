@@ -29,7 +29,8 @@ namespace OpenTerraria {
             g.Clear(Color.SkyBlue);
             g.DrawString("OpenTerraria", getNormalFont(), blackBrush, new PointF(5, 5));
             //g.DrawImage(Reference.getImage("grass.png"), new Point(30, 30));
-            
+            Block grass = new Block(BlockPrototype.grass, new Point(30, 30));
+            grass.paint(g);
         }
         public Pen createPen(Color color) {
             return new Pen(createBrush(color));
