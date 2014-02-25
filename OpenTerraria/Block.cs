@@ -9,7 +9,7 @@ namespace OpenTerraria {
         private BlockPrototype prototype;
         public Bitmap image;
         public Point location;
-        public Block(BlockPrototype prototype, Point location) {
+        private Block(BlockPrototype prototype, Point location) {
             this.prototype = prototype;
             this.location = location;
             this.image = prototype.getStartingImage();
@@ -19,6 +19,9 @@ namespace OpenTerraria {
         }
         public void draw(Graphics g) {
             g.DrawImage(image, location);
+        }
+        public static Block createNewBlock(BlockPrototype prototype, Point location) {
+            return new Block(prototype, location);
         }
     }
 }

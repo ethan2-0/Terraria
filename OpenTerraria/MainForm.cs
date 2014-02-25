@@ -15,7 +15,7 @@ namespace OpenTerraria {
         public MainForm() {
             instance = this;
             viewOffset = new Point(0, 0);
-            world = World.createWorld(5, 5);
+            world = World.createWorld(500, 500);
             InitializeComponent();
             this.Paint += new PaintEventHandler(MainForm_Paint);
         }
@@ -31,7 +31,7 @@ namespace OpenTerraria {
             g.Clear(Color.SkyBlue);
             g.DrawString("OpenTerraria", getNormalFont(), blackBrush, new PointF(5, 5));
             //g.DrawImage(Reference.getImage("grass.png"), new Point(30, 30));
-            
+            world.draw(g);
         }
         public Pen createPen(Color color) {
             return new Pen(createBrush(color));

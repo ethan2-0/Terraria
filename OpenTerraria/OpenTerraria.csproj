@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Block.cs" />
     <Compile Include="BlockPrototype.cs" />
+    <Compile Include="Entity.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
