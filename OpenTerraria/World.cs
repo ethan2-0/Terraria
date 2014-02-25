@@ -58,7 +58,12 @@ namespace OpenTerraria {
             return blocks[x][y];
         }
         public Block getBlockAtPixels(int x, int y) {
-            return getBlockAt((int) Math.Ceiling((double) x / 20), (int) Math.Ceiling((double) y / 20));
+            Block b = getBlockAt((int) Math.Ceiling((double) x / 20), (int) Math.Ceiling((double) y / 20));
+            return b;
+        }
+        public bool isInsideBlock(int x, int y) {
+            BlockPrototype prototype = getBlockAtPixels(x, y).getPrototype();
+            return prototype.solid;
         }
     }
 }

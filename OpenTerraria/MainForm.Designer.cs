@@ -29,7 +29,8 @@
             // 
             // GameTimer
             // 
-            this.GameTimer.Interval = 50;
+            this.GameTimer.Enabled = true;
+            this.GameTimer.Interval = 20;
             this.GameTimer.Tick += new System.EventHandler(this.GameTimer_Tick);
             // 
             // MainForm

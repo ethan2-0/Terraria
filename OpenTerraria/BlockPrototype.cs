@@ -24,6 +24,7 @@ namespace OpenTerraria {
             this.id = id;
             this.startingImage = Reference.getImage(imageName);
             this.name = name;
+            this.solid = solid;
         }
         public String getID() {
             return id;
