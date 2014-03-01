@@ -19,7 +19,7 @@ namespace OpenTerraria {
             instance = this;
             viewOffset = new Point(0, 0);
             world = World.createWorld(500, 500);
-            player = new Player(new Point(5, 5));
+            player = new Player(new Point(250, 150));
             InitializeComponent();
             this.Paint += new PaintEventHandler(MainForm_Paint);
         }
@@ -35,7 +35,7 @@ namespace OpenTerraria {
             Pen blackPen = createPen(Color.Black);
             Brush blackBrush = createBrush(Color.Black);
             g.Clear(Color.SkyBlue);
-            g.DrawString("OpenTerraria " + player.location.ToString(), getNormalFont(), blackBrush, new PointF(5, 5));
+            g.DrawString("OpenTerraria " + player.location.ToString() + " Ground: " + player.isOnGround, getNormalFont(), blackBrush, new PointF(5, 5));
             //g.DrawImage(Reference.getImage("grass.png"), new Point(30, 30));
             world.draw(g);
             foreach (Entity e in entities) {
