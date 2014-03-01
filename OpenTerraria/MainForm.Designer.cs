@@ -30,7 +30,7 @@
             // GameTimer
             // 
             this.GameTimer.Enabled = true;
-            this.GameTimer.Interval = 1000;
+            this.GameTimer.Interval = 200;
             this.GameTimer.Tick += new System.EventHandler(this.GameTimer_Tick);
             // 
             // MainForm
