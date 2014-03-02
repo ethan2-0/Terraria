@@ -14,5 +14,11 @@ namespace OpenTerraria {
         public void damage(int amount) {
             health -= amount;
         }
+        public override void update() {
+            base.update();
+            if (blockY > MainForm.getInstance().world.height) {
+                this.health--;
+            }
+        }
     }
 }

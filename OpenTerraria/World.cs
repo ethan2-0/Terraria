@@ -8,7 +8,7 @@ using System.Windows.Forms;
 namespace OpenTerraria {
     public class World {
         public Block[][] blocks;
-        int width, height;
+        public int width, height;
         /// <summary>
         /// This constructor should only be used internally. Use World.newWorld() instead.
         /// </summary>
