@@ -68,6 +68,7 @@
     <Compile Include="EntityWithInventory.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="InventoryItem.cs" />
+    <Compile Include="ItemInInventory.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

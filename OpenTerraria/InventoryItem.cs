@@ -9,5 +9,6 @@ namespace OpenTerraria {
         int getMaxStackSize();
         Bitmap getImage();
         String getName();
+        void use();
     }
 }
