@@ -41,5 +41,8 @@ namespace OpenTerraria {
         public virtual String getName() {
             return prototype.name;
         }
+        public virtual void use() {
+            //Do nothing yet
+        }
     }
 }
