@@ -15,7 +15,7 @@ namespace OpenTerraria {
 
         void Player_KeyPress(object sender, KeyPressEventArgs e) {
             if (e.KeyChar == (char)Keys.Space && isOnGround) {
-                momentum.Y = -10;
+                momentum.Y = -15;
             }
         }
 
@@ -27,9 +27,9 @@ namespace OpenTerraria {
 
         void Player_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e) {
             if (e.KeyCode == Keys.Left) {
-                momentum.X = -5;
+                momentum.X = -7;
             } else if (e.KeyCode == Keys.Right) {
-                momentum.X = 5;
+                momentum.X = 7;
             }
         }
         public override int getMaxHealth() {

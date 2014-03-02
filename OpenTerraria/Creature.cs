@@ -5,7 +5,7 @@ using System.Text;
 using System.Drawing;
 
 namespace OpenTerraria {
-    public abstract class Creature : Entity {
+    public abstract class Creature : EntityWithInventory {
         public abstract int getMaxHealth();
         int health;
         public Creature(String imageName, Point location, Size hitBox) : base(imageName, location, hitBox) {

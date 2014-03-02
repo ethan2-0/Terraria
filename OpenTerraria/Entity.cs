@@ -20,7 +20,7 @@ namespace OpenTerraria {
             MainForm.getInstance().entities.Add(this);
         }
         public void draw(Graphics g) {
-            g.DrawImage(image, location);
+            g.DrawImage(image, Util.subtractPoints(location, MainForm.getInstance().viewOffset));
         }
         public void move() {
             //Collisions
@@ -52,7 +52,7 @@ namespace OpenTerraria {
             move();
         }
         public override string ToString() {
-            return "{Entity, Type=" + this.GetType().ToString() + ", Location={X=" + location.X + ", Y=" + location.Y + "}, BlockLocation=X=" + blockX + ", Y=" + blockY + "}}";
+            return "{Entity, Type=" + this.GetType().ToString() + ", Location={X=" + location.X + ", Y=" + location.Y + "}, BlockLocation={X=" + blockX + ", Y=" + blockY + "}}";
         }
     }
 }

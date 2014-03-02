@@ -30,7 +30,7 @@
             // GameTimer
             // 
             this.GameTimer.Enabled = true;
-            this.GameTimer.Interval = 150;
+            this.GameTimer.Interval = 50;
             this.GameTimer.Tick += new System.EventHandler(this.GameTimer_Tick);
             // 
             // MainForm
@@ -40,6 +40,7 @@
             this.ClientSize = new System.Drawing.Size(592, 566);
             this.Name = "MainForm";
             this.Text = "OpenTerraria";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
 

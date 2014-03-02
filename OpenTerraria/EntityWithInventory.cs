@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace OpenTerraria {
-    class EntityWithInventory {
+    public abstract class EntityWithInventory : Entity {
+
     }
 }

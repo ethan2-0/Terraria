@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace OpenTerraria {
     public class World {
@@ -48,22 +49,38 @@ namespace OpenTerraria {
             return world;
         }
         public void draw(Graphics g) {
-            for (int i = 0; i < width; i++) {
+            int startX = 0;//MainForm.getInstance().player.blockX - 20;
+            int endX = width;//MainForm.getInstance().player.blockX + 20;
+            //MessageBox.Show("Starting to loop.");
+            for (int i = startX; i < endX; i++) {
                 for (int j = 0; j < height; j++) {
-                    getBlockAt(i, j).draw(g);
+                    Block b = getBlockAt(i, j);
+                    if (b != null) {
+                        b.draw(g);
+                    }
                 }
             }
+            //MessageBox.Show("Done looping");
         }
         public Block getBlockAt(int x, int y) {
-            return blocks[x][y];
+            try {
+                return blocks[x][y];
+            } catch (Exception e) {
+                return null;
+            }
         }
         public Block getBlockAtPixels(int x, int y) {
             Block b = getBlockAt((int) Math.Ceiling((double) x / 20), (int) Math.Ceiling((double) y / 20));
             return b;
         }
         public bool isInsideBlock(int x, int y) {
-            BlockPrototype prototype = getBlockAtPixels(x, y).getPrototype();
-            return prototype.solid;
+            Block block = getBlockAtPixels(x, y);
+            if (block != null) {
+                BlockPrototype prototype = block.getPrototype();
+                return prototype.solid;
+            } else {
+                return false;
+            }
         }
     }
 }

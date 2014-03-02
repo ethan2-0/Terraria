@@ -18,7 +18,16 @@ namespace OpenTerraria {
             return prototype;
         }
         public void draw(Graphics g) {
-            g.DrawImage(image, location);
+            Player thePlayer = MainForm.getInstance().player;
+            int xDiff = Math.Abs(location.X - thePlayer.location.X);
+            int yDiff = Math.Abs(location.Y - thePlayer.location.Y);
+            if (location.X == 2000) {
+                int i = 0;
+            }
+            if (xDiff + yDiff > 1150) {
+                return;
+            }
+            g.DrawImage(image, Util.subtractPoints(location, MainForm.getInstance().viewOffset));
         }
         public static Block createNewBlock(BlockPrototype prototype, Point location) {
             return new Block(prototype, location);
