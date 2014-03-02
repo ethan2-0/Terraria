@@ -103,8 +103,8 @@ namespace OpenTerraria {
             return new Font("Times", size);
         }
         private void GameTimer_Tick(object sender, EventArgs e) {
-            foreach (Entity entity in entities) {
-                entity.update();
+            for (int i = 0; i < entities.Count; i++) {
+                entities[i].update();
             }
             int offsetX = player.location.X - this.Width / 2;
             int offsetY = player.location.Y - this.Height / 2;

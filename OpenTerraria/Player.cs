@@ -27,9 +27,9 @@ namespace OpenTerraria {
 
         void Player_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e) {
             if (e.KeyCode == Keys.Left) {
-                momentum.X = -7;
+                momentum.X = -8;
             } else if (e.KeyCode == Keys.Right) {
-                momentum.X = 7;
+                momentum.X = 8;
             }
         }
         public override int getMaxHealth() {
