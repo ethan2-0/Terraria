@@ -17,8 +17,14 @@ namespace OpenTerraria {
         public override void update() {
             base.update();
             if (blockY > MainForm.getInstance().world.height) {
-                this.health--;
+                this.health -= 5;
             }
+            if (this.health <= 0) {
+                die();
+            }
+        }
+        public virtual void die() {
+            MainForm.getInstance().entities.Remove(this);
         }
     }
 }

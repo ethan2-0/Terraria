@@ -35,7 +35,8 @@ namespace OpenTerraria {
         public override int getMaxHealth() {
             return 400;
         }
-        public void die() {
+        public override void die() {
+            base.die();
             MessageBox.Show("You dead.");
             MainForm.getInstance().respawnPlayer();
         }
