@@ -8,7 +8,7 @@ namespace OpenTerraria {
     public abstract class Creature : EntityWithInventory {
         public abstract int getMaxHealth();
         int health;
-        public Creature(String imageName, Point location, Size hitBox) : base(imageName, location, hitBox) {
+        public Creature(String imageName, Point location, Size hitBox, int inventorySize) : base(imageName, location, hitBox, inventorySize) {
             health = getMaxHealth();
         }
         public void damage(int amount) {

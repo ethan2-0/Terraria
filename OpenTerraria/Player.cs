@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace OpenTerraria {
     public class Player : Creature {
-        public Player(Point location) : base("player.png", location, new Size(20, 40)) {
+        public Player(Point location) : base("player.png", location, new Size(20, 40), 40) {
             MainForm.getInstance().KeyDown += new System.Windows.Forms.KeyEventHandler(Player_KeyDown);
             MainForm.getInstance().KeyUp += new System.Windows.Forms.KeyEventHandler(Player_KeyUp);
             MainForm.getInstance().KeyPress += new KeyPressEventHandler(Player_KeyPress);
