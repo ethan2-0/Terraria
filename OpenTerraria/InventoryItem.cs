@@ -6,8 +6,8 @@ using System.Drawing;
 
 namespace OpenTerraria {
     public interface InventoryItem {
-        public int getMaxStackSize();
-        public Bitmap getImage();
-        public String getName();
+        int getMaxStackSize();
+        Bitmap getImage();
+        String getName();
     }
 }

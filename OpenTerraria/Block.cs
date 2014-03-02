@@ -14,10 +14,10 @@ namespace OpenTerraria {
             this.location = location;
             this.image = prototype.getStartingImage();
         }
-        public BlockPrototype getPrototype() {
+        public virtual BlockPrototype getPrototype() {
             return prototype;
         }
-        public void draw(Graphics g) {
+        public virtual void draw(Graphics g) {
             Player thePlayer = MainForm.getInstance().player;
             int xDiff = Math.Abs(location.X - thePlayer.location.X);
             int yDiff = Math.Abs(location.Y - thePlayer.location.Y);
@@ -31,6 +31,15 @@ namespace OpenTerraria {
         }
         public static Block createNewBlock(BlockPrototype prototype, Point location) {
             return new Block(prototype, location);
+        }
+        public virtual int getMaxStackSize() {
+            return 999;
+        }
+        public virtual Bitmap getImage() {
+            return prototype.getStartingImage();
+        }
+        public virtual String getName() {
+            return prototype.name;
         }
     }
 }

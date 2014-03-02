@@ -21,18 +21,28 @@ namespace OpenTerraria {
         public bool shouldCancelFormClose = true;
         Graphics graphics, offg;
         Bitmap screen;
+        public bool debugMenu = false;
         public MainForm() {
             entities = new List<Entity>();
             instance = this;
             viewOffset = new Point(0, 0);
             world = World.createWorld(500, 500);
-            player = new Player(new Point(2000, 150));
+            respawnPlayer();
             InitializeComponent();
             this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
             //this.Paint += new PaintEventHandler(MainForm_Paint);
             this.Resize += new EventHandler(MainForm_Resize);
+            this.KeyDown += new KeyEventHandler(MainForm_KeyDown);
         }
 
+        void MainForm_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.F3) {
+                debugMenu = !debugMenu;
+            }
+        }
+        public void respawnPlayer() {
+            player = new Player(new Point(2000, 150));
+        }
         void MainForm_Resize(object sender, EventArgs e) {
             
         }
@@ -60,7 +70,16 @@ namespace OpenTerraria {
             Pen blackPen = createPen(Color.Black);
             Brush blackBrush = createBrush(Color.Black);
             offg.Clear(Color.SkyBlue);
-            offg.DrawString("OpenTerraria " + player.ToString() + " Ground: " + player.isOnGround, getNormalFont(8), blackBrush, new PointF(5, 5));
+            if (debugMenu) {
+                offg.DrawString("OpenTerraria " + player.ToString() + " Ground: " + player.isOnGround, getNormalFont(8), blackBrush, new Point(0, 30));
+            }
+            //
+            //Hud
+            //
+            //Health bar
+            offg.FillRectangle(createBrush(Color.Red), new Rectangle(new Point(5, 5), new Size(player.getMaxHealth() / 2, 15)));
+            offg.FillRectangle(createBrush(Color.Green), new Rectangle(new Point(5, 5), new Size(player.health / 2, 15)));
+
             //g.DrawImage(Reference.getImage("grass.png"), new Point(30, 30));
             world.draw(offg);
             foreach (Entity e in entities) {

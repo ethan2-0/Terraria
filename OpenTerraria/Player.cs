@@ -33,7 +33,11 @@ namespace OpenTerraria {
             }
         }
         public override int getMaxHealth() {
-            return 20;
+            return 400;
+        }
+        public void die() {
+            MessageBox.Show("You dead.");
+            MainForm.getInstance().respawnPlayer();
         }
     }
 }
