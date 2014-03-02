@@ -19,10 +19,10 @@ namespace OpenTerraria {
             momentum = new Point(0, 0);
             MainForm.getInstance().entities.Add(this);
         }
-        public void draw(Graphics g) {
+        public virtual void draw(Graphics g) {
             g.DrawImage(image, Util.subtractPoints(location, MainForm.getInstance().viewOffset));
         }
-        public void move() {
+        public virtual void move() {
             //Collisions
             int candaditeX = location.X + momentum.X;
             bool isInsideBlock = MainForm.getInstance().world.isInsideBlock(candaditeX, location.Y);
@@ -45,7 +45,7 @@ namespace OpenTerraria {
         public void stop() {
             momentum = new Point(0, 0);
         }
-        public void update() {
+        public virtual void update() {
             //Gravity
             momentum.Y++;
             //Movement
