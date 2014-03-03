@@ -6,12 +6,14 @@ using System.Drawing;
 
 namespace OpenTerraria {
     public class BlockPrototype : InventoryItem {
-        public static BlockPrototype grass = new BlockPrototype("grass.png", "OpenTerraria:Grass", "Grass", true);
-        public static BlockPrototype air = new BlockPrototype("air.png", "OpenTerraria:Air", "Air", false);
+        
+        public static BlockPrototype grass = new BlockPrototype("grass.png", "OpenTerraria:Grass", "Grass", true, 999);
+        public static BlockPrototype air = new BlockPrototype("air.png", "OpenTerraria:Air", "Air", false, 999);
         /// <summary>
         /// This feild should <b>NEVER</b> be changed, or accessed directly. Use getID() instead.
         /// </summary>
         private String id;
+        private int maxStackSize;
         private Bitmap startingImage;
         public String name;
         public bool solid;
@@ -20,21 +22,33 @@ namespace OpenTerraria {
         /// </summary>
         /// <param name="imageName">The image path, including .png. For example, grass.png.</param>
         /// <param name="id">The ID of the block. For example, OpenTerraria:Grass. Case sensitive.</param>
-        public BlockPrototype(String imageName, String id, String name, bool solid) {
+        public BlockPrototype(String imageName, String id, String name, bool solid, int maxStack) {
             this.id = id;
             this.startingImage = Reference.getImage(imageName);
             this.name = name;
             this.solid = solid;
+            this.maxStackSize = maxStack;
         }
         public String getID() {
             return id;
         }
-        public Bitmap getStartingImage() {
+        public virtual Bitmap getStartingImage() {
             return startingImage;
         }
         public override string ToString() {
             return "{BlockPrototype, ID=" + id + ", starting name=" + name + "}";
         }
+        public virtual int getMaxStackSize() {
+            return maxStackSize;
+        }
+        public virtual Bitmap getImage() {
+            return startingImage;
+        }
+        public virtual String getName() {
+            return name;
+        }
+        public virtual void use() {
 
+        }
     }
 }

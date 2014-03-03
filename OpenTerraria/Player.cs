@@ -7,11 +7,14 @@ using System.Windows.Forms;
 
 namespace OpenTerraria {
     public class Player : Creature {
+        public Inventory hotbar;
         public Player(Point location) : base("player.png", location, new Size(20, 40), 40) {
             MainForm.getInstance().KeyDown += new System.Windows.Forms.KeyEventHandler(Player_KeyDown);
             MainForm.getInstance().KeyUp += new System.Windows.Forms.KeyEventHandler(Player_KeyUp);
             MainForm.getInstance().KeyPress += new KeyPressEventHandler(Player_KeyPress);
-            
+            inventory.addItem(BlockPrototype.grass, 50);
+            hotbar = new Inventory(10);
+            hotbar.addItem(BlockPrototype.grass, 5);
         }
         void Player_KeyPress(object sender, KeyPressEventArgs e) {
             if (e.KeyChar == (char)Keys.Space && isOnGround) {

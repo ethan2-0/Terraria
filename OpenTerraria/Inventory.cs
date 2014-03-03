@@ -8,6 +8,7 @@ namespace OpenTerraria {
         public ItemInInventory[] items;
         public Inventory(int size) {
             items = new ItemInInventory[size];
+            MainForm.getInstance().inventories.Add(this);
         }
         public bool isFull() {
             check();
@@ -21,7 +22,7 @@ namespace OpenTerraria {
         public bool hasSpaceFor(InventoryItem type, int count) {
             check();
             for (int i = 0; i < items.Count(); i++) {
-                if ((items[i].item == type && items[i].getCount() < items[i].getItem().getMaxStackSize() - count) || items[i] == null) {
+                if (items[i] == null || ((items[i].item == type && items[i].getCount() < items[i].getItem().getMaxStackSize() - count))) {
                     return true;
                 }
             }
@@ -64,13 +65,24 @@ namespace OpenTerraria {
         }
         public void check() {
             for (int i = 0; i < items.Count(); i++) {
-                if (items[i].count == 0) {
+                if (items[i] != null && items[i].count == 0) {
                     items[i] = null;
                 }
-                if (items[i].count > items[i].getItem().getMaxStackSize()) {
+                if (items[i] != null && items[i].count > items[i].getItem().getMaxStackSize()) {
                     throw new Exception("Count > MaxStack?");
                 }
             }
+        }
+        public bool contains(ItemInInventory i) {
+            return indexOf(i) != -1;
+        }
+        public int indexOf(ItemInInventory item) {
+            for (int i = 0; i < items.Count(); i++) {
+                if (items[i] == item) {
+                    return i;
+                }
+            }
+            return -1;
         }
     }
 }
