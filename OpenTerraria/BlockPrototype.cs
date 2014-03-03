@@ -5,7 +5,7 @@ using System.Text;
 using System.Drawing;
 
 namespace OpenTerraria {
-    public class BlockPrototype {
+    public class BlockPrototype : InventoryItem {
         public static BlockPrototype grass = new BlockPrototype("grass.png", "OpenTerraria:Grass", "Grass", true);
         public static BlockPrototype air = new BlockPrototype("air.png", "OpenTerraria:Air", "Air", false);
         /// <summary>
@@ -35,5 +35,6 @@ namespace OpenTerraria {
         public override string ToString() {
             return "{BlockPrototype, ID=" + id + ", starting name=" + name + "}";
         }
+
     }
 }

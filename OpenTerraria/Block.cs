@@ -5,7 +5,7 @@ using System.Text;
 using System.Drawing;
 
 namespace OpenTerraria {
-    public class Block : InventoryItem {
+    public class Block {
         private BlockPrototype prototype;
         public Bitmap image;
         public Point location;

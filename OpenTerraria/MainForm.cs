@@ -70,9 +70,6 @@ namespace OpenTerraria {
             Pen blackPen = createPen(Color.Black);
             Brush blackBrush = createBrush(Color.Black);
             offg.Clear(Color.SkyBlue);
-            if (debugMenu) {
-                offg.DrawString("OpenTerraria " + player.ToString() + " Ground: " + player.isOnGround, getNormalFont(8), blackBrush, new Point(0, 30));
-            }
             //
             //Hud
             //
@@ -84,6 +81,9 @@ namespace OpenTerraria {
             world.draw(offg);
             foreach (Entity e in entities) {
                 e.draw(offg);
+            }
+            if (debugMenu) {
+                offg.DrawString("OpenTerraria " + player.ToString() + " Ground: " + player.isOnGround, getNormalFont(8), blackBrush, new Point(0, 30));
             }
             graphics.DrawImage(screen, new Point(0, 0));
             //graphics.DrawImage(b, new Point(0, 0));

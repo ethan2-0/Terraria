@@ -11,8 +11,8 @@ namespace OpenTerraria {
             MainForm.getInstance().KeyDown += new System.Windows.Forms.KeyEventHandler(Player_KeyDown);
             MainForm.getInstance().KeyUp += new System.Windows.Forms.KeyEventHandler(Player_KeyUp);
             MainForm.getInstance().KeyPress += new KeyPressEventHandler(Player_KeyPress);
+            
         }
-
         void Player_KeyPress(object sender, KeyPressEventArgs e) {
             if (e.KeyChar == (char)Keys.Space && isOnGround) {
                 momentum.Y = -15;
@@ -33,7 +33,7 @@ namespace OpenTerraria {
             }
         }
         public override int getMaxHealth() {
-            return 400;
+            return 100;
         }
         public override void die() {
             base.die();
