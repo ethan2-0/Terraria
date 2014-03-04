@@ -2,13 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace OpenTerraria {
     public class Inventory {
         public ItemInInventory[] items;
+        public InventoryDrawer drawer;
         public Inventory(int size) {
             items = new ItemInInventory[size];
             MainForm.getInstance().inventories.Add(this);
+            drawer = new InventoryDrawer(this);
+        }
+        public void draw(Point p, Graphics g) {
+            drawer.render(g, p);
         }
         public bool isFull() {
             check();

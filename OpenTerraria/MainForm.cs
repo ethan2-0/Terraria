@@ -100,89 +100,10 @@ namespace OpenTerraria {
             int position = 0;
             int row = 0;
             if (inventory) {
-                offg.FillRectangle(createBrush(Color.Gray), new Rectangle(new Point(5, 50), new Size(255, 105)));
-                foreach (ItemInInventory item in player.inventory.items) {
-                    position++;
-                    if (position >= 11) {
-                        position = 0;
-                        row++;
-                    }
-                    if (item != null) {
-                        Point location = new Point(position * 25 - 15, 55 + row * 25);
-                        Rectangle r = new Rectangle(location, new Size(20, 20));
-                        for (int i = 0; i < clicksToClaim.Count; i++) {
-                            Point p = clicksToClaim[i];
-                            if (r.Contains(p)) {
-                                clicksToClaim.Remove(p);
-                                if (movingItem == null) {
-                                    movingItem = item;
-                                } else {
-                                    ItemInInventory item1 = movingItem;
-                                    ItemInInventory item2 = item;
-                                    foreach (Inventory inv in inventories) {
-                                        if (inv.contains(item1)) {
-                                            int index = inv.indexOf(item1);
-                                            inv.items[inv.indexOf(item1)] = item2;
-                                            inv.items[index] = null;
-                                        }
-                                        if (inv.contains(item2)) {
-                                            int index = inv.indexOf(item2);
-                                            inv.items[index] = null;
-                                            inv.items[index] = item1;
-                                        }
-                                    }
-                                    movingItem = null;
-                                }
-                            }
-                        }
-                        if (movingItem == item) {
-                            offg.DrawRectangle(createPen(Color.Red), new Rectangle(Util.subtractPoints(location, new Point(1, 1)), new Size(22, 22)));
-                        }
-                        offg.DrawImage(item.item.getImage(), location);
-                        offg.DrawString(item.count.ToString(), getNormalFont(10), createBrush(Color.LightGray), new PointF(location.X + 10, location.Y + 10));
-                    }
-                }
+                player.inventory.draw(new Point(5, 50), offg);
             }
             //Hotbar
-            offg.FillRectangle(createBrush(Color.Gray), new Rectangle(new Point(200, 5), new Size(255, 30)));
-            position = 0;
-            foreach (ItemInInventory item in player.hotbar.items) {
-                position++;
-                if (position >= 11) {
-                    position = 0;
-                }
-                if (item != null) {
-                    Point location = new Point(position * 25 + 180, 10);
-                    Rectangle r = new Rectangle(location, new Size(20, 20));
-                    for (int i = 0; i < clicksToClaim.Count; i++) {
-                        Point p = clicksToClaim[i];
-                        if (r.Contains(p)) {
-                            clicksToClaim.Remove(p);
-                            if (movingItem == null) {
-                                movingItem = item;
-                            } else {
-                                ItemInInventory item1 = movingItem;
-                                ItemInInventory item2 = item;
-                                foreach (Inventory inv in inventories) {
-                                    if (inv.contains(item1)) {
-                                        int index = inv.indexOf(item1);
-                                        inv.items[inv.indexOf(item1)] = item2;
-                                        inv.items[index] = null;
-                                    }
-                                    if (inv.contains(item2)) {
-                                        int index = inv.indexOf(item2);
-                                        inv.items[index] = null;
-                                        inv.items[index] = item1;
-                                    }
-                                }
-                                movingItem = null;
-                            }
-                        }
-                    }
-                    offg.DrawImage(item.item.getImage(), location);
-                    offg.DrawString(item.count.ToString(), getNormalFont(10), createBrush(Color.LightGray), new PointF(location.X + 10, location.Y + 10));
-                }
-            }
+            player.hotbar.draw(new Point(200, 5), offg);
             //Debug Menu
             if (debugMenu) {
                 offg.DrawString("OpenTerraria " + player.ToString() + " Ground: " + player.isOnGround + " ViewOffset: " + viewOffset.ToString(), getNormalFont(8), blackBrush, new Point(0, 20));
@@ -192,16 +113,16 @@ namespace OpenTerraria {
             //b.Dispose();
             //graphics.Dispose();
         }
-        public Pen createPen(Color color) {
+        public static Pen createPen(Color color) {
             return new Pen(createBrush(color));
         }
-        public Brush createBrush(Color color) {
+        public static Brush createBrush(Color color) {
             return new SolidBrush(color);
         }
-        public Font getNormalFont() {
+        public static Font getNormalFont() {
             return getNormalFont(10);
         }
-        public Font getNormalFont(float size) {
+        public static Font getNormalFont(float size) {
             return new Font("Times", size);
         }
         private void GameTimer_Tick(object sender, EventArgs e) {
