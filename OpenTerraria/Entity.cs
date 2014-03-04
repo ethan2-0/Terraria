@@ -12,6 +12,7 @@ namespace OpenTerraria {
         public Point momentum;
         public Size hitBox;
         public bool isOnGround = false;
+        public int gravityTicks = 0;
         public Entity(String imageName, Point location, Size hitBox) {
             this.image = Reference.getImage(imageName);
             this.location = location;
@@ -47,7 +48,11 @@ namespace OpenTerraria {
         }
         public virtual void update() {
             //Gravity
-            momentum.Y++;
+            gravityTicks++;
+            if (gravityTicks >= 2) {
+                gravityTicks = 0;
+                momentum.Y++;
+            }
             //Movement
             move();
         }

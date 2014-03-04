@@ -21,7 +21,7 @@ namespace OpenTerraria {
         }
         void Player_KeyPress(object sender, KeyPressEventArgs e) {
             if (e.KeyChar == (char)Keys.Space && isOnGround) {
-                momentum.Y = -15;
+                momentum.Y = -8;
             }
         }
 
