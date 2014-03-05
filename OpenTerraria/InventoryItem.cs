@@ -8,7 +8,15 @@ namespace OpenTerraria {
     public interface InventoryItem {
         int getMaxStackSize();
         Bitmap getImage();
+        /// <summary>
+        /// Get the name of the item.
+        /// </summary>
+        /// <returns>The name of the item.</returns>
         String getName();
-        void use();
+        /// <summary>
+        /// Use the item.
+        /// </summary>
+        /// <param name="item">The <code>ItemInInventory</code> housing the item. Can be null if none.</param>
+        void use(ItemInInventory item);
     }
 }

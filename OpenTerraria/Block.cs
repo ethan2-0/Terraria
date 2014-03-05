@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace OpenTerraria {
     public class Block {
-        private BlockPrototype prototype;
+        public BlockPrototype prototype;
         public Bitmap image;
         public Point location;
         private Block(BlockPrototype prototype, Point location) {
@@ -40,9 +40,6 @@ namespace OpenTerraria {
         }
         public virtual String getName() {
             return prototype.name;
-        }
-        public virtual void use() {
-            //Do nothing yet
         }
     }
 }

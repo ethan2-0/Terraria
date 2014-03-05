@@ -8,10 +8,12 @@ using System.Windows.Forms;
 namespace OpenTerraria {
     public class Player : Creature {
         public Inventory hotbar;
+        public int hotbarSelectedIndex;
         public Player(Point location) : base("player.png", location, new Size(20, 40), 40) {
             MainForm.getInstance().KeyDown += new System.Windows.Forms.KeyEventHandler(Player_KeyDown);
             MainForm.getInstance().KeyUp += new System.Windows.Forms.KeyEventHandler(Player_KeyUp);
             MainForm.getInstance().KeyPress += new KeyPressEventHandler(Player_KeyPress);
+            MainForm.getInstance().MouseClick += new MouseEventHandler(Player_MouseClick);
             inventory.addItem(BlockPrototype.grass, 50);
             inventory.items[9] = new ItemInInventory(BlockPrototype.grass, 6);
             inventory.items[8] = new ItemInInventory(BlockPrototype.grass, 6);
@@ -19,9 +21,13 @@ namespace OpenTerraria {
             hotbar.addItem(BlockPrototype.grass, 5);
             hotbar.items[4] = new ItemInInventory(BlockPrototype.grass, 6);
         }
+
+        void Player_MouseClick(object sender, MouseEventArgs e) {
+            hotbar.items[hotbarSelectedIndex].use();
+        }
         void Player_KeyPress(object sender, KeyPressEventArgs e) {
-            if (e.KeyChar == (char)Keys.Space && isOnGround) {
-                momentum.Y = -8;
+            if (e.KeyChar == (char)Keys.Space) {
+                jump();
             }
         }
 

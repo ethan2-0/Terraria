@@ -60,6 +60,7 @@ namespace OpenTerraria {
                 if (items[i] == null || (items[i].getItem() == item && items[i].count + count > item.getMaxStackSize())) {
                     if (items[i] == null) {
                         items[i] = new ItemInInventory(item, count);
+                        items[i].slot = i;
                     } else {
                         items[i].count += count;
                     }

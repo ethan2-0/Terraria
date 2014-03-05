@@ -47,8 +47,16 @@ namespace OpenTerraria {
         public virtual String getName() {
             return name;
         }
-        public virtual void use() {
-
+        public virtual void use(ItemInInventory item) {
+            if (!(item.item is Block)) {
+                throw new ArgumentException("The provided item is not a Block.");
+            }
+            BlockPrototype b = (BlockPrototype)item.item;
+            Point p = MainForm.getInstance().getCursorBlockLocation();
+            if (MainForm.getInstance().world.blocks[p.X][p.Y].prototype == BlockPrototype.air) {
+                MainForm.getInstance().world.blocks[p.X][p.Y] = new Block();
+            }
+            host.useUp(1);
         }
     }
 }

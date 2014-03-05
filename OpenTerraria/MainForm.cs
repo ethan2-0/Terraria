@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.Runtime.InteropServices;
 
 namespace OpenTerraria {
     public partial class MainForm : Form {
@@ -33,13 +34,25 @@ namespace OpenTerraria {
             cursor = Reference.getImage("cursor.png");
             viewOffset = new Point(0, 0);
             world = World.createWorld(500, 500);
-            respawnPlayer();
+            player = new Player(new Point(9000, 150));
+            //Zombie zombie = new Zombie(Util.addPoints(player.location, new Point(50, 0)));
             InitializeComponent();
             this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
             //this.Paint += new PaintEventHandler(MainForm_Paint);
             this.Resize += new EventHandler(MainForm_Resize);
             this.KeyDown += new KeyEventHandler(MainForm_KeyDown);
+            this.KeyPress += new KeyPressEventHandler(MainForm_KeyPress);
             this.MouseClick += new MouseEventHandler(MainForm_MouseClick);
+        }
+        public Point getCursorBlockLocation() {
+            Point adjustedPixels = Util.addPoints(getCursorPos(), viewOffset);
+            Point adjustedBlocks = new Point((int) Math.Floor((double) adjustedPixels.X / 20) - 1, (int) Math.Floor((double)adjustedPixels.Y / 20) - 1);
+            return adjustedBlocks;
+        }
+        void MainForm_KeyPress(object sender, KeyPressEventArgs e) {
+            if (e.KeyChar == (char)Keys.Escape) {
+                GameTimer.Enabled = !GameTimer.Enabled;
+            }
         }
         public Inventory getParentInventory(ItemInInventory item) {
             foreach (Inventory inventory in inventories) {
@@ -52,14 +65,19 @@ namespace OpenTerraria {
         void MainForm_MouseClick(object sender, MouseEventArgs e) {
             //See if the owner of the click is an Inventory
             foreach (Inventory inventory in inventories) {
-                ItemInInventory item = inventory.drawer.getItemAtLocation(e.Location);
-                if(item != null) {
+                //ItemInInventory item = inventory.drawer.getItemAtLocation(e.Location);
+                int index = inventory.drawer.getItemAtLocation(e.Location);
+                if(index != -1) {
                     //We found it
                     if (movingItem == null) {
-                        movingItem = item;
+                        movingItem = inventory.items[index];
                     } else {
-                        Inventory movingItemInventory = getParentInventory(movingItem);
+                        Inventory movingParent = getParentInventory(movingItem);
+                        ItemInInventory item = inventory.items[index];
+                        inventory.items[index] = movingItem;
+                        int slot = movingItem.slot;
                         movingItem = null;
+                        movingParent.items[slot] = item;
                     }
                     break;
                 }
@@ -75,7 +93,8 @@ namespace OpenTerraria {
             }
         }
         public void respawnPlayer() {
-            player = new Player(new Point(2000, 150));
+            //player = new Player(new Point(9000, 150));
+            Close();
         }
         void MainForm_Resize(object sender, EventArgs e) {
             
@@ -98,49 +117,53 @@ namespace OpenTerraria {
             paint();
         }
         public void paint() {
-            //Bitmap b = new Bitmap(this.Width, this.Height);
-            //Graphics g = Graphics.FromImage(b);
-            this.DoubleBuffered = true;
-            Pen blackPen = createPen(Color.Black);
-            Brush blackBrush = createBrush(Color.Black);
-            offg.Clear(Color.SkyBlue);
+            try {
+                //Bitmap b = new Bitmap(this.Width, this.Height);
+                //Graphics g = Graphics.FromImage(b);
+                this.DoubleBuffered = true;
+                Pen blackPen = createPen(Color.Black);
+                Brush blackBrush = createBrush(Color.Black);
+                offg.Clear(Color.SkyBlue);
 
-            //g.DrawImage(Reference.getImage("grass.png"), new Point(30, 30));
-            world.draw(offg);
-            foreach (Entity e in entities) {
-                e.draw(offg);
+                //g.DrawImage(Reference.getImage("grass.png"), new Point(30, 30));
+                world.draw(offg);
+                foreach (Entity e in entities) {
+                    e.draw(offg);
+                }
+                //
+                //Hud
+                //
+                //Health bar
+                offg.FillRectangle(createBrush(Color.Red), new Rectangle(new Point(5, 5), new Size(player.getMaxHealth() / 2, 15)));
+                offg.FillRectangle(createBrush(Color.Green), new Rectangle(new Point(5, 5), new Size(player.health / 2, 15)));
+                //Inventory
+                int position = 0;
+                int row = 0;
+                if (inventory) {
+                    player.inventory.draw(new Point(5, 50), offg);
+                }
+                //Hotbar
+                player.hotbar.draw(new Point(200, 5), offg);
+                //Debug Menu
+                if (debugMenu) {
+                    offg.DrawString("OpenTerraria " + player.ToString() + " Ground: " + player.isOnGround + " ViewOffset: " + viewOffset.ToString() + " CursorPos:" + getCursorPos().ToString(), getNormalFont(8), blackBrush, new Point(0, 20));
+                    //offg.FillRectangle(createBrush(Color.Black), new Rectangle(getCursorPos(), new Size(20, 20)));
+                    //offg.DrawImage(cursor, getCursorPos());
+                    //Cursor.Hide();
+                } else {
+                    //Cursor.Show();
+                }
+                if (movingItem != null) {
+                    player.inventory.drawer.renderItem(movingItem, getCursorPos(), offg, true, 400);
+                }
+                //Cursor
+                graphics.DrawImage(screen, new Point(0, 0));
+                //graphics.DrawImage(b, new Point(0, 0));
+                //b.Dispose();
+                //graphics.Dispose();
+            } catch (ExternalException e) {
+                return;
             }
-            //
-            //Hud
-            //
-            //Health bar
-            offg.FillRectangle(createBrush(Color.Red), new Rectangle(new Point(5, 5), new Size(player.getMaxHealth() / 2, 15)));
-            offg.FillRectangle(createBrush(Color.Green), new Rectangle(new Point(5, 5), new Size(player.health / 2, 15)));
-            //Inventory
-            int position = 0;
-            int row = 0;
-            if (inventory) {
-                player.inventory.draw(new Point(5, 50), offg);
-            }
-            //Hotbar
-            player.hotbar.draw(new Point(200, 5), offg);
-            //Debug Menu
-            if (debugMenu) {
-                offg.DrawString("OpenTerraria " + player.ToString() + " Ground: " + player.isOnGround + " ViewOffset: " + viewOffset.ToString() + " CursorPos:" + getCursorPos().ToString(), getNormalFont(8), blackBrush, new Point(0, 20));
-                //offg.FillRectangle(createBrush(Color.Black), new Rectangle(getCursorPos(), new Size(20, 20)));
-                offg.DrawImage(cursor, getCursorPos());
-                Cursor.Hide();
-            } else {
-                Cursor.Show();
-            }
-            if (movingItem != null) {
-                player.inventory.drawer.renderItem(movingItem, getCursorPos(), offg, true);
-            }
-            //Cursor
-            graphics.DrawImage(screen, new Point(0, 0));
-            //graphics.DrawImage(b, new Point(0, 0));
-            //b.Dispose();
-            //graphics.Dispose();
         }
         public Point getCursorPos() {
             return Util.subtractPoints(MousePosition, Util.addPoints(this.DesktopLocation, new Point(4, 30)));

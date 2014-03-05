@@ -18,5 +18,16 @@ namespace OpenTerraria {
         public static Point convertToPoint(PointF p) {
             return new Point((int)p.X, (int)p.Y);
         }
+        public static int indexOf(Object o, List<Object> list) {
+            for (int i = 0; i < list.Count; i++) {
+                if (list[i] == o) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+        public static int indexOf(Object o, Object[] objects) {
+            return indexOf(o, new List<Object>(objects));
+        }
     }
 }

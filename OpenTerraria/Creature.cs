@@ -26,5 +26,10 @@ namespace OpenTerraria {
         public virtual void die() {
             MainForm.getInstance().entities.Remove(this);
         }
+        public virtual void jump() {
+            if (isOnGround) {
+                momentum.Y = -8;
+            }
+        }
     }
 }

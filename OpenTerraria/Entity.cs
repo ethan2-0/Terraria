@@ -12,7 +12,8 @@ namespace OpenTerraria {
         public Point momentum;
         public Size hitBox;
         public bool isOnGround = false;
-        public int gravityTicks = 0;
+        public int occasionalTicks = 0;
+        public int contactDamage = 0;
         public Entity(String imageName, Point location, Size hitBox) {
             this.image = Reference.getImage(imageName);
             this.location = location;
@@ -47,17 +48,36 @@ namespace OpenTerraria {
             momentum = new Point(0, 0);
         }
         public virtual void update() {
-            //Gravity
-            gravityTicks++;
-            if (gravityTicks >= 2) {
-                gravityTicks = 0;
+            //Occasional ticks
+            occasionalTicks++;
+            if (occasionalTicks >= 2) {
+                occasionalTicks = 0;
+                //Gravity
                 momentum.Y++;
+                //Contact damage
+                foreach (Entity e in MainForm.getInstance().entities) {
+                    if (e == this) {
+                        continue;
+                    }
+                    if (e.getDistanceTo(this) < 20 ) {
+                        if (e is Creature) {
+                            ((Creature)e).damage(contactDamage);
+                        }
+                    }
+                }
             }
             //Movement
             move();
+            
         }
         public override string ToString() {
             return "{Entity, Type=" + this.GetType().ToString() + ", Location={X=" + location.X + ", Y=" + location.Y + "}, BlockLocation={X=" + blockX + ", Y=" + blockY + "}}";
+        }
+        public int getDistanceTo(Point p) {
+            return (int) Math.Sqrt(Math.Abs(Math.Abs((location.X - p.X) * (location.X - p.X)) + Math.Abs((location.Y - p.Y) * (location.Y - p.Y))));
+        }
+        public int getDistanceTo(Entity entity) {
+            return getDistanceTo(entity.location);
         }
     }
 }
