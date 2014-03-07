@@ -23,7 +23,7 @@ namespace OpenTerraria {
             item.use(this);
         }
         /// <summary>
-        /// Remove this item from the parent inventory.
+        /// Remove this item from the parent inventory. If this item is not in an inventory, will throw an exception.
         /// </summary>
         public void destroy() {
             MainForm.getInstance().getParentInventory(this).items[slot] = null;

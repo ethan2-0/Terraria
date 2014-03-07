@@ -20,6 +20,7 @@ namespace OpenTerraria {
             hotbar = new Inventory(10);
             hotbar.addItem(BlockPrototype.grass, 5);
             hotbar.items[4] = new ItemInInventory(BlockPrototype.grass, 6);
+            hotbar.addItem(ItemTemplate.stick.createNew(), 8);
         }
         void Player_KeyPress(object sender, KeyPressEventArgs e) {
             if (e.KeyChar == (char)Keys.Space) {
