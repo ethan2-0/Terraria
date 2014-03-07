@@ -14,7 +14,9 @@ namespace OpenTerraria {
         }
         public void render(Graphics g, Point p) {
             int rows = (int) Math.Ceiling((double) inventory.items.Count() / 10);
-            g.FillRectangle(MainForm.createBrush(Color.Gray), new Rectangle(p, new Size(255, (20 * rows) + 10)));
+            Rectangle rectangle = new Rectangle(p, new Size(255, (20 * rows) + 10));
+            g.FillRectangle(MainForm.createBrush(Reference.guiColor), rectangle);
+            g.DrawRectangle(MainForm.createPen(Color.FromArgb(127, 127, 127)), rectangle);
             int column = 0;
             int row = 0;
             for (int i = 0; i < inventory.items.Count(); i++) {

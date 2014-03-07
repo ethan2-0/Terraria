@@ -74,6 +74,7 @@
     <Compile Include="InventoryItem.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemInInventory.cs" />
+    <Compile Include="ItemTool.cs" />
     <Compile Include="ItemTemplate.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

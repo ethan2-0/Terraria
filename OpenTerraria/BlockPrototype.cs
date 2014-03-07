@@ -16,6 +16,7 @@ namespace OpenTerraria {
         private int maxStackSize;
         private Bitmap startingImage;
         public String name;
+        public String breakableBy = "pickaxe";
         public bool solid;
         /// <summary>
         /// Create a new BlockPrototype with the specified image path and name.

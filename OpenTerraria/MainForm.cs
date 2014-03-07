@@ -160,14 +160,13 @@ namespace OpenTerraria {
         }
         public void paint() {
             try {
-                drawEventDispatcher.dispatch();
                 //Bitmap b = new Bitmap(this.Width, this.Height);
                 //Graphics g = Graphics.FromImage(b);
                 this.DoubleBuffered = true;
                 Pen blackPen = createPen(Color.Black);
                 Brush blackBrush = createBrush(Color.Black);
                 offg.Clear(Color.SkyBlue);
-
+                drawEventDispatcher.dispatch();
                 //g.DrawImage(Reference.getImage("grass.png"), new Point(30, 30));
                 world.draw(offg);
                 foreach (Entity e in entities) {

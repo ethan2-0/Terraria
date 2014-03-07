@@ -12,6 +12,7 @@ namespace OpenTerraria {
         public static String executablePath = Path.GetDirectoryName(Application.ExecutablePath) + "\\";
         public static String imagePath = executablePath + "images\\";
         public static String version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        public static Color guiColor = Color.FromArgb(220, 0, 0, 0);
         //The following is how you'd get an image:
         //public static Bitmap grass = new Bitmap(Assembly.GetExecutingAssembly().GetManifestResourceStream("grass.png"));
         public static Bitmap getImage(String filename) {
