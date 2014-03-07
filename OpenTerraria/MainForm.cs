@@ -20,13 +20,14 @@ namespace OpenTerraria {
         public Thread renderThread;
         public bool rendering;
         public bool shouldCancelFormClose = true;
-        Graphics graphics, offg;
+        public Graphics graphics, offg;
         Bitmap screen;
         public bool debugMenu = false;
         public bool inventory = false;
         public ItemInInventory movingItem = null;
         public List<Inventory> inventories;
         Bitmap cursor;
+        public EventDispatcher drawEventDispatcher = new EventDispatcher();
         public MainForm() {
             entities = new List<Entity>();
             inventories = new List<Inventory>();
@@ -36,6 +37,7 @@ namespace OpenTerraria {
             world = World.createWorld(500, 500);
             player = new Player(new Point(9000, 150));
             //Zombie zombie = new Zombie(Util.addPoints(player.location, new Point(50, 0)));
+            //Zombie zombie2 = new Zombie(Util.addPoints(player.location, new Point(-50, 0)));
             InitializeComponent();
             this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
             //this.Paint += new PaintEventHandler(MainForm_Paint);
@@ -43,11 +45,39 @@ namespace OpenTerraria {
             this.KeyDown += new KeyEventHandler(MainForm_KeyDown);
             this.KeyPress += new KeyPressEventHandler(MainForm_KeyPress);
             this.MouseClick += new MouseEventHandler(MainForm_MouseClick);
+            this.MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
+        }
+
+        void MainForm_MouseWheel(object sender, MouseEventArgs e) {
+            if (e.Delta != 0) {
+                if (e.Delta < 0) {
+                    player.hotbarSelectedIndex++;
+                } else {
+                    player.hotbarSelectedIndex--;
+                }
+                if (player.hotbarSelectedIndex < 0) {
+                    player.hotbarSelectedIndex = 0;
+                }
+                if (player.hotbarSelectedIndex >= player.hotbar.items.Length) {
+                    player.hotbarSelectedIndex = player.hotbarSelectedIndex - 1;
+                }
+            }
+        }
+        public Point getCursorWorldLocation() {
+            /*Point adjustedPixels = new Point(getCursorPos().X + viewOffset.X, getCursorPos().Y - viewOffset.Y);
+            Point adjustedBlocks = new Point((int) Math.Floor((double) adjustedPixels.X / 20) - 1, (int) Math.Floor((double)adjustedPixels.Y / 20) - 1);
+            return adjustedBlocks;*/
+            /*Point cursorAdjusted = new Point(getCursorPos().X / 20, getCursorPos().Y / 20);
+            Point p = Util.subtractPoints(new Point(player.blockX + (Width / 40), player.blockY + (Height / 40)), cursorAdjusted);
+            return p;*/
+            Point pos = Util.subtractPoints(player.location, MainForm.getInstance().viewOffset);
+            Point pos2 = Util.subtractPoints(getCursorPos(), pos);
+            Point pos3 = Util.addPoints(pos2, player.location);
+            return pos3;
         }
         public Point getCursorBlockLocation() {
-            Point adjustedPixels = Util.addPoints(getCursorPos(), viewOffset);
-            Point adjustedBlocks = new Point((int) Math.Floor((double) adjustedPixels.X / 20) - 1, (int) Math.Floor((double)adjustedPixels.Y / 20) - 1);
-            return adjustedBlocks;
+            Point p = new Point(getCursorWorldLocation().X / 20, getCursorWorldLocation().Y / 20);
+            return p;
         }
         void MainForm_KeyPress(object sender, KeyPressEventArgs e) {
             if (e.KeyChar == (char)Keys.Escape) {
@@ -64,6 +94,7 @@ namespace OpenTerraria {
         }
         void MainForm_MouseClick(object sender, MouseEventArgs e) {
             //See if the owner of the click is an Inventory
+            bool foundIt = false;
             foreach (Inventory inventory in inventories) {
                 //ItemInInventory item = inventory.drawer.getItemAtLocation(e.Location);
                 int index = inventory.drawer.getItemAtLocation(e.Location);
@@ -79,7 +110,15 @@ namespace OpenTerraria {
                         movingItem = null;
                         movingParent.items[slot] = item;
                     }
+                    foundIt = true;
                     break;
+                }
+            }
+            if (!foundIt) {
+                try {
+                    player.hotbar.items[player.hotbarSelectedIndex].use();
+                } catch (NullReferenceException ex) {
+                    return;
                 }
             }
         }
@@ -113,11 +152,15 @@ namespace OpenTerraria {
         public static MainForm getInstance() {
             return instance;
         }
+        public Point getTotalCursorPos() {
+            return Util.addPoints(getCursorPos(), viewOffset);
+        }
         void MainForm_Paint(object sender, PaintEventArgs e) {
             paint();
         }
         public void paint() {
             try {
+                drawEventDispatcher.dispatch();
                 //Bitmap b = new Bitmap(this.Width, this.Height);
                 //Graphics g = Graphics.FromImage(b);
                 this.DoubleBuffered = true;
@@ -144,6 +187,12 @@ namespace OpenTerraria {
                 }
                 //Hotbar
                 player.hotbar.draw(new Point(200, 5), offg);
+                try {
+                    Rectangle rect = new Rectangle(player.hotbar.drawer.lastRenderedPositions[player.hotbarSelectedIndex], new Size(30, 30));
+                    offg.DrawRectangle(createPen(Color.Black), rect);
+                } catch (KeyNotFoundException e) {
+                    return;
+                }
                 //Debug Menu
                 if (debugMenu) {
                     offg.DrawString("OpenTerraria " + player.ToString() + " Ground: " + player.isOnGround + " ViewOffset: " + viewOffset.ToString() + " CursorPos:" + getCursorPos().ToString(), getNormalFont(8), blackBrush, new Point(0, 20));

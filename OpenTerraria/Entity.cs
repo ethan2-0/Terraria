@@ -53,7 +53,9 @@ namespace OpenTerraria {
             if (occasionalTicks >= 2) {
                 occasionalTicks = 0;
                 //Gravity
-                momentum.Y++;
+                if (!isOnGround) {
+                    momentum.Y++;
+                }
                 //Contact damage
                 foreach (Entity e in MainForm.getInstance().entities) {
                     if (e == this) {

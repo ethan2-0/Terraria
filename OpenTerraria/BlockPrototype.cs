@@ -48,15 +48,24 @@ namespace OpenTerraria {
             return name;
         }
         public virtual void use(ItemInInventory item) {
-            if (!(item.item is Block)) {
-                throw new ArgumentException("The provided item is not a Block.");
+            if (!(item.item is BlockPrototype)) {
+                throw new ArgumentException("The provided item is not a BlockPrototype.");
             }
             BlockPrototype b = (BlockPrototype)item.item;
-            Point p = MainForm.getInstance().getCursorBlockLocation();
+            /*Point p = MainForm.getInstance().getCursorBlockLocation();
             if (MainForm.getInstance().world.blocks[p.X][p.Y].prototype == BlockPrototype.air) {
-                MainForm.getInstance().world.blocks[p.X][p.Y] = new Block();
+                Point pos = MainForm.getInstance().getTotalCursorPos();
+                MainForm.getInstance().world.blocks[p.X][p.Y] = Block.createNewBlock(this, pos);
+                item.useUp(1);
+            }*/
+            Player player = MainForm.getInstance().player;
+            MainForm mainform = MainForm.getInstance();
+            World w = mainform.world;
+            Point cursorBlock = MainForm.getInstance().getCursorBlockLocation();
+            Block block = w.getBlockAt(cursorBlock.X, cursorBlock.Y);
+            if (block.prototype == BlockPrototype.air) {
+                w.blocks[cursorBlock.X][cursorBlock.Y] = Block.createNewBlock(this, new Point(cursorBlock.X * 20, cursorBlock.Y * 20));
             }
-            host.useUp(1);
         }
     }
 }

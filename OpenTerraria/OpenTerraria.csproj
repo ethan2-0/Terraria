@@ -67,6 +67,8 @@
     <Compile Include="EnemyMeleeCreature.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EntityWithInventory.cs" />
+    <Compile Include="EventDispatcher.cs" />
+    <Compile Include="HandlerForEvent.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="InventoryDrawer.cs" />
     <Compile Include="InventoryItem.cs" />
