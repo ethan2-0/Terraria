@@ -247,6 +247,7 @@ namespace OpenTerraria {
             //renderThread = new Thread(new ParameterizedThreadStart(renderThreadRunner));
             //renderThread.Start();
             graphics = this.CreateGraphics();
+            
             screen = new Bitmap(this.Width, this.Height);
             offg = Graphics.FromImage(screen);
         }
