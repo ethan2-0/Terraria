@@ -91,5 +91,43 @@ namespace OpenTerraria {
             }
             return -1;
         }
+        public bool hasAmount(InventoryItem item, int amount) {
+            int totalAmount = 0;
+            foreach (ItemInInventory i in items) {
+                if (i == null) {
+                    continue;
+                }
+                if (i.item == item) {
+                    totalAmount += i.count;
+                }
+            }
+            return totalAmount >= amount;
+        }
+        public bool removeAmount(InventoryItem item, int inAmount) {
+            int amount = inAmount;
+            if (!hasAmount(item, amount)) {
+                return false;
+            }
+            int index = 0;
+            foreach(ItemInInventory i in items) {
+                if (inAmount <= 0) { //If we're done
+                    break;
+                }
+                if (i == null || i.item != item) {
+                    continue;
+                }
+                if (i.count >= amount) {
+                    i.count -= amount;
+                } else {
+                    amount -= i.count;
+                    i.count = 0;
+                }
+                if (i.count <= 0) { //It should never be less than zero, but you never know...
+                    items[index] = null;
+                }
+                index++;
+            }
+            return true;
+        }
     }
 }

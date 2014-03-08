@@ -7,8 +7,6 @@
 package OpenTerraria.Launcher;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,6 +20,7 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
+        setTitle("OpenTerraria Launcher");
     }
 
     /**
@@ -120,7 +119,9 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2MouseClicked
     public void launchProgram() throws IOException {
         if(System.getProperty("os.name").contains("indows")) { //Omit the W for case-sensitivity
-            Runtime.getRuntime().exec("cmd.exe");
+            this.setVisible(false);
+            Runtime.getRuntime().exec("OpenTerraria.exe");
+            System.exit(0);
         }
     }
     /**

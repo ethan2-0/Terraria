@@ -8,13 +8,15 @@ namespace OpenTerraria {
     public class InventoryDrawer {
         Inventory inventory;
         public Dictionary<int, Point> lastRenderedPositions;
+        public Rectangle lastRenderedRectangle;
         public InventoryDrawer(Inventory inventory) {
             lastRenderedPositions = new Dictionary<int, Point>();
             this.inventory = inventory;
         }
         public void render(Graphics g, Point p) {
             int rows = (int) Math.Ceiling((double) inventory.items.Count() / 10);
-            Rectangle rectangle = new Rectangle(p, new Size(255, (20 * rows) + 10));
+            Rectangle rectangle = new Rectangle(p, new Size(255, (22 * rows) + 10));
+            lastRenderedRectangle = rectangle;
             g.FillRectangle(MainForm.createBrush(Reference.guiColor), rectangle);
             g.DrawRectangle(MainForm.createPen(Color.FromArgb(127, 127, 127)), rectangle);
             int column = 0;

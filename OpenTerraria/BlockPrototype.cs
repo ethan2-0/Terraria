@@ -62,8 +62,11 @@ namespace OpenTerraria {
             Player player = MainForm.getInstance().player;
             MainForm mainform = MainForm.getInstance();
             World w = mainform.world;
-            Point cursorBlock = MainForm.getInstance().getCursorBlockLocation();
+            Point cursorBlock = mainform.getCursorBlockLocation();//new Point(mainform.player.blockX, mainform.player.blockY);//getCursorBlockLocation();
             Block block = w.getBlockAt(cursorBlock.X, cursorBlock.Y);
+            if (block == null) {
+                return;
+            }
             if (block.prototype == BlockPrototype.air) {
                 w.blocks[cursorBlock.X][cursorBlock.Y] = Block.createNewBlock(this, new Point(cursorBlock.X * 20, cursorBlock.Y * 20));
             }

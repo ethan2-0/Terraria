@@ -28,6 +28,9 @@ namespace OpenTerraria {
         public List<Inventory> inventories;
         Bitmap cursor;
         public EventDispatcher drawEventDispatcher = new EventDispatcher();
+        public long totalRenders = 0;
+        public CraftingManager inventoryCraftingManager;
+        private int lastIndex = -1;
         public MainForm() {
             entities = new List<Entity>();
             inventories = new List<Inventory>();
@@ -39,6 +42,13 @@ namespace OpenTerraria {
             //Zombie zombie = new Zombie(Util.addPoints(player.location, new Point(50, 0)));
             //Zombie zombie2 = new Zombie(Util.addPoints(player.location, new Point(-50, 0)));
             InitializeComponent();
+
+            List<Recepie> recepies = new List<Recepie>();
+            Dictionary<InventoryItem, int> input = new Dictionary<InventoryItem, int>();
+            input.Add(ItemTemplate.stick.createNew(), 5);
+            recepies.Add(new Recepie(input, new KeyValuePair<InventoryItem, int>(BlockPrototype.grass, 2)));
+            inventoryCraftingManager = new CraftingManager(recepies);
+
             this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
             //this.Paint += new PaintEventHandler(MainForm_Paint);
             this.Resize += new EventHandler(MainForm_Resize);
@@ -93,6 +103,10 @@ namespace OpenTerraria {
             return null;
         }
         void MainForm_MouseClick(object sender, MouseEventArgs e) {
+            //First try to use the item on the hotbar
+            if (player.hotbar.items[player.hotbarSelectedIndex] != null) {
+                player.hotbar.items[player.hotbarSelectedIndex].use();
+            }
             //See if the owner of the click is an Inventory
             bool foundIt = false;
             foreach (Inventory inventory in inventories) {
@@ -112,13 +126,6 @@ namespace OpenTerraria {
                     }
                     foundIt = true;
                     break;
-                }
-            }
-            if (!foundIt) {
-                try {
-                    player.hotbar.items[player.hotbarSelectedIndex].use();
-                } catch (NullReferenceException ex) {
-                    return;
                 }
             }
         }
@@ -160,6 +167,7 @@ namespace OpenTerraria {
         }
         public void paint() {
             try {
+                totalRenders++;
                 //Bitmap b = new Bitmap(this.Width, this.Height);
                 //Graphics g = Graphics.FromImage(b);
                 this.DoubleBuffered = true;
@@ -204,7 +212,35 @@ namespace OpenTerraria {
                 if (movingItem != null) {
                     player.inventory.drawer.renderItem(movingItem, getCursorPos(), offg, true, 400);
                 }
-                //Cursor
+                //Crafting Window
+                if (inventory) {
+                    inventoryCraftingManager.render(offg, new Point(5, 160));
+                } else {
+                    inventoryCraftingManager.hide();
+                }
+                //Item tooltip
+                foreach (Inventory inv in inventories) {
+                    if (!inv.drawer.lastRenderedRectangle.Contains(getCursorPos())) {
+                        continue;
+                    }
+                    //int index = inv.drawer.getItemAtLocation(getCursorPos());
+                    int index = lastIndex;
+                    if (totalRenders % 3 == 0) {
+                        lastIndex = inv.drawer.getItemAtLocation(getCursorPos());
+                        index = lastIndex;
+                    }
+                    if (index != -1) {
+                        //Found it
+                        try {
+                            if (inv.items[index] != null) {
+                                offg.DrawString(inv.items[index].item.getName(), getNormalFont(14), createBrush(Color.DarkOrange), getCursorPos());
+                            }
+                        } catch (IndexOutOfRangeException e) {
+                            continue;
+                        }
+                    }
+                }
+                //Finishing off the double buffering
                 graphics.DrawImage(screen, new Point(0, 0));
                 //graphics.DrawImage(b, new Point(0, 0));
                 //b.Dispose();
@@ -226,7 +262,7 @@ namespace OpenTerraria {
             return getNormalFont(10);
         }
         public static Font getNormalFont(float size) {
-            return new Font("Times", size);
+            return new Font("Comic Sans MS", size);
         }
         private void GameTimer_Tick(object sender, EventArgs e) {
             for (int i = 0; i < entities.Count; i++) {
@@ -248,6 +284,10 @@ namespace OpenTerraria {
             graphics = this.CreateGraphics();
             screen = new Bitmap(this.Width, this.Height);
             offg = Graphics.FromImage(screen);
+        }
+
+        private void button1_Click(object sender, EventArgs e) {
+
         }
     }
 }
