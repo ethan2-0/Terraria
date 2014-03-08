@@ -114,13 +114,13 @@ public class Main extends javax.swing.JFrame {
         try {
             launchProgram();
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "There was an error while launching the program.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "There was an error while launching the program.\nIf running on OSX or a *nix variant, make sure you have Wine 1.7+, Mono 3.2.0+, and the windowscodecs winetrick installed. ", "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jButton2MouseClicked
     public void launchProgram() throws IOException {
         if(System.getProperty("os.name").contains("indows")) { //Omit the W for case-sensitivity
-            
+            Runtime.getRuntime().exec("cmd.exe");
         }
     }
     /**
