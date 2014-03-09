@@ -24,7 +24,7 @@ namespace OpenTerraria {
             if (location.X == 2000) {
                 int i = 0;
             }
-            if (xDiff + yDiff > 1150) {
+            if (xDiff + yDiff > 2000) {
                 return;
             }
             g.DrawImage(image, Util.subtractPoints(location, MainForm.getInstance().viewOffset));
