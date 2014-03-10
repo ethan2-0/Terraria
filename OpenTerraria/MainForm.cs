@@ -104,10 +104,7 @@ namespace OpenTerraria {
         }
         void MainForm_MouseClick(object sender, MouseEventArgs e) {
             //First try to use the item on the hotbar
-            if (player.hotbar.items[player.hotbarSelectedIndex] != null) {
-                player.hotbar.items[player.hotbarSelectedIndex].use();
-                return;
-            }
+            
             //See if the owner of the click is an Inventory
             bool foundIt = false;
             foreach (Inventory inventory in inventories) {
@@ -128,6 +125,12 @@ namespace OpenTerraria {
                     foundIt = true;
                     break;
                 }
+            }
+            if (foundIt) {
+                return;
+            }
+            if (player.hotbar.items[player.hotbarSelectedIndex] != null) {
+                player.hotbar.items[player.hotbarSelectedIndex].use();
             }
         }
 
