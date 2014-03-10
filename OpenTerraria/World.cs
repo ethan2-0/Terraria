@@ -64,8 +64,12 @@ namespace OpenTerraria {
                     level = 40;
                 }
                 blocks[level] = BlockPrototype.grass;
+                int blocksDown = 0;
                 for (int i = level; i < height; i++) {
-                    if (i < 200) {
+                    blocksDown++;
+                    if (blocksDown == 1) {
+                        blocks[i] = BlockPrototype.grass;
+                    } else if (blocksDown < 6) {
                         blocks[i] = BlockPrototype.dirt;
                     } else {
                         blocks[i] = BlockPrototype.stone;

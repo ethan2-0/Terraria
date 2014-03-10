@@ -57,7 +57,7 @@ namespace OpenTerraria {
                 return false;
             }
             for (int i = 0; i < items.Count(); i++) {
-                if (items[i] == null || (items[i].getItem() == item && items[i].count + count > item.getMaxStackSize())) {
+                if (items[i] == null || (items[i].item == item && items[i].count + count < item.getMaxStackSize())) {
                     if (items[i] == null) {
                         items[i] = new ItemInInventory(item, count);
                         items[i].slot = i;

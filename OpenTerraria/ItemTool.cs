@@ -19,6 +19,7 @@ namespace OpenTerraria {
             Point cursorLocation = MainForm.getInstance().getCursorBlockLocation();
             if(cursorLocation.X < instance.world.blocks.Count() && cursorLocation.Y < instance.world.blocks[5].Count()) {
                 if (instance.world.getBlockAt(cursorLocation.X, cursorLocation.Y) != null && instance.world.getBlockAt(cursorLocation.X, cursorLocation.Y).prototype.breakableBy == toolType) {
+                    instance.player.inventory.addItem(instance.world.blocks[cursorLocation.X][cursorLocation.Y].prototype, 1);
                     instance.world.blocks[cursorLocation.X][cursorLocation.Y] = Block.createNewBlock(BlockPrototype.air, new Point(cursorLocation.X * 20, cursorLocation.Y * 20));
                 }
             }
