@@ -34,7 +34,7 @@ namespace OpenTerraria {
             for (int i = 0; i < width; i++) {
                 world[i] = new BlockPrototype[height];
             }
-            for (int i = 0; i < width; i++) {
+            /*for (int i = 0; i < width; i++) {
                 for (int j = 10; j < height; j++) {
                     world[i][j] = BlockPrototype.grass;
                 }
@@ -43,6 +43,37 @@ namespace OpenTerraria {
                 for (int j = 0; j < height; j++) {
                     if (world[i][j] == null) {
                         world[i][j] = BlockPrototype.air;
+                    }
+                }
+            }*/
+            int level = 250;
+            List<int> results = new List<int>();
+            Random random = new Random();
+            foreach (BlockPrototype[] blocks in world) {
+                int rand = random.Next(4);
+                results.Add(rand);
+                if (rand <= 1) {
+                    level++;
+                } else if (rand > 2) {
+                    level--;
+                } //Otherwise, make no change.
+                if (level > 450) {
+                    level = 345;
+                }
+                if (level < 20) {
+                    level = 40;
+                }
+                blocks[level] = BlockPrototype.grass;
+                for (int i = level; i < height; i++) {
+                    if (i < 200) {
+                        blocks[i] = BlockPrototype.dirt;
+                    } else {
+                        blocks[i] = BlockPrototype.stone;
+                    }
+                }
+                for (int i = 0; i < blocks.Count(); i++) {
+                    if (blocks[i] == null) {
+                        blocks[i] = BlockPrototype.air;
                     }
                 }
             }
@@ -74,7 +105,24 @@ namespace OpenTerraria {
             return b;
         }
         public bool isInsideBlock(int x, int y) {
+            if (isInsideBlockPhysical(x, y)) {
+                return true;
+            }
+            Player player = MainForm.getInstance().player;
+            if (isInsideBlockPhysical(x + 6, y - player.hitBox.Height + 12)) {
+                return true;
+            }
+            if (isInsideBlockPhysical(x - player.hitBox.Width + 6, y + 12)) {
+                return true;
+            }
+            if (isInsideBlockPhysical(x - player.hitBox.Width + 6, y - player.hitBox.Height + 12)) {
+                return true;
+            }
+            return false;
+        }
+        public bool isInsideBlockPhysical(int x, int y) {
             Block block = getBlockAtPixels(x, y);
+            MainForm instance = MainForm.getInstance();
             if (block != null) {
                 BlockPrototype prototype = block.getPrototype();
                 return prototype.solid;

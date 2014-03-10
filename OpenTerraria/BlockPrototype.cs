@@ -10,6 +10,7 @@ namespace OpenTerraria {
         public static BlockPrototype grass = new BlockPrototype("grass.png", "OpenTerraria:Grass", "Grass", true, 999);
         public static BlockPrototype air = new BlockPrototype("air.png", "OpenTerraria:Air", "Air", false, 999);
         public static BlockPrototype stone = new BlockPrototype("stone.png", "OpenTerraria:Stone", "Stone", true, 999);
+        public static BlockPrototype dirt = new BlockPrototype("dirt.png", "OpenTerraria:Dirt", "Dirt", true, 999);
         /// <summary>
         /// This feild should <b>NEVER</b> be changed, or accessed directly. Use getID() instead.
         /// </summary>

@@ -6,6 +6,7 @@ Currently, there are a few known bugs:<br/>
 	<li>On Wine/Mono, performance is horrible.</li>
 	<li>On Wine/Mono, Wine starts saying <code>fixme:gdiplus:GdipDrawPath graphics object has no HDC</code> repeatedly.</li>
 	<li>In a dual-monitor configuration, if OpenTerraria starts up on the smaller monitor, it will not look right on the larger monitor.</li>
-	<li>The collision algorithm acts weird sometimes</li>
+	<li>The collision algorithm acts weird sometimes - As of March 9th, 8:08 PM, this has been improved</li>
+	<li>When you go outside of the generated world, the game becomes much laggier.</li>
 </ul>
 Copyright (c) 2014 ethan20. All rights reserved.

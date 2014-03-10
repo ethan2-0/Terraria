@@ -27,12 +27,12 @@ namespace OpenTerraria {
         public virtual void move() {
             //Collisions
             int candaditeX = location.X + momentum.X;
+            int candaditeY = location.Y + momentum.Y;
             bool isInsideBlock = MainForm.getInstance().world.isInsideBlock(candaditeX, location.Y);
             if (isInsideBlock) {
                 candaditeX = location.X;
             }
-            int candaditeY = location.Y + momentum.Y;
-            isInsideBlock = MainForm.getInstance().world.isInsideBlock(location.X, candaditeY + (hitBox.Height / 4));
+            isInsideBlock = MainForm.getInstance().world.isInsideBlock(candaditeX, candaditeY);
             isOnGround = false;
             if (isInsideBlock) {
                 candaditeY = location.Y;
