@@ -28,15 +28,21 @@ namespace OpenTerraria.Entities {
             //Collisions
             int candaditeX = location.X + momentum.X;
             int candaditeY = location.Y + momentum.Y;
+            bool collided = false;
             bool isInsideBlock = MainForm.getInstance().world.isInsideBlock(candaditeX, location.Y);
             if (isInsideBlock) {
                 candaditeX = location.X;
+                collided = true;
             }
             isInsideBlock = MainForm.getInstance().world.isInsideBlock(candaditeX, candaditeY);
             isOnGround = false;
             if (isInsideBlock) {
                 candaditeY = location.Y;
                 isOnGround = true;
+                collided = true;
+            }
+            if (collided) {
+                onCollision();
             }
             //Update pixel location
             location = new Point(candaditeX, candaditeY);
@@ -80,6 +86,9 @@ namespace OpenTerraria.Entities {
         }
         public int getDistanceTo(Entity entity) {
             return getDistanceTo(entity.location);
+        }
+        public virtual void onCollision() {
+
         }
     }
 }

@@ -42,7 +42,7 @@ namespace OpenTerraria {
             cursor = Reference.getImage("cursor.png");
             viewOffset = new Point(0, 0);
             world = World.createWorld(500, 500);
-            player = new Player(new Point(9000, 150));
+            player = new Player(new Point(9000, 6500));
             /*Zombie zombie = new Zombie(Util.addPoints(player.location, new Point(50, 0)));
             Zombie zombie2 = new Zombie(Util.addPoints(player.location, new Point(-50, 0)));*/
             InitializeComponent();
@@ -287,6 +287,7 @@ namespace OpenTerraria {
             return new Font("Comic Sans MS", size);
         }
         private void GameTimer_Tick(object sender, EventArgs e) {
+            int j = 0;
             for (int i = 0; i < entities.Count; i++) {
                 entities[i].update();
             }

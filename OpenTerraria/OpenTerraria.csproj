@@ -68,12 +68,14 @@
     <Compile Include="Entities\EnemyMeleeCreature.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\EntityWithInventory.cs" />
+    <Compile Include="Entities\ThrownStone.cs" />
     <Compile Include="EventDispatcher.cs" />
     <Compile Include="HandlerForEvent.cs" />
     <Compile Include="Inventories\Inventory.cs" />
     <Compile Include="Inventories\InventoryDrawer.cs" />
     <Compile Include="Items\InventoryItem.cs" />
     <Compile Include="Items\Item.cs" />
+    <Compile Include="Items\ItemBow.cs" />
     <Compile Include="Items\ItemInInventory.cs" />
     <Compile Include="Items\ItemTool.cs" />
     <Compile Include="Items\ItemTemplate.cs" />
