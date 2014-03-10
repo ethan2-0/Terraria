@@ -30,7 +30,8 @@ namespace OpenTerraria {
         public EventDispatcher drawEventDispatcher = new EventDispatcher();
         public long totalRenders = 0;
         public CraftingManager inventoryCraftingManager;
-        private int lastIndex = -1;
+        public int lastIndex = -1;
+        public Inventory lastInventory;
         public MainForm() {
             entities = new List<Entity>();
             inventories = new List<Inventory>();
@@ -109,6 +110,9 @@ namespace OpenTerraria {
             bool foundIt = false;
             foreach (Inventory inventory in inventories) {
                 //ItemInInventory item = inventory.drawer.getItemAtLocation(e.Location);
+                if (!inventory.drawer.lastRenderedRectangle.Contains(getCursorPos())) {
+                    continue;
+                }
                 int index = inventory.drawer.getItemAtLocation(e.Location);
                 if(index != -1) {
                     //We found it
@@ -129,8 +133,13 @@ namespace OpenTerraria {
             if (foundIt) {
                 return;
             }
+            if (movingItem != null) {
+                movingItem.use();
+                return;
+            }
             if (player.hotbar.items[player.hotbarSelectedIndex] != null) {
                 player.hotbar.items[player.hotbarSelectedIndex].use();
+                return;
             }
         }
 
@@ -232,6 +241,7 @@ namespace OpenTerraria {
                     if (totalRenders % 3 == 0) {
                         lastIndex = inv.drawer.getItemAtLocation(getCursorPos());
                         index = lastIndex;
+                        lastInventory = inv;
                     }
                     if (index != -1) {
                         //Found it
