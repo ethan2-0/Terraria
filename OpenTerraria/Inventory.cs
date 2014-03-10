@@ -110,22 +110,23 @@ namespace OpenTerraria {
             }
             int index = 0;
             foreach(ItemInInventory i in items) {
+                index++;
                 if (inAmount <= 0) { //If we're done
                     break;
                 }
                 if (i == null || i.item != item) {
                     continue;
                 }
+                if (i.count <= 1) { //It should never be less than zero, but you never know...
+                    items[index - 1] = null;
+                }
                 if (i.count >= amount) {
                     i.count -= amount;
+                    return true;
                 } else {
                     amount -= i.count;
                     i.count = 0;
                 }
-                if (i.count <= 0) { //It should never be less than zero, but you never know...
-                    items[index] = null;
-                }
-                index++;
             }
             return true;
         }

@@ -17,10 +17,10 @@ namespace OpenTerraria {
             base.use(item);
             MainForm instance = MainForm.getInstance();
             Point cursorLocation = MainForm.getInstance().getCursorBlockLocation();
-            try {
-                instance.world.blocks[cursorLocation.X][cursorLocation.Y] = Block.createNewBlock(BlockPrototype.air, new Point(cursorLocation.X * 20, cursorLocation.Y * 20));
-            } catch (IndexOutOfRangeException e) {
-                return;
+            if(cursorLocation.X < instance.world.blocks.Count() && cursorLocation.Y < instance.world.blocks[5].Count()) {
+                if (instance.world.getBlockAt(cursorLocation.X, cursorLocation.Y).prototype.breakableBy == toolType) {
+                    instance.world.blocks[cursorLocation.X][cursorLocation.Y] = Block.createNewBlock(BlockPrototype.air, new Point(cursorLocation.X * 20, cursorLocation.Y * 20));
+                }
             }
         }
         public static ItemTool createPickaxe() {

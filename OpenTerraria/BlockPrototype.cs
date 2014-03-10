@@ -9,6 +9,7 @@ namespace OpenTerraria {
         
         public static BlockPrototype grass = new BlockPrototype("grass.png", "OpenTerraria:Grass", "Grass", true, 999);
         public static BlockPrototype air = new BlockPrototype("air.png", "OpenTerraria:Air", "Air", false, 999);
+        public static BlockPrototype stone = new BlockPrototype("stone.png", "OpenTerraria:Stone", "Stone", true, 999);
         /// <summary>
         /// This feild should <b>NEVER</b> be changed, or accessed directly. Use getID() instead.
         /// </summary>
@@ -70,6 +71,8 @@ namespace OpenTerraria {
             if (block.prototype == BlockPrototype.air) {
                 w.blocks[cursorBlock.X][cursorBlock.Y] = Block.createNewBlock(this, new Point(cursorBlock.X * 20, cursorBlock.Y * 20));
             }
+            Inventory inventory = MainForm.getInstance().getParentInventory(item);
+            inventory.removeAmount(this, 1);
         }
     }
 }

@@ -39,8 +39,8 @@ namespace OpenTerraria {
             viewOffset = new Point(0, 0);
             world = World.createWorld(500, 500);
             player = new Player(new Point(9000, 150));
-            //Zombie zombie = new Zombie(Util.addPoints(player.location, new Point(50, 0)));
-            //Zombie zombie2 = new Zombie(Util.addPoints(player.location, new Point(-50, 0)));
+            /*Zombie zombie = new Zombie(Util.addPoints(player.location, new Point(50, 0)));
+            Zombie zombie2 = new Zombie(Util.addPoints(player.location, new Point(-50, 0)));*/
             InitializeComponent();
 
             List<Recepie> recepies = new List<Recepie>();
@@ -106,6 +106,7 @@ namespace OpenTerraria {
             //First try to use the item on the hotbar
             if (player.hotbar.items[player.hotbarSelectedIndex] != null) {
                 player.hotbar.items[player.hotbarSelectedIndex].use();
+                return;
             }
             //See if the owner of the click is an Inventory
             bool foundIt = false;
