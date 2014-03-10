@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using OpenTerraria.Entities;
 
-namespace OpenTerraria {
+namespace OpenTerraria.Blocks {
     public class Block {
         public BlockPrototype prototype;
         public Bitmap image;

@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
+using OpenTerraria.Items;
+using OpenTerraria.Blocks;
 
-namespace OpenTerraria {
+namespace OpenTerraria.Entities {
     public class Player : Creature, HandlerForEvent {
         public Inventory hotbar;
         public int hotbarSelectedIndex = 1;

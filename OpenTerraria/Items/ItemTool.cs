@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using OpenTerraria.Blocks;
 
-namespace OpenTerraria {
+namespace OpenTerraria.Items {
     public class ItemTool : Item {
         String toolType;
         public ItemTool(String name, String imagename, String toolType) : base(name, imagename) {

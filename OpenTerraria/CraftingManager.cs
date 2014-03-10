@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
+using OpenTerraria.Items;
 
 namespace OpenTerraria {
     public class CraftingManager {

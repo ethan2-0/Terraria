@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
+using OpenTerraria.Blocks;
+using OpenTerraria.Entities;
 
 namespace OpenTerraria {
     public class World {

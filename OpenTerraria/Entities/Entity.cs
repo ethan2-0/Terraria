@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 
-namespace OpenTerraria {
+namespace OpenTerraria.Entities {
     public abstract class Entity {
         public Bitmap image;
         public Point location;

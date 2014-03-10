@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using OpenTerraria.Items;
+using OpenTerraria.Entities;
 
-namespace OpenTerraria {
+namespace OpenTerraria.Blocks {
     public class BlockPrototype : InventoryItem {
         
         public static BlockPrototype grass = new BlockPrototype("grass.png", "OpenTerraria:Grass", "Grass", true, 999);

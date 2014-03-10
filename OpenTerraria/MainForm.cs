@@ -8,6 +8,9 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading;
 using System.Runtime.InteropServices;
+using OpenTerraria.Items;
+using OpenTerraria.Blocks;
+using OpenTerraria.Entities;
 
 namespace OpenTerraria {
     public partial class MainForm : Form {
@@ -119,12 +122,17 @@ namespace OpenTerraria {
                     if (movingItem == null) {
                         movingItem = inventory.items[index];
                     } else {
-                        Inventory movingParent = getParentInventory(movingItem);
-                        ItemInInventory item = inventory.items[index];
-                        inventory.items[index] = movingItem;
-                        int slot = movingItem.slot;
-                        movingItem = null;
-                        movingParent.items[slot] = item;
+                        try {
+                            Inventory movingParent = getParentInventory(movingItem);
+                            ItemInInventory item = inventory.items[index];
+                            inventory.items[index] = movingItem;
+                            int slot = movingItem.slot;
+                            movingItem = null;
+                            movingParent.items[slot] = item;
+                        } catch (Exception ex) {
+                            //Lose the item
+                            movingItem = null;
+                        }
                     }
                     foundIt = true;
                     break;

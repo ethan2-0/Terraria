@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 
-namespace OpenTerraria {
+namespace OpenTerraria.Items {
     public abstract class Item : InventoryItem {
         String name;
         String imageName;

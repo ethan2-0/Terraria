@@ -61,37 +61,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Block.cs" />
-    <Compile Include="BlockPrototype.cs" />
+    <Compile Include="Blocks\Block.cs" />
+    <Compile Include="Blocks\BlockPrototype.cs" />
     <Compile Include="CraftingManager.cs" />
-    <Compile Include="Creature.cs" />
-    <Compile Include="EnemyMeleeCreature.cs" />
-    <Compile Include="Entity.cs" />
-    <Compile Include="EntityWithInventory.cs" />
+    <Compile Include="Entities\Creature.cs" />
+    <Compile Include="Entities\EnemyMeleeCreature.cs" />
+    <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\EntityWithInventory.cs" />
     <Compile Include="EventDispatcher.cs" />
     <Compile Include="HandlerForEvent.cs" />
-    <Compile Include="Inventory.cs" />
-    <Compile Include="InventoryDrawer.cs" />
-    <Compile Include="InventoryItem.cs" />
-    <Compile Include="Item.cs" />
-    <Compile Include="ItemInInventory.cs" />
-    <Compile Include="ItemTool.cs" />
-    <Compile Include="ItemTemplate.cs" />
+    <Compile Include="Inventories\Inventory.cs" />
+    <Compile Include="Inventories\InventoryDrawer.cs" />
+    <Compile Include="Items\InventoryItem.cs" />
+    <Compile Include="Items\Item.cs" />
+    <Compile Include="Items\ItemInInventory.cs" />
+    <Compile Include="Items\ItemTool.cs" />
+    <Compile Include="Items\ItemTemplate.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Player.cs" />
+    <Compile Include="Entities\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recepie.cs" />
     <Compile Include="Reference.cs" />
-    <Compile Include="TemplatedItem.cs" />
+    <Compile Include="Items\TemplatedItem.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="World.cs" />
-    <Compile Include="Zombie.cs" />
+    <Compile Include="Entities\Zombie.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
