@@ -5,9 +5,7 @@ Currently, there are a few known bugs:<br/>
 <ul>
 	<li>On Wine/Mono, performance is horrible.</li>
 	<li>On Wine/Mono, Wine starts saying <code>fixme:gdiplus:GdipDrawPath graphics object has no HDC</code> repeatedly.</li>
-	<li>On large monitors, the rendering will appear to have a part of a pizza wedge taken out of it.</li>
 	<li>In a dual-monitor configuration, if OpenTerraria starts up on the smaller monitor, it will not look right on the larger monitor.</li>
-	<li>Block placing and destroying cause huge lag spikes</li>
 	<li>The collision algorithm acts weird sometimes</li>
 </ul>
 Copyright (c) 2014 ethan20. All rights reserved.
