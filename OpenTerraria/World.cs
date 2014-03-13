@@ -123,7 +123,11 @@ namespace OpenTerraria {
                     } else if (blocksDown < 8) {
                         blocks[i] = BlockPrototype.dirt;
                     } else {
-                        blocks[i] = BlockPrototype.stone;
+                        if (random.Next(40) > 38) {
+                            blocks[i] = BlockPrototype.oreCoal;
+                        } else {
+                            blocks[i] = BlockPrototype.stone;
+                        }
                     }
                 }
                 for (int i = 0; i < blocks.Count(); i++) {
