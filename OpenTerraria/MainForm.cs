@@ -29,13 +29,17 @@ namespace OpenTerraria {
         public bool inventory = false;
         public ItemInInventory movingItem = null;
         public List<Inventory> inventories;
+        public List<DamageIndicator> damageIndicators;
         Bitmap cursor;
         public EventDispatcher drawEventDispatcher = new EventDispatcher();
         public long totalRenders = 0;
         public CraftingManager inventoryCraftingManager;
         public int lastIndex = -1;
         public Inventory lastInventory;
+        public static Random random;
         public MainForm() {
+            random = new Random();
+            damageIndicators = new List<DamageIndicator>();
             entities = new List<Entity>();
             inventories = new List<Inventory>();
             instance = this;
@@ -43,9 +47,9 @@ namespace OpenTerraria {
             viewOffset = new Point(0, 0);
             world = World.createWorld(500, 500);
             player = new Player(new Point(9000, 0));
-            /*Zombie zombie = new Zombie(Util.addPoints(player.location, new Point(50, 0)));
+            Zombie zombie = new Zombie(Util.addPoints(player.location, new Point(50, 0)));
             Zombie zombie2 = new Zombie(Util.addPoints(player.location, new Point(100, 0)));
-            Zombie zombie3 = new Zombie(Util.addPoints(player.location, new Point(150, 0)));*/
+            Zombie zombie3 = new Zombie(Util.addPoints(player.location, new Point(150, 0)));
             InitializeComponent();
 
             List<Recepie> recepies = new List<Recepie>();
@@ -273,6 +277,10 @@ namespace OpenTerraria {
                         }
                     }
                 }
+                //Damage indicators
+                foreach (DamageIndicator indicator in damageIndicators) {
+                    indicator.draw(offg);
+                }
                 //Finishing off the double buffering
                 graphics.DrawImage(screen, new Point(0, 0));
                 //graphics.DrawImage(b, new Point(0, 0));
@@ -301,6 +309,9 @@ namespace OpenTerraria {
             int j = 0;
             for (int i = 0; i < entities.Count; i++) {
                 entities[i].update();
+            }
+            for (int i = 0; i < damageIndicators.Count; i++) {
+                damageIndicators[i].tick();
             }
             int offsetX = player.location.X - this.Width / 2;
             int offsetY = player.location.Y - this.Height / 2;

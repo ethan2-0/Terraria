@@ -13,6 +13,9 @@ namespace OpenTerraria.Entities {
         }
         public void damage(int amount) {
             health -= amount;
+            if (amount > 0) {
+                DamageIndicator indicator = new DamageIndicator(location, amount.ToString());
+            }
         }
         public override void update() {
             base.update();

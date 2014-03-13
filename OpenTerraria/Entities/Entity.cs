@@ -64,7 +64,7 @@ namespace OpenTerraria.Entities {
                 }
                 //Contact damage
                 foreach (Entity e in MainForm.getInstance().entities) {
-                    if (e == this) {
+                    if (e == this || (this is EnemyMeleeCreature && e is EnemyMeleeCreature)) {
                         continue;
                     }
                     if (e.getDistanceTo(this) < 20 ) {

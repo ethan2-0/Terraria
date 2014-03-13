@@ -11,6 +11,7 @@ namespace OpenTerraria.Entities {
     public class Player : Creature, HandlerForEvent {
         public Inventory hotbar;
         public int hotbarSelectedIndex = 1;
+        public String swordSide = "";
         public Player(Point location) : base("player.png", location, new Size(20, 40), 40) {
             MainForm.getInstance().KeyDown += new System.Windows.Forms.KeyEventHandler(Player_KeyDown);
             MainForm.getInstance().KeyUp += new System.Windows.Forms.KeyEventHandler(Player_KeyUp);
@@ -19,6 +20,7 @@ namespace OpenTerraria.Entities {
             hotbar = new Inventory(10);
             hotbar.addItem(ItemTool.createPickaxe(), 1);
             hotbar.addItem(new ItemBow(), 1);
+            hotbar.addItem(new ItemSword(), 1);
         }
         void Player_KeyPress(object sender, KeyPressEventArgs e) {
             if (e.KeyChar == (char)Keys.Space) {
@@ -50,6 +52,15 @@ namespace OpenTerraria.Entities {
         public void handle(EventDispatcher dispatcher) {
             if (dispatcher == MainForm.getInstance().drawEventDispatcher) {
                 
+            }
+        }
+        public override void draw(Graphics g) {
+            base.draw(g);
+            if (swordSide == "left") {
+                g.DrawImage(Reference.getImage("swordBig.png"), Util.subtractPoints(Util.subtractPoints(location, new Point(5, 0)), MainForm.getInstance().viewOffset));
+            }
+            if (swordSide == "right") {
+                g.DrawImage(Reference.getImage("swordBig.png"), Util.subtractPoints(Util.addPoints(location, new Point(15, 0)), MainForm.getInstance().viewOffset));
             }
         }
     }
