@@ -34,7 +34,7 @@ namespace OpenTerraria.Entities {
                 if (new Rectangle(e.location, e.hitBox).Contains(location)) {
                     if (e is Creature) {
                         hitSomething = true;
-                        ((Creature)e).damage(20);
+                        ((Creature)e).damage(60);
                     }
                 }
             }

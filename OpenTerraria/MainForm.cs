@@ -43,18 +43,24 @@ namespace OpenTerraria {
             viewOffset = new Point(0, 0);
             world = World.createWorld(500, 500);
             player = new Player(new Point(9000, 0));
-            //Zombie zombie = new Zombie(Util.addPoints(player.location, new Point(50, 0)));
-            //Zombie zombie2 = new Zombie(Util.addPoints(player.location, new Point(-50, 0)));*/
+            Zombie zombie = new Zombie(Util.addPoints(player.location, new Point(50, 0)));
+            Zombie zombie2 = new Zombie(Util.addPoints(player.location, new Point(100, 0)));
+            Zombie zombie3 = new Zombie(Util.addPoints(player.location, new Point(150, 0)));
             InitializeComponent();
 
             List<Recepie> recepies = new List<Recepie>();
             Dictionary<InventoryItem, int> input = new Dictionary<InventoryItem, int>();
-            input.Add(BlockPrototype.planks, 1);
+            input.Add(BlockPrototype.log, 1);
             recepies.Add(new Recepie(input, new KeyValuePair<InventoryItem, int>(BlockPrototype.planks, 5)));
 
             Dictionary<InventoryItem, int> input2 = new Dictionary<InventoryItem, int>();
             input2.Add(BlockPrototype.planks, 1);
-            recepies.Add(new Recepie(input, new KeyValuePair<InventoryItem, int>(ItemTemplate.stick.createNew(), 2)));
+            recepies.Add(new Recepie(input2, new KeyValuePair<InventoryItem, int>(ItemTemplate.stick.createNew(), 2)));
+
+            Dictionary<InventoryItem, int> input3 = new Dictionary<InventoryItem, int>();
+            input3.Add(ItemTemplate.stick.createNew(), 6);
+            input3.Add(ItemTemplate.wool.createNew(), 2);
+            recepies.Add(new Recepie(input3, new KeyValuePair<InventoryItem, int>(new ItemBow(), 1)));
 
             inventoryCraftingManager = new CraftingManager(recepies);
 

@@ -28,10 +28,10 @@ namespace OpenTerraria.Entities {
                     jump();
                 }
                 if (location.X < entityBeingTracked.location.X) {
-                    momentum.X = 5;
+                    momentum.X = 3;
                 }
                 if (location.X > entityBeingTracked.location.X) {
-                    momentum.X = -5;
+                    momentum.X = -3;
                 }
             }
         }

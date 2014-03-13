@@ -7,6 +7,7 @@ namespace OpenTerraria.Items {
     public class ItemTemplate {
         #region Declaring constant items
         public static ItemTemplate stick = new ItemTemplate("Stick", "stick.png", 255);
+        public static ItemTemplate wool = new ItemTemplate("Strand of Wool", "wool.png", 255);
         #endregion
         public String name;
         public String imagename;
