@@ -91,6 +91,7 @@
     <Compile Include="Recepie.cs" />
     <Compile Include="Reference.cs" />
     <Compile Include="Items\TemplatedItem.cs" />
+    <Compile Include="TreeGenerator.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="World.cs" />
     <Compile Include="Entities\Zombie.cs" />

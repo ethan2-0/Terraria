@@ -51,12 +51,15 @@ namespace OpenTerraria {
             int level = 250;
             List<int> results = new List<int>();
             Random random = new Random();
+            int index = 0;
+            int timesSinceLastTree = 0;
             foreach (BlockPrototype[] blocks in world) {
-                int rand = random.Next(4);
+                index++;
+                int rand = random.Next(18);
                 results.Add(rand);
-                if (rand <= 1) {
+                if (rand <= 4) {
                     level++;
-                } else if (rand > 2) {
+                } else if (rand > 11) {
                     level--;
                 } //Otherwise, make no change.
                 if (level > 450) {
@@ -70,8 +73,54 @@ namespace OpenTerraria {
                 for (int i = level; i < height; i++) {
                     blocksDown++;
                     if (blocksDown == 1) {
-                        blocks[i] = BlockPrototype.grass;
-                    } else if (blocksDown < 6) {
+                        //Possibility of generating tree
+                        //Tore it out, replacing with better algorithm (again)
+                        /*blocks[i] = BlockPrototype.grass;
+                        if (random.Next(40) > 35) {
+                            blocks[i] = BlockPrototype.log;
+                            int treeHeight = random.Next(6, 20);
+                            for (int j = i - 1; j > (i - treeHeight); j--) {
+                                blocks[j] = BlockPrototype.log;
+                                if (random.Next(10) > 7) {
+                                    if(index > (width - 5)) {
+                                        continue;
+                                    }
+                                    world[index][j] = BlockPrototype.log;
+                                }
+                                if (random.Next(10) < 3) {
+                                    try {
+                                        world[index - 1][j] = BlockPrototype.log;
+                                    } catch (Exception e) {
+                                        //It happens
+                                    }
+                                }
+                            }
+                        }*/
+                        //Possibility of generating a tree
+                        try {
+                            if (random.Next(40) > 36) {
+                                if (timesSinceLastTree > 8) {
+                                    char[][] tree = TreeGenerator.getRandomTree();
+                                    for (int j = 0; j < tree.Count(); j++) {
+                                        for (int k = 0; k < tree[j].Count(); k++) {
+                                            if (tree[j][k] == ' ') {
+                                                continue;
+                                            } else if (tree[j][k] == 'g') {
+                                                world[index + j][i - k] = BlockPrototype.leaves;
+                                            } else if (tree[j][k] == 'L') {
+                                                world[index + j][i - k] = BlockPrototype.log;
+                                            }
+                                        }
+                                    }
+                                }
+                                timesSinceLastTree = 0;
+                            } else {
+                                timesSinceLastTree++;
+                            }
+                        } catch (IndexOutOfRangeException e) {
+                            //It happens, but we'll end up with a pretty messed up tree
+                        }
+                    } else if (blocksDown < 8) {
                         blocks[i] = BlockPrototype.dirt;
                     } else {
                         blocks[i] = BlockPrototype.stone;
@@ -82,7 +131,60 @@ namespace OpenTerraria {
                         blocks[i] = BlockPrototype.air;
                     }
                 }
+                /*for (int i = height - 1; i > 0; i--) {
+                    if (blocks[i] == BlockPrototype.air && random.Next(100) == 3) {
+                        int treeHeight = 6;
+                        for (int j = i + i; j > (i - treeHeight); j--) {
+                            if (j >= height) {
+                                continue;
+                            }
+                            blocks[j] = BlockPrototype.log;
+                            if (random.Next(4) > 3) {
+                                world[index + 1][j] = BlockPrototype.log;
+                            }
+                            if (random.Next(4) < 2) {
+                                world[index - 1][j] = BlockPrototype.log;
+                            }
+                        }
+                    }
+                    if (blocks[i] == BlockPrototype.air) {
+                        break;
+                    }
+                }*/
             }
+            /*int ind = 0; //Standing for index, but apparently index is already defined
+            foreach (BlockPrototype[] blocks in world) { //Generate leaves
+                ind++;
+                for (int i = 0; i < blocks.Count(); i++) {
+                    try {
+                        if (world[ind][i] == BlockPrototype.log && random.Next(4) > 2 && world[ind - 2][i] == BlockPrototype.air) {
+                            blocks[i] = BlockPrototype.leaves;
+                        }
+                        if (world[ind - 2][i] == BlockPrototype.log && random.Next(4) > 2 && world[ind][i] == BlockPrototype.air) {
+                            blocks[i] = BlockPrototype.leaves;
+                        }
+                    } catch (Exception e) {
+                        //Do nothing, it happens
+                    }
+                }
+            }
+            ind = 0;
+            foreach (BlockPrototype[] blocks in world) { //Generate leaves for the second time
+                ind++;
+                for (int i = 0; i < blocks.Count(); i++) {
+                    try {
+                        if ((world[ind][i] == BlockPrototype.log || world[ind][i] == BlockPrototype.leaves) && random.Next(4) > 2 && world[ind][i] == BlockPrototype.air) {
+                            blocks[i] = BlockPrototype.leaves;
+                        }
+                        if ((world[ind - 2][i] == BlockPrototype.log || world[ind - 2][i] == BlockPrototype.leaves) && random.Next(4) > 2 && world[ind - 2][i] == BlockPrototype.air) {
+                            blocks[i] = BlockPrototype.leaves;
+                        }
+                    } catch (Exception e) {
+                        //Do nothing, it happens
+                    }
+                }
+            }*/
+            
             return world;
         }
         public void draw(Graphics g) {
@@ -107,7 +209,7 @@ namespace OpenTerraria {
             }
         }
         public Block getBlockAtPixels(int x, int y) {
-            Block b = getBlockAt((int) Math.Ceiling((double) x / 20), (int) Math.Ceiling((double) y / 20));
+            Block b = getBlockAt((int)Math.Ceiling((double)x / 20), (int)Math.Ceiling((double)y / 20));
             return b;
         }
         public bool isInsideBlock(int x, int y) {

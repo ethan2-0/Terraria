@@ -33,15 +33,15 @@ namespace OpenTerraria.Entities {
         }
 
         void Player_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e) {
-            if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Right) {
+            if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Right || e.KeyCode == Keys.D || e.KeyCode == Keys.A) {
                 momentum.X = 0;
             }
         }
 
         void Player_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e) {
-            if (e.KeyCode == Keys.Left) {
+            if (e.KeyCode == Keys.Left || e.KeyCode == Keys.A) {
                 momentum.X = -8;
-            } else if (e.KeyCode == Keys.Right) {
+            } else if (e.KeyCode == Keys.Right || e.KeyCode == Keys.D) {
                 momentum.X = 8;
             }
         }
