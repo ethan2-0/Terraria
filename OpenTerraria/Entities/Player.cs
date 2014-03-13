@@ -16,13 +16,7 @@ namespace OpenTerraria.Entities {
             MainForm.getInstance().KeyUp += new System.Windows.Forms.KeyEventHandler(Player_KeyUp);
             MainForm.getInstance().KeyPress += new KeyPressEventHandler(Player_KeyPress);
             MainForm.getInstance().drawEventDispatcher.registerHandler(this);
-            inventory.addItem(BlockPrototype.grass, 50);
-            inventory.items[9] = new ItemInInventory(BlockPrototype.grass, 6);
-            inventory.items[8] = new ItemInInventory(BlockPrototype.grass, 6);
             hotbar = new Inventory(10);
-            hotbar.addItem(BlockPrototype.grass, 5);
-            hotbar.items[4] = new ItemInInventory(BlockPrototype.grass, 6);
-            hotbar.addItem(ItemTemplate.stick.createNew(), 8);
             hotbar.addItem(ItemTool.createPickaxe(), 1);
             hotbar.addItem(new ItemBow(), 1);
         }

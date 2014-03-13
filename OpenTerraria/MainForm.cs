@@ -49,8 +49,13 @@ namespace OpenTerraria {
 
             List<Recepie> recepies = new List<Recepie>();
             Dictionary<InventoryItem, int> input = new Dictionary<InventoryItem, int>();
-            input.Add(ItemTemplate.stick.createNew(), 5);
-            recepies.Add(new Recepie(input, new KeyValuePair<InventoryItem, int>(BlockPrototype.grass, 2)));
+            input.Add(BlockPrototype.planks, 1);
+            recepies.Add(new Recepie(input, new KeyValuePair<InventoryItem, int>(BlockPrototype.planks, 5)));
+
+            Dictionary<InventoryItem, int> input2 = new Dictionary<InventoryItem, int>();
+            input2.Add(BlockPrototype.planks, 1);
+            recepies.Add(new Recepie(input, new KeyValuePair<InventoryItem, int>(ItemTemplate.stick.createNew(), 2)));
+
             inventoryCraftingManager = new CraftingManager(recepies);
 
             this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
@@ -62,7 +67,7 @@ namespace OpenTerraria {
             this.MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
         }
 
-        void MainForm_MouseWheel(object sender, MouseEventArgs e) {
+        public void MainForm_MouseWheel(object sender, MouseEventArgs e) {
             if (e.Delta != 0) {
                 if (e.Delta < 0) {
                     player.hotbarSelectedIndex++;

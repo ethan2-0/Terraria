@@ -15,6 +15,7 @@ namespace OpenTerraria.Blocks {
         public static BlockPrototype dirt = new BlockPrototype("dirt.png", "OpenTerraria:Dirt", "Dirt", true, 999);
         public static BlockPrototype leaves = new BlockPrototype("leaves.png", "OpenTerraria:Leaves", "Leaves", false, 999);
         public static BlockPrototype log = new BlockPrototype("log.png", "OpenTerraria:Log", "Wood", true, 999);
+        public static BlockPrototype planks = new BlockPrototype("planks.png", "OpenTerraria:Planks", "Wooden Planks", true, 999);
         #endregion
         static BlockPrototype() {
             air.breakableBy = "visualstudio2010";

@@ -23,6 +23,7 @@ namespace OpenTerraria {
             listbox.ForeColor = Color.DarkOrange;
             listbox.BackColor = Color.Black;
             listbox.BorderStyle = BorderStyle.FixedSingle;
+            listbox.MouseWheel += new MouseEventHandler(listbox_MouseWheel);
             craftLabel = new Label();
             craftLabel.Text = "Craft";
             craftLabel.AutoSize = false;
@@ -32,6 +33,10 @@ namespace OpenTerraria {
             craftLabel.BackColor = Color.DarkBlue;
             craftLabel.ForeColor = Color.DarkOrange;
             craftLabel.Font = MainForm.getNormalFont(12);
+        }
+
+        void listbox_MouseWheel(object sender, MouseEventArgs e) {
+            MainForm.getInstance().MainForm_MouseWheel(sender, e);
         }
         private List<String> createListOfItemNames() {
             List<String> items = new List<String>();
