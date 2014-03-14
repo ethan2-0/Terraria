@@ -17,10 +17,12 @@ namespace OpenTerraria.Blocks {
         public static BlockPrototype log = new BlockPrototype("log.png", "OpenTerraria:Log", "Wood", true, 999);
         public static BlockPrototype planks = new BlockPrototype("planks.png", "OpenTerraria:Planks", "Wooden Planks", true, 999);
         public static BlockPrototype oreCoal = new BlockPrototype("coalOre.png", "OpenTerraria:CoalOre", "Coal Ore", true, 255);
+        public static BlockPrototype torch = new BlockPrototype("torch.png", "OpenTerraria:Torch", "Torch", false, 499);
         #endregion
         static BlockPrototype() {
             air.breakableBy = "visualstudio2010";
-            oreCoal.emittedLightLevel = 29;
+            torch.emittedLightLevel = 25;
+            //oreCoal.emittedLightLevel = 29;
         }
         /// <summary>
         /// This feild should <b>NEVER</b> be changed, or accessed directly. Use getID() instead.

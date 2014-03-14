@@ -12,24 +12,26 @@ namespace OpenTerraria.Blocks {
         public Bitmap image;
         public Point location;
         public int lightLevel;
+        public int emittedLightLevel;
         public Block(BlockPrototype prototype, Point location) {
             this.prototype = prototype;
             this.location = location;
             this.image = prototype.getStartingImage();
+            this.emittedLightLevel = prototype.emittedLightLevel;
             if (prototype.emittedLightLevel > 0) { //We emit light!
-                MainForm.getInstance().doneLoadingEventDispatcher.registerHandler(this);
+                LightingEngine.fullLightingUpdateEventDispatcher.registerHandler(this);
             }
         }
         public Point getWorldLocation() {
             if (location.X % 20 != 0 || location.Y % 20 != 0) {
-                //We're not on the grid.
+                //We're mn not on the grid.
                 throw new Exception("I'm not on the grid!");
             }
             Point p = new Point(location.X / 20, location.Y / 20);
             return p;
         }
         public void handle(EventDispatcher dispatcher) {
-            if (dispatcher == MainForm.getInstance().doneLoadingEventDispatcher) { //We're done loading!
+            if (dispatcher == LightingEngine.fullLightingUpdateEventDispatcher) { //We're done loading!
                 if (prototype.emittedLightLevel > 0) {
                     Point myWorldLocation = getWorldLocation();
                     foreach (Block b in MainForm.getInstance().world.blockList) {
@@ -37,16 +39,23 @@ namespace OpenTerraria.Blocks {
                         int distX = Math.Abs(worldLocation.X - myWorldLocation.X);
                         int distY = Math.Abs(worldLocation.Y - myWorldLocation.Y);
                         int totalDist = distX + distY;
-                        if (totalDist > prototype.emittedLightLevel) {
-                            continue;
+                        if (totalDist < prototype.emittedLightLevel) {
+                            int candaditeLightLevel = prototype.emittedLightLevel - totalDist;
+                            if (b.lightLevel < candaditeLightLevel) {
+                                b.lightLevel = candaditeLightLevel;
+                            }
                         }
-                        b.lightLevel = prototype.emittedLightLevel - totalDist;
                     }
+                } else {
+                    LightingEngine.fullLightingUpdateEventDispatcher.unregisterHandler(this);
                 }
             }
         }
         public virtual BlockPrototype getPrototype() {
             return prototype;
+        }
+        public virtual void setLightLevel(int level) {
+            lightLevel = level;
         }
         public virtual void draw(Graphics g) {
             Player thePlayer = MainForm.getInstance().player;

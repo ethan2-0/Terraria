@@ -77,7 +77,7 @@ namespace OpenTerraria {
             this.MouseClick += new MouseEventHandler(MainForm_MouseClick);
             this.MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
 
-            doneLoadingEventDispatcher.dispatch(true);
+            LightingEngine.doFullLightingUpdate();
         }
 
         public void MainForm_MouseWheel(object sender, MouseEventArgs e) {
@@ -329,7 +329,6 @@ namespace OpenTerraria {
             int offsetX = player.location.X - this.Width / 2;
             int offsetY = player.location.Y - this.Height / 2;
             viewOffset = new Point(offsetX, offsetY);
-            paint();
         }
         public void renderThreadRunner(Object o) {
             while (shouldRender) {
@@ -346,6 +345,10 @@ namespace OpenTerraria {
 
         private void button1_Click(object sender, EventArgs e) {
 
+        }
+
+        private void RenderTimer_Tick(object sender, EventArgs e) {
+            paint();
         }
     }
 }

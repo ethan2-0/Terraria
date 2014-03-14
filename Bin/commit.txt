@@ -1,1 +1,1 @@
-"Made an *ugly* first attemt at a lighting engine" 
+"Improved the lighting engine" 

@@ -197,6 +197,23 @@ namespace OpenTerraria {
             
             return world;
         }
+        public void updateSkyLighting() {
+            foreach (Block[] column in blocks) {
+                int intensity = 30;
+                for (int i = 0; i < column.Count(); i++) {
+                    if (!column[i].prototype.solid) {
+                        column[i].setLightLevel(intensity);
+                    } else {
+                        intensity -= 6;
+                        if (intensity <= 0) {
+                            break;
+                        } else {
+                            column[i].setLightLevel(intensity);
+                        }
+                    }
+                }
+            }
+        }
         public void draw(Graphics g) {
             int startX = 0;//MainForm.getInstance().player.blockX - 20;
             int endX = width;//MainForm.getInstance().player.blockX + 20;

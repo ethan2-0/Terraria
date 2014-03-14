@@ -30,6 +30,9 @@ namespace OpenTerraria {
                 lf.Close();
             }
         }
+        public void unregisterHandler(HandlerForEvent handler) {
+            handlers.Remove(handler);
+        }
         public void dispatch() {
             dispatch(false);
         }

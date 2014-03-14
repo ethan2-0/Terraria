@@ -25,6 +25,7 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             this.GameTimer = new System.Windows.Forms.Timer(this.components);
+            this.RenderTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // GameTimer
@@ -32,6 +33,12 @@
             this.GameTimer.Enabled = true;
             this.GameTimer.Interval = 50;
             this.GameTimer.Tick += new System.EventHandler(this.GameTimer_Tick);
+            // 
+            // RenderTimer
+            // 
+            this.RenderTimer.Enabled = true;
+            this.RenderTimer.Interval = 50;
+            this.RenderTimer.Tick += new System.EventHandler(this.RenderTimer_Tick);
             // 
             // MainForm
             // 
@@ -50,6 +57,7 @@
         #endregion
 
         private System.Windows.Forms.Timer GameTimer;
+        private System.Windows.Forms.Timer RenderTimer;
     }
 }
 

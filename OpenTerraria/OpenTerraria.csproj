@@ -82,6 +82,7 @@
     <Compile Include="Items\ItemSword.cs" />
     <Compile Include="Items\ItemTool.cs" />
     <Compile Include="Items\ItemTemplate.cs" />
+    <Compile Include="LightingEngine.cs" />
     <Compile Include="LoadingForm.cs">
       <SubType>Form</SubType>
     </Compile>
