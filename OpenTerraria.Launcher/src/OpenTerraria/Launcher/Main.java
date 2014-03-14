@@ -6,7 +6,13 @@
 
 package OpenTerraria.Launcher;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -39,6 +45,11 @@ public class Main extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jProgressBar1.setDoubleBuffered(true);
 
@@ -113,10 +124,35 @@ public class Main extends javax.swing.JFrame {
         try {
             launchProgram();
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "There was an error while launching the program.\nIf running on OSX or a *nix variant, make sure you have Wine 1.7+, Mono 3.2.0+, and the windowscodecs winetrick installed. ", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "There was an error while launching the program.\nIf running on OSX or a *nix variant (such as Linux), make sure you have Wine 1.7+, Mono 3.2.0+, and the windowscodecs winetrick installed.", "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        System.out.println("Window opened, beginning to figure out if we need to update.");
+        File file = new File("commit.txt");
+        FileInputStream fs = null;
+        String output;
+        try {
+            fs = new FileInputStream(file);
+            byte[] bytes = new byte[(int) file.length()];
+            fs.read(bytes);
+            output = new String(bytes, Charset.forName("UTF-8"));
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, "There was an error while checking the commit that we're on.\nPlease ask me (ethan20) for help with this crash. (Phase 1).", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch(IOException ex) {
+            JOptionPane.showMessageDialog(this, "There was an error while checking the commit that we're on.\nPlease ask me (ethan20) for help with this crash. (Phase 2).", "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            if(fs != null) {
+                try {
+                    fs.close();
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this, "There was an error while closing the file stream.\nDon't look at me, I have no idea either!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }//GEN-LAST:event_formWindowOpened
     public void launchProgram() throws IOException {
         if(System.getProperty("os.name").contains("indows")) { //Omit the W for case-sensitivity
             this.setVisible(false);
@@ -158,6 +194,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
         System.out.println("We are on " + System.getProperty("os.name"));
+        System.out.println("Default charset is " + System.getProperty("file.encoding"));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

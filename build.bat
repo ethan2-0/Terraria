@@ -1,6 +1,7 @@
 @echo off
 echo Copying the launcher from the NetBeans project...
 copy OpenTerraria.Launcher\dist\OpenTerraria.Launcher.jar OpenTerraria\bin\Debug\Launcher.jar
+copy OpenTerraria.Launcher\dist\org.eclipse.egit.github.core-2.1.5.jar OpenTerraria\bin\Debug\
 echo Creating update zip...
 echo Say Yes to the prompt
 del Bin\*
