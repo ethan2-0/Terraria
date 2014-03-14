@@ -22,6 +22,7 @@ namespace OpenTerraria {
             if (ticksLived > ticksToLive) {
                 MainForm.getInstance().damageIndicators.Remove(this);
             }
+            location.Y--;
         }
         public void draw(Graphics g) {
             g.DrawString(amount, MainForm.getNormalFont(10), MainForm.createBrush(color), Util.subtractPoints(location, MainForm.getInstance().viewOffset));

@@ -310,6 +310,9 @@ namespace OpenTerraria {
             for (int i = 0; i < entities.Count; i++) {
                 entities[i].update();
             }
+            foreach (Entity en in entities) {
+                en.updateMomentumLock();
+            }
             for (int i = 0; i < damageIndicators.Count; i++) {
                 damageIndicators[i].tick();
             }

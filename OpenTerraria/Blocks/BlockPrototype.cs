@@ -85,5 +85,8 @@ namespace OpenTerraria.Blocks {
             Inventory inventory = MainForm.getInstance().getParentInventory(item);
             inventory.removeAmount(this, 1);
         }
+        public virtual Block createNew(Point location) {
+            return new Block(this, location);
+        }
     }
 }

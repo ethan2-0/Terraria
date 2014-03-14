@@ -10,7 +10,7 @@ namespace OpenTerraria.Blocks {
         public BlockPrototype prototype;
         public Bitmap image;
         public Point location;
-        private Block(BlockPrototype prototype, Point location) {
+        public Block(BlockPrototype prototype, Point location) {
             this.prototype = prototype;
             this.location = location;
             this.image = prototype.getStartingImage();
@@ -31,7 +31,7 @@ namespace OpenTerraria.Blocks {
             g.DrawImage(image, Util.subtractPoints(location, MainForm.getInstance().viewOffset));
         }
         public static Block createNewBlock(BlockPrototype prototype, Point location) {
-            return new Block(prototype, location);
+            return prototype.createNew(location);
         }
         public virtual int getMaxStackSize() {
             return 999;

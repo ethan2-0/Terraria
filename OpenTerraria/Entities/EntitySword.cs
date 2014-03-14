@@ -9,6 +9,7 @@ namespace OpenTerraria.Entities {
         private List<Entity> entitiesHurt;
         public Entity thrownBy;
         public int ticksLived = 0;
+        public const int ticksToLive = 5;
         public EntitySword(Point location, Entity thrownBy)
             : base("air.png", location, new System.Drawing.Size(10, 40)) {
                 entitiesHurt = new List<Entity>();
@@ -25,7 +26,7 @@ namespace OpenTerraria.Entities {
         }
         public override void move() {
             ticksLived++;
-            if (ticksLived > 5) {
+            if (ticksLived > ticksToLive) {
                 MainForm.getInstance().entities.Remove(this);
                 MainForm.getInstance().player.swordSide = "";
             }
@@ -42,6 +43,9 @@ namespace OpenTerraria.Entities {
                     if (new Rectangle(location, hitBox).Contains(c.location) && !entitiesHurt.Contains(c) && thrownBy != c) {
                         c.damage(40);
                         entitiesHurt.Add(c);
+                        c.momentumLock.X = this.momentum.X;
+                        c.momentum.Y = 0;
+                        c.momentumLockTicks = 5;
                     }
                 }
             }

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using OpenTerraria.Items;
 using OpenTerraria.Blocks;
+using System.Drawing.Drawing2D;
 
 namespace OpenTerraria.Entities {
     public class Player : Creature, HandlerForEvent {
@@ -56,11 +57,29 @@ namespace OpenTerraria.Entities {
         }
         public override void draw(Graphics g) {
             base.draw(g);
-            if (swordSide == "left") {
-                g.DrawImage(Reference.getImage("swordBig.png"), Util.subtractPoints(Util.subtractPoints(location, new Point(5, 0)), MainForm.getInstance().viewOffset));
+            Point renderLocation = Util.subtractPoints(location, MainForm.getInstance().viewOffset);
+            EntitySword currentSword = null;
+            foreach (Entity e in MainForm.getInstance().entities) {
+                if (e is EntitySword) {
+                    currentSword = (EntitySword)e;
+                }
             }
-            if (swordSide == "right") {
-                g.DrawImage(Reference.getImage("swordBig.png"), Util.subtractPoints(Util.addPoints(location, new Point(15, 0)), MainForm.getInstance().viewOffset));
+            if (currentSword != null) {
+                Matrix m = new Matrix();
+                float angle = ((float) currentSword.ticksLived) / ((float) EntitySword.ticksToLive) * 180F;
+                angle /= 2;
+                if (swordSide == "left") {
+                    angle = 360 - angle;
+                }
+                m.RotateAt(angle, Util.addPoints(renderLocation, new Point((swordSide == "left" ? 5 : 16), (swordSide == "left" ? 20 : 13))));
+                g.Transform = m;
+                if (swordSide == "left") {
+                    g.DrawImage(Reference.getImage("sword.png"), Util.subtractPoints(renderLocation, new Point(5, 0)));
+                }
+                if (swordSide == "right") {
+                    g.DrawImage(Reference.getImage("sword.png"), Util.addPoints(renderLocation, new Point(15, -5)));
+                }
+                g.Transform = new Matrix();
             }
         }
     }

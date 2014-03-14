@@ -14,6 +14,8 @@ namespace OpenTerraria.Entities {
         public bool isOnGround = false;
         public int occasionalTicks = 0;
         public int contactDamage = 0;
+        public int momentumLockTicks = 0;
+        public Point momentumLock;
         public Entity(String imageName, Point location, Size hitBox) {
             this.image = Reference.getImage(imageName);
             this.location = location;
@@ -25,6 +27,9 @@ namespace OpenTerraria.Entities {
             g.DrawImage(image, Util.subtractPoints(location, MainForm.getInstance().viewOffset));
         }
         public virtual void move() {
+            //Momentum lock
+            momentumLockTicks--;
+            updateMomentumLock();
             //Collisions
             int candaditeX = location.X + momentum.X;
             int candaditeY = location.Y + momentum.Y;
@@ -49,6 +54,11 @@ namespace OpenTerraria.Entities {
             //Update block location
             blockX = (int) Math.Floor((double) location.X / 20);
             blockY = (int) Math.Floor((double) location.Y / 20);
+        }
+        public void updateMomentumLock() {
+            if (momentumLockTicks > 0) {
+                momentum = momentumLock;
+            }
         }
         public void stop() {
             momentum = new Point(0, 0);
