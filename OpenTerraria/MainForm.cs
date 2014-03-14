@@ -173,6 +173,10 @@ namespace OpenTerraria {
             if (e.KeyCode == Keys.I) {
                 inventory = !inventory;
             }
+            if (e.KeyCode == Keys.E) {
+                Point cursorLocation = getCursorWorldLocation();
+                world.getBlockAt(cursorLocation.X, cursorLocation.Y).use();
+            }
         }
         public void respawnPlayer() {
             //player = new Player(new Point(9000, 150));

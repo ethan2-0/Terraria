@@ -40,7 +40,7 @@ namespace OpenTerraria.Entities {
             foreach (Entity e in MainForm.getInstance().entities) {
                 if (e is Creature) {
                     Creature c = (Creature)e;
-                    if (new Rectangle(location, hitBox).Contains(c.location) && !entitiesHurt.Contains(c) && thrownBy != c) {
+                    if (new Rectangle(location, new Size(hitBox.Width, hitBox.Height + 10)).Contains(Util.addPoints(c.location, new Point(0, 20))) && !entitiesHurt.Contains(c) && thrownBy != c) {
                         c.damage(40);
                         entitiesHurt.Add(c);
                         c.momentumLock.X = this.momentum.X;

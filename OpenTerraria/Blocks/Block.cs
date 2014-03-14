@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using OpenTerraria.Entities;
+using System.Windows.Forms;
 
 namespace OpenTerraria.Blocks {
     public class Block {
@@ -41,6 +42,10 @@ namespace OpenTerraria.Blocks {
         }
         public virtual String getName() {
             return prototype.name;
+        }
+        public virtual void use() {
+            //To test it
+            MessageBox.Show(getName());
         }
     }
 }
