@@ -194,6 +194,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
         System.out.println("We are on " + System.getProperty("os.name"));
+        
         System.out.println("Default charset is " + System.getProperty("file.encoding"));
     }
 

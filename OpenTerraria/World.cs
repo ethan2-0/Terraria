@@ -10,11 +10,13 @@ using OpenTerraria.Entities;
 namespace OpenTerraria {
     public class World {
         public Block[][] blocks;
+        public List<Block> blockList;
         public int width, height;
         /// <summary>
         /// This constructor should only be used internally. Use World.newWorld() instead.
         /// </summary>
         private World(int width, int height, Block[][] blocks) {
+            this.blockList = new List<Block>();
             this.blocks = blocks;
             this.width = width;
             this.height = height;
@@ -22,13 +24,17 @@ namespace OpenTerraria {
         public static World createWorld(int width, int height) {
             BlockPrototype[][] worldPrototype = generateWorld(width, height);
             Block[][] world = new Block[width][];
+            List<Block> blockList = new List<Block>();
             for (int i = 0; i < width; i++) {
                 world[i] = new Block[height];
                 for (int j = 0; j < height; j++) {
-                    world[i][j] = Block.createNewBlock(worldPrototype[i][j], new Point(i * 20, j * 20));
+                    Block b = Block.createNewBlock(worldPrototype[i][j], new Point(i * 20, j * 20));
+                    world[i][j] = b;
+                    blockList.Add(b);
                 }
             }
             World w = new World(width, height, world);
+            w.blockList = blockList;
             return w;
         }
         private static BlockPrototype[][] generateWorld(int width, int height) {

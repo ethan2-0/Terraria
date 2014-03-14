@@ -20,6 +20,7 @@ namespace OpenTerraria.Blocks {
         #endregion
         static BlockPrototype() {
             air.breakableBy = "visualstudio2010";
+            oreCoal.emittedLightLevel = 29;
         }
         /// <summary>
         /// This feild should <b>NEVER</b> be changed, or accessed directly. Use getID() instead.
@@ -30,6 +31,10 @@ namespace OpenTerraria.Blocks {
         public String name;
         public String breakableBy = "pickaxe";
         public bool solid;
+        /// <summary>
+        /// The emitted light level. Weird things could happen if it gets over 15.
+        /// </summary>
+        public int emittedLightLevel = 0;
         /// <summary>
         /// Create a new BlockPrototype with the specified image path and name.
         /// </summary>

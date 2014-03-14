@@ -32,6 +32,7 @@ namespace OpenTerraria {
         public List<DamageIndicator> damageIndicators;
         Bitmap cursor;
         public EventDispatcher drawEventDispatcher = new EventDispatcher();
+        public EventDispatcher doneLoadingEventDispatcher = new EventDispatcher();
         public long totalRenders = 0;
         public CraftingManager inventoryCraftingManager;
         public int lastIndex = -1;
@@ -75,6 +76,8 @@ namespace OpenTerraria {
             this.KeyPress += new KeyPressEventHandler(MainForm_KeyPress);
             this.MouseClick += new MouseEventHandler(MainForm_MouseClick);
             this.MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
+
+            doneLoadingEventDispatcher.dispatch(true);
         }
 
         public void MainForm_MouseWheel(object sender, MouseEventArgs e) {
@@ -206,6 +209,9 @@ namespace OpenTerraria {
             paint();
         }
         public void paint() {
+            if (offg == null) {
+                return;
+            }
             try {
                 totalRenders++;
                 //Bitmap b = new Bitmap(this.Width, this.Height);

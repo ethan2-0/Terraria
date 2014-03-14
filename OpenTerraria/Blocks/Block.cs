@@ -7,14 +7,43 @@ using OpenTerraria.Entities;
 using System.Windows.Forms;
 
 namespace OpenTerraria.Blocks {
-    public class Block {
+    public class Block : HandlerForEvent{
         public BlockPrototype prototype;
         public Bitmap image;
         public Point location;
+        public int lightLevel;
         public Block(BlockPrototype prototype, Point location) {
             this.prototype = prototype;
             this.location = location;
             this.image = prototype.getStartingImage();
+            if (prototype.emittedLightLevel > 0) { //We emit light!
+                MainForm.getInstance().doneLoadingEventDispatcher.registerHandler(this);
+            }
+        }
+        public Point getWorldLocation() {
+            if (location.X % 20 != 0 || location.Y % 20 != 0) {
+                //We're not on the grid.
+                throw new Exception("I'm not on the grid!");
+            }
+            Point p = new Point(location.X / 20, location.Y / 20);
+            return p;
+        }
+        public void handle(EventDispatcher dispatcher) {
+            if (dispatcher == MainForm.getInstance().doneLoadingEventDispatcher) { //We're done loading!
+                if (prototype.emittedLightLevel > 0) {
+                    Point myWorldLocation = getWorldLocation();
+                    foreach (Block b in MainForm.getInstance().world.blockList) {
+                        Point worldLocation = b.getWorldLocation();
+                        int distX = Math.Abs(worldLocation.X - myWorldLocation.X);
+                        int distY = Math.Abs(worldLocation.Y - myWorldLocation.Y);
+                        int totalDist = distX + distY;
+                        if (totalDist > prototype.emittedLightLevel) {
+                            continue;
+                        }
+                        b.lightLevel = prototype.emittedLightLevel - totalDist;
+                    }
+                }
+            }
         }
         public virtual BlockPrototype getPrototype() {
             return prototype;
@@ -29,7 +58,16 @@ namespace OpenTerraria.Blocks {
             if (xDiff + yDiff > 2000) {
                 return;
             }
-            g.DrawImage(image, Util.subtractPoints(location, MainForm.getInstance().viewOffset));
+            Point renderLocation = Util.subtractPoints(location, MainForm.getInstance().viewOffset);
+            g.DrawImage(image, renderLocation);
+            if (lightLevel > 10) {
+                int i;
+            }
+            Color color = Color.FromArgb((int) (255 - (((double) lightLevel) / 30 * 255)), 0, 0, 0);
+            if (prototype == BlockPrototype.oreCoal) {
+                int i;
+            }
+            g.FillRectangle(MainForm.createBrush(color), new Rectangle(renderLocation, new Size(20, 20)));
         }
         public static Block createNewBlock(BlockPrototype prototype, Point location) {
             return prototype.createNew(location);
