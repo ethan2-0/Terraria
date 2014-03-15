@@ -32,23 +32,30 @@ namespace OpenTerraria.Blocks {
         }
         public void handle(EventDispatcher dispatcher) {
             if (dispatcher == LightingEngine.fullLightingUpdateEventDispatcher) { //We're done loading!
-                if (prototype.emittedLightLevel > 0) {
-                    Point myWorldLocation = getWorldLocation();
-                    foreach (Block b in MainForm.getInstance().world.blockList) {
-                        Point worldLocation = b.getWorldLocation();
-                        int distX = Math.Abs(worldLocation.X - myWorldLocation.X);
-                        int distY = Math.Abs(worldLocation.Y - myWorldLocation.Y);
-                        int totalDist = distX + distY;
-                        if (totalDist < prototype.emittedLightLevel) {
-                            int candaditeLightLevel = prototype.emittedLightLevel - totalDist;
-                            if (b.lightLevel < candaditeLightLevel) {
-                                b.lightLevel = candaditeLightLevel;
+                updateLighting();
+            }
+        }
+        public void updateLighting() {
+            if (prototype.emittedLightLevel > 0) {
+                Point myWorldLocation = getWorldLocation();
+                foreach (Block[] blocks in MainForm.getInstance().world.blocks) {
+                    if (Math.Abs(blocks[0].getWorldLocation().X - myWorldLocation.X) < emittedLightLevel) {
+                        foreach (Block b in blocks) {
+                            Point worldLocation = b.getWorldLocation();
+                            int distX = Math.Abs(worldLocation.X - myWorldLocation.X);
+                            int distY = Math.Abs(worldLocation.Y - myWorldLocation.Y);
+                            int totalDist = distX + distY;
+                            if (totalDist < prototype.emittedLightLevel) {
+                                int candaditeLightLevel = prototype.emittedLightLevel - totalDist;
+                                if (b.lightLevel < candaditeLightLevel) {
+                                    b.lightLevel = candaditeLightLevel;
+                                }
                             }
                         }
                     }
-                } else {
-                    LightingEngine.fullLightingUpdateEventDispatcher.unregisterHandler(this);
                 }
+            } else {
+                LightingEngine.fullLightingUpdateEventDispatcher.unregisterHandler(this);
             }
         }
         public virtual BlockPrototype getPrototype() {
@@ -93,6 +100,9 @@ namespace OpenTerraria.Blocks {
         public virtual void use() {
             //To test it
             MessageBox.Show(getName());
+        }
+        public virtual void prepareForRemoval() {
+            LightingEngine.fullLightingUpdateEventDispatcher.unregisterHandler(this);
         }
     }
 }

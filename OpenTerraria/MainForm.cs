@@ -67,6 +67,11 @@ namespace OpenTerraria {
             input3.Add(ItemTemplate.wool.createNew(), 2);
             recepies.Add(new Recepie(input3, new KeyValuePair<InventoryItem, int>(new ItemBow(), 1)));
 
+            Dictionary<InventoryItem, int> input4 = new Dictionary<InventoryItem, int>();
+            input4.Add(ItemTemplate.stick.createNew(), 4);
+            input4.Add(BlockPrototype.oreCoal, 1);
+            recepies.Add(new Recepie(input4, new KeyValuePair<InventoryItem, int>(BlockPrototype.torch, 4)));
+
             inventoryCraftingManager = new CraftingManager(recepies);
 
             this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
@@ -177,7 +182,7 @@ namespace OpenTerraria {
                 inventory = !inventory;
             }
             if (e.KeyCode == Keys.E) {
-                Point cursorLocation = getCursorWorldLocation();
+                Point cursorLocation = getCursorBlockLocation();
                 world.getBlockAt(cursorLocation.X, cursorLocation.Y).use();
             }
         }
@@ -209,6 +214,9 @@ namespace OpenTerraria {
             paint();
         }
         public void paint() {
+            if (LightingEngine.updating) {
+                return;
+            }
             if (offg == null) {
                 return;
             }

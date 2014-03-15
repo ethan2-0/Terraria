@@ -198,18 +198,22 @@ namespace OpenTerraria {
             return world;
         }
         public void updateSkyLighting() {
-            foreach (Block[] column in blocks) {
-                int intensity = 30;
-                for (int i = 0; i < column.Count(); i++) {
-                    if (!column[i].prototype.solid) {
-                        column[i].setLightLevel(intensity);
+            for (int i = 0; i < blocks.Count(); i++) {
+                updateSkyLightForColumn(i);
+            }
+        }
+        public void updateSkyLightForColumn(int across) {
+            Block[] column = blocks[across];
+            int intensity = 30;
+            for (int i = 0; i < column.Count(); i++) {
+                if (!column[i].prototype.solid) {
+                    column[i].setLightLevel(intensity);
+                } else {
+                    intensity -= 6;
+                    if (intensity <= 0) {
+                        break;
                     } else {
-                        intensity -= 6;
-                        if (intensity <= 0) {
-                            break;
-                        } else {
-                            column[i].setLightLevel(intensity);
-                        }
+                        column[i].setLightLevel(intensity);
                     }
                 }
             }

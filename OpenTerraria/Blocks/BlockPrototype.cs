@@ -87,10 +87,15 @@ namespace OpenTerraria.Blocks {
                 return;
             }
             if (block.prototype == BlockPrototype.air) {
+                w.blocks[cursorBlock.X][cursorBlock.Y].prepareForRemoval();
                 w.blocks[cursorBlock.X][cursorBlock.Y] = Block.createNewBlock(this, new Point(cursorBlock.X * 20, cursorBlock.Y * 20));
+                w.updateSkyLightForColumn(cursorBlock.X);
             }
             Inventory inventory = MainForm.getInstance().getParentInventory(item);
             inventory.removeAmount(this, 1);
+            //if (emittedLightLevel > 0) {
+                LightingEngine.doFullLightingUpdate(false);
+            //}
         }
         public virtual Block createNew(Point location) {
             return new Block(this, location);
