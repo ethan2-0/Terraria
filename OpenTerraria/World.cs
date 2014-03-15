@@ -214,6 +214,7 @@ namespace OpenTerraria {
                         break;
                     } else {
                         column[i].setLightLevel(intensity);
+                        column[i].setEmittedLightLevel(intensity);
                     }
                 }
             }

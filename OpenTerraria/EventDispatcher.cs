@@ -10,7 +10,9 @@ namespace OpenTerraria {
             handlers = new List<HandlerForEvent>();
         }
         public void registerHandler(HandlerForEvent handler) {
-            handlers.Add(handler);
+            if(!handlers.Contains(handler)) {
+                handlers.Add(handler);
+            }
         }
         public void dispatch(bool shouldUseLoadingForm) {
             int processed = 0;
@@ -19,10 +21,11 @@ namespace OpenTerraria {
                 lf = new LoadingForm();
                 lf.Show();
             }
-            foreach(HandlerForEvent handler in handlers) {
+            for (int i = 0; i < handlers.Count(); i++) {
+                HandlerForEvent handler = handlers[i];
                 processed++;
                 if (lf != null && processed % 10 == 0) {
-                    lf.setProgress("Dispatching Events...", (int) (((double)processed / (double) handlers.Count) * 100D));
+                    lf.setProgress("Dispatching Events...", (int)(((double)processed / (double)handlers.Count) * 100D));
                 }
                 handler.handle(this);
             }
@@ -31,7 +34,9 @@ namespace OpenTerraria {
             }
         }
         public void unregisterHandler(HandlerForEvent handler) {
-            handlers.Remove(handler);
+            if (handlers.Contains(handler)) {
+                handlers.Remove(handler);
+            }
         }
         public void dispatch() {
             dispatch(false);

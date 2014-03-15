@@ -38,6 +38,7 @@ namespace OpenTerraria {
         public int lastIndex = -1;
         public Inventory lastInventory;
         public static Random random;
+        public static Bitmap background;
         public MainForm() {
             random = new Random();
             damageIndicators = new List<DamageIndicator>();
@@ -228,6 +229,7 @@ namespace OpenTerraria {
                 Pen blackPen = createPen(Color.Black);
                 Brush blackBrush = createBrush(Color.Black);
                 offg.Clear(Color.SkyBlue);
+                //offg.DrawImage(background, new Point(0, 0));
                 drawEventDispatcher.dispatch();
                 //g.DrawImage(Reference.getImage("grass.png"), new Point(30, 30));
                 world.draw(offg);
@@ -349,6 +351,21 @@ namespace OpenTerraria {
             graphics = this.CreateGraphics();
             screen = new Bitmap(this.Width, this.Height);
             offg = Graphics.FromImage(screen);
+            /*Bitmap dirtBackground = Reference.getImage("dirtBackground.png");
+            background = new Bitmap(world.width * 20, world.height * 20);
+            Graphics backG = Graphics.FromImage(background);
+            backG.Clear(Color.LightBlue);
+            foreach (Block[] blocks in world.blocks) {
+                bool canSeeSky = true;
+                for (int i = 0; i < blocks.Count(); i++) {
+                    if (blocks[i].prototype.solid) {
+                        canSeeSky = false;
+                    }
+                    if (!canSeeSky) {
+                        backG.DrawImage(dirtBackground, blocks[i].location);
+                    }
+                }
+            }*/
         }
 
         private void button1_Click(object sender, EventArgs e) {

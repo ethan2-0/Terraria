@@ -58,6 +58,13 @@ namespace OpenTerraria.Blocks {
                 LightingEngine.fullLightingUpdateEventDispatcher.unregisterHandler(this);
             }
         }
+        public virtual void setEmittedLightLevel(int level) {
+            if (level <= 0) {
+                LightingEngine.fullLightingUpdateEventDispatcher.unregisterHandler(this);
+            } else {
+                LightingEngine.fullLightingUpdateEventDispatcher.registerHandler(this);
+            }
+        }
         public virtual BlockPrototype getPrototype() {
             return prototype;
         }
