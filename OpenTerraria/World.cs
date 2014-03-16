@@ -6,10 +6,14 @@ using System.Drawing;
 using System.Windows.Forms;
 using OpenTerraria.Blocks;
 using OpenTerraria.Entities;
+using OpenTerraria.Cave;
 
 namespace OpenTerraria {
     public class World {
         public Block[][] blocks;
+        /// <summary>
+        /// A list of blocks. Note that it is not 100% accurate.
+        /// </summary>
         public List<Block> blockList;
         public int width, height;
         /// <summary>
@@ -141,6 +145,7 @@ namespace OpenTerraria {
                         blocks[i] = BlockPrototype.air;
                     }
                 }
+                
                 /*for (int i = height - 1; i > 0; i--) {
                     if (blocks[i] == BlockPrototype.air && random.Next(100) == 3) {
                         int treeHeight = 6;
@@ -194,7 +199,7 @@ namespace OpenTerraria {
                     }
                 }
             }*/
-            
+            CaveGenerator.generateCaves(world);
             return world;
         }
         public void updateSkyLighting() {

@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Blocks\Block.cs" />
     <Compile Include="Blocks\BlockPrototype.cs" />
+    <Compile Include="Cave\CaveGenerator.cs" />
     <Compile Include="CraftingManager.cs" />
     <Compile Include="DamageIndicator.cs" />
     <Compile Include="Entities\Creature.cs" />
@@ -158,6 +159,7 @@
   <ItemGroup>
     <None Include="Resources\grass.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

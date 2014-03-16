@@ -17,10 +17,15 @@ namespace OpenTerraria {
             doFullLightingUpdate(true);
         }
         public static void doFullLightingUpdate(bool useLoadingForm) {
-            updating = true;
-            shouldUseLoadingForm = useLoadingForm;
-            Thread t = new Thread(new ParameterizedThreadStart(doFullLightingUpdateThread));
-            t.Start();
+            for (int i = 0; i < 2; i++) {
+                updating = true;
+                shouldUseLoadingForm = useLoadingForm;
+                Thread t = new Thread(new ParameterizedThreadStart(doFullLightingUpdateThread));
+                t.Start();
+                while (updating) {
+                    Thread.Sleep(1);
+                }
+            }
         }
         public static void doFullLightingUpdateThread(Object o) {
             updating = true;

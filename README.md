@@ -10,5 +10,6 @@ A list of known bugs is maintained here:<br/>
 	<li>When you go outside of the generated world, the game becomes much laggier.</li>
 	<li>Recepies with more than one ingredient render weirdly</li>
 	<li>Recepies with outputs of items with long names render weirdly</li>
+	<li>If you place a torch inside of the area of another torch, sometimes it makes the other torch inoperable until another lighting update (and, even then, it doesn't always work).
 </ul>
 Copyright (c) 2014 ethan20. All rights reserved.

@@ -301,6 +301,14 @@ namespace OpenTerraria {
                 foreach (DamageIndicator indicator in damageIndicators) {
                     indicator.draw(offg);
                 }
+                if (!GameTimer.Enabled) {
+                    Size pauseMenuSize = new Size(200, 300);
+                    Point pauseMenuLocation = new Point(this.Width / 2 - pauseMenuSize.Width / 2, this.Height / 3 - pauseMenuSize.Height / 2);
+                    offg.FillRectangle(createBrush(Reference.guiColor), new Rectangle(pauseMenuLocation, pauseMenuSize));
+                    Point pausedLocation = Util.addPoints(pauseMenuLocation, new Point((int)(pauseMenuSize.Width / 2 - offg.MeasureString("Paused", getNormalFont(14)).Width / 2), 25));
+                    offg.DrawString("Paused", getNormalFont(14), createBrush(Color.White), pausedLocation);
+
+                }
                 //Finishing off the double buffering
                 graphics.DrawImage(screen, new Point(0, 0));
                 //graphics.DrawImage(b, new Point(0, 0));
