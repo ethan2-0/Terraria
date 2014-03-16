@@ -23,6 +23,7 @@ namespace OpenTerraria.Entities {
             hotbar.addItem(new ItemBow(), 1);
             hotbar.addItem(new ItemSword(), 1);
             hotbar.addItem(BlockPrototype.torch, 50);
+            hotbar.addItem(BlockPrototype.furnace, 1);
         }
         void Player_KeyPress(object sender, KeyPressEventArgs e) {
             if (e.KeyChar == (char)Keys.Space) {

@@ -18,6 +18,7 @@ namespace OpenTerraria.Blocks {
         public static BlockPrototype planks = new BlockPrototype("planks.png", "OpenTerraria:Planks", "Wooden Planks", true, 999);
         public static BlockPrototype oreCoal = new BlockPrototype("coalOre.png", "OpenTerraria:CoalOre", "Coal Ore", true, 255);
         public static BlockPrototype torch = new BlockPrototype("torch.png", "OpenTerraria:Torch", "Torch", false, 499);
+        public static BlockPrototype furnace = new BlockPrototypeFurnace("furnace.png", "OpenTerraria:Furnace", "Furnace", true, 999);
         #endregion
         static BlockPrototype() {
             air.breakableBy = "visualstudio2010";

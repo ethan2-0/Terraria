@@ -39,6 +39,7 @@ namespace OpenTerraria {
         public Inventory lastInventory;
         public static Random random;
         public static Bitmap background;
+        public bool craftingShown = false;
         public MainForm() {
             random = new Random();
             damageIndicators = new List<DamageIndicator>();
@@ -182,6 +183,10 @@ namespace OpenTerraria {
             if (e.KeyCode == Keys.I) {
                 inventory = !inventory;
             }
+            if (e.KeyCode == Keys.C) {
+                craftingShown = !craftingShown;
+                inventory = craftingShown;
+            }
             if (e.KeyCode == Keys.E) {
                 Point cursorLocation = getCursorBlockLocation();
                 world.getBlockAt(cursorLocation.X, cursorLocation.Y).use();
@@ -230,7 +235,6 @@ namespace OpenTerraria {
                 Brush blackBrush = createBrush(Color.Black);
                 offg.Clear(Color.SkyBlue);
                 //offg.DrawImage(background, new Point(0, 0));
-                drawEventDispatcher.dispatch();
                 //g.DrawImage(Reference.getImage("grass.png"), new Point(30, 30));
                 world.draw(offg);
                 foreach (Entity e in entities) {
@@ -269,7 +273,7 @@ namespace OpenTerraria {
                     player.inventory.drawer.renderItem(movingItem, getCursorPos(), offg, true, 400);
                 }
                 //Crafting Window
-                if (inventory) {
+                if (craftingShown) {
                     inventoryCraftingManager.render(offg, new Point(5, 160));
                 } else {
                     inventoryCraftingManager.hide();
@@ -309,6 +313,8 @@ namespace OpenTerraria {
                     offg.DrawString("Paused", getNormalFont(14), createBrush(Color.White), pausedLocation);
 
                 }
+                //Have all the external drawers do their drawing thing
+                drawEventDispatcher.dispatch();
                 //Finishing off the double buffering
                 graphics.DrawImage(screen, new Point(0, 0));
                 //graphics.DrawImage(b, new Point(0, 0));

@@ -56,8 +56,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Timer GameTimer;
-        private System.Windows.Forms.Timer RenderTimer;
+        public System.Windows.Forms.Timer GameTimer;
+        public System.Windows.Forms.Timer RenderTimer;
+
     }
 }
 

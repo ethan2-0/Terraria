@@ -62,7 +62,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Blocks\Block.cs" />
+    <Compile Include="Blocks\BlockFurnace.cs" />
     <Compile Include="Blocks\BlockPrototype.cs" />
+    <Compile Include="Blocks\BlockPrototypeFurnace.cs" />
     <Compile Include="Cave\CaveGenerator.cs" />
     <Compile Include="CraftingManager.cs" />
     <Compile Include="DamageIndicator.cs" />
