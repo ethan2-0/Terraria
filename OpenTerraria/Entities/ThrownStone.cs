@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing;
 
 namespace OpenTerraria.Entities {
+    [Serializable]
     public class ThrownStone : Entity {
         private Point occasionalMovement;
         /// <summary>

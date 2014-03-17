@@ -6,6 +6,7 @@ using System.Drawing;
 using OpenTerraria.Items;
 
 namespace OpenTerraria.Entities {
+    [Serializable]
     public class Zombie : EnemyMeleeCreature {
         public Zombie(Point location) : base("zombie.png", location, new Size(16, 32), 0) {
             contactDamage = 4;

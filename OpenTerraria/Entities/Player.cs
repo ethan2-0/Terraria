@@ -9,21 +9,25 @@ using OpenTerraria.Blocks;
 using System.Drawing.Drawing2D;
 
 namespace OpenTerraria.Entities {
+    [Serializable]
     public class Player : Creature, HandlerForEvent {
         public Inventory hotbar;
         public int hotbarSelectedIndex = 1;
         public String swordSide = "";
         public Player(Point location) : base("player.png", location, new Size(20, 40), 40) {
-            MainForm.getInstance().KeyDown += new System.Windows.Forms.KeyEventHandler(Player_KeyDown);
-            MainForm.getInstance().KeyUp += new System.Windows.Forms.KeyEventHandler(Player_KeyUp);
-            MainForm.getInstance().KeyPress += new KeyPressEventHandler(Player_KeyPress);
-            MainForm.getInstance().drawEventDispatcher.registerHandler(this);
+            registerHandlers();
             hotbar = new Inventory(10);
             hotbar.addItem(ItemTool.createPickaxe(), 1);
             hotbar.addItem(new ItemBow(), 1);
             hotbar.addItem(new ItemSword(), 1);
             hotbar.addItem(BlockPrototype.torch, 50);
             hotbar.addItem(BlockPrototype.furnace, 1);
+        }
+        public void registerHandlers() {
+            MainForm.getInstance().KeyDown += new System.Windows.Forms.KeyEventHandler(Player_KeyDown);
+            MainForm.getInstance().KeyUp += new System.Windows.Forms.KeyEventHandler(Player_KeyUp);
+            MainForm.getInstance().KeyPress += new KeyPressEventHandler(Player_KeyPress);
+            MainForm.getInstance().drawEventDispatcher.registerHandler(this);
         }
         void Player_KeyPress(object sender, KeyPressEventArgs e) {
             if (e.KeyChar == (char)Keys.Space) {

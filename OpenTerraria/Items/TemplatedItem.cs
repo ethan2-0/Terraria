@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace OpenTerraria.Items {
+    [Serializable]
     public class TemplatedItem : Item {
         int maxStack;
         public TemplatedItem(String name, String imagename, int maxStack) : base(name, imagename) {

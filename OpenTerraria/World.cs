@@ -9,6 +9,7 @@ using OpenTerraria.Entities;
 using OpenTerraria.Cave;
 
 namespace OpenTerraria {
+    [Serializable]
     public class World {
         public Block[][] blocks;
         /// <summary>

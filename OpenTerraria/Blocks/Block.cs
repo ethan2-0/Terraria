@@ -7,6 +7,7 @@ using OpenTerraria.Entities;
 using System.Windows.Forms;
 
 namespace OpenTerraria.Blocks {
+    [Serializable]
     public class Block : HandlerForEvent{
         public BlockPrototype prototype;
         public Bitmap image;

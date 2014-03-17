@@ -6,6 +6,7 @@ using System.Drawing;
 using OpenTerraria.Items;
 
 namespace OpenTerraria {
+    [Serializable]
     public class Inventory {
         public ItemInInventory[] items;
         public InventoryDrawer drawer;

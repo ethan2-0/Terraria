@@ -6,6 +6,7 @@ using System.Drawing;
 using OpenTerraria.Blocks;
 
 namespace OpenTerraria.Items {
+    [Serializable]
     public class ItemTool : Item {
         String toolType;
         public ItemTool(String name, String imagename, String toolType) : base(name, imagename) {

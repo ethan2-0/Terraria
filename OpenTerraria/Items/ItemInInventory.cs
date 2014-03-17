@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing;
 
 namespace OpenTerraria.Items {
+    [Serializable]
     public class ItemInInventory {
         public InventoryItem item;
         public int count;

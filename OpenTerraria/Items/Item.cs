@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing;
 
 namespace OpenTerraria.Items {
+    [Serializable]
     public abstract class Item : InventoryItem {
         String name;
         String imageName;

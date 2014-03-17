@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing;
 
 namespace OpenTerraria.Entities {
+    [Serializable]
     public abstract class Entity {
         public Bitmap image;
         public Point location;

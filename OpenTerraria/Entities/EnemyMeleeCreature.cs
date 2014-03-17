@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing;
 
 namespace OpenTerraria.Entities {
+    [Serializable]
     public class EnemyMeleeCreature : Creature {
         public Entity entityBeingTracked = null;
         public EnemyMeleeCreature(String imageName, Point location, Size hitBox, int inventorySize)

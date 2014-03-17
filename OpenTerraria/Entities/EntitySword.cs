@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing;
 
 namespace OpenTerraria.Entities {
+    [Serializable]
     public class EntitySword : Entity {
         private List<Entity> entitiesHurt;
         public Entity thrownBy;

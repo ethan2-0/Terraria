@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing;
 
 namespace OpenTerraria.Blocks {
+    [Serializable]
     public class BlockPrototypeFurnace : BlockPrototype {
         public BlockPrototypeFurnace(String imageName, String id, String name, bool solid, int maxStack)
             : base(imageName, id, name, solid, maxStack) {

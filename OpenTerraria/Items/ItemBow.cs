@@ -6,6 +6,7 @@ using OpenTerraria.Entities;
 using System.Drawing;
 
 namespace OpenTerraria.Items {
+    [Serializable]
     public class ItemBow : ItemTool {
         public ItemBow() : base("Bow", "bow.png", "visualstudio2013") {
 

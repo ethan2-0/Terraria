@@ -6,6 +6,7 @@ using System.Drawing;
 using OpenTerraria.Items;
 
 namespace OpenTerraria {
+    [Serializable]
     public class InventoryDrawer {
         Inventory inventory;
         public Dictionary<int, Point> lastRenderedPositions;

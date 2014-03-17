@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace OpenTerraria.Items {
+    [Serializable]
     public class ItemTemplate {
         #region Declaring constant items
         public static ItemTemplate stick = new ItemTemplate("Stick", "stick.png", 255);

@@ -7,6 +7,7 @@ using OpenTerraria.Items;
 using System.Windows.Forms;
 
 namespace OpenTerraria.Blocks {
+    [Serializable]
     public class BlockFurnace : Block {
         public CraftingManager craftingManager;
         public bool craftingWindowShown = false;

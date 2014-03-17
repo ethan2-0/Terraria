@@ -7,6 +7,7 @@ using OpenTerraria.Items;
 using OpenTerraria.Entities;
 
 namespace OpenTerraria.Blocks {
+    [Serializable]
     public class BlockPrototype : InventoryItem {
         #region Declaring constant BlockPrototypes
         public static BlockPrototype grass = new BlockPrototype("grass.png", "OpenTerraria:Grass", "Grass", true, 999);

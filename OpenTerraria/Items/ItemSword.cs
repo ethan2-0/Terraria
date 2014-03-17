@@ -6,6 +6,7 @@ using OpenTerraria.Entities;
 using System.Drawing;
 
 namespace OpenTerraria.Items {
+    [Serializable]
     public class ItemSword : ItemTool {
         public ItemSword() : base("Sword", "sword.png", "visualstudio2013") {
             

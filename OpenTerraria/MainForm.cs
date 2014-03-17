@@ -11,6 +11,8 @@ using System.Runtime.InteropServices;
 using OpenTerraria.Items;
 using OpenTerraria.Blocks;
 using OpenTerraria.Entities;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace OpenTerraria {
     public partial class MainForm : Form {
@@ -40,6 +42,7 @@ namespace OpenTerraria {
         public static Random random;
         public static Bitmap background;
         public bool craftingShown = false;
+        public bool working = false;
         public MainForm() {
             random = new Random();
             damageIndicators = new List<DamageIndicator>();
@@ -227,8 +230,15 @@ namespace OpenTerraria {
                 return;
             }
             try {
+                //Updating components
                 PausePanel.Visible = !GameTimer.Enabled;
                 PausePanel.Left = this.Width / 2 - PausePanel.Width / 2;
+                WorkingBar.Width = this.Width;
+                WorkingBar.Visible = working;
+                if (working) {
+                    return;
+                }
+
                 totalRenders++;
                 //Bitmap b = new Bitmap(this.Width, this.Height);
                 //Graphics g = Graphics.FromImage(b);
@@ -389,6 +399,65 @@ namespace OpenTerraria {
 
         private void label2_Click(object sender, EventArgs e) {
             Application.Exit();
+        }
+        public void serializeGame() {
+            Thread thread = new Thread(new ThreadStart(serializeGameThread));
+            thread.Start();
+        }
+        public void serializeGameThread() {
+            working = true;
+            String saveFileLocation = Reference.executablePath + "save.bin";
+            BinaryFormatter formatter = new BinaryFormatter();
+            Object[] objects = new Object[3];
+            objects[0] = world;
+            objects[1] = entities;
+            objects[2] = inventories;
+            FileStream fs = null;
+            try {
+                fs = new FileStream(saveFileLocation, FileMode.Create);
+                formatter.Serialize(fs, objects);
+            } catch (Exception e) {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
+            } finally {
+                fs.Close();
+            }
+            working = false;
+        }
+        public void unserializeGame() {
+            Thread thread = new Thread(new ThreadStart(unserializeGameThread));
+            thread.Start();
+        }
+        public void unserializeGameThread() {
+            working = true;
+            String saveFileLocation = Reference.executablePath + "save.bin";
+            FileStream fs = null;
+            try {
+                fs = new FileStream(saveFileLocation, FileMode.Open);
+                BinaryFormatter formatter = new BinaryFormatter();
+                Object[] objects = (Object[]) formatter.Deserialize(fs);
+                world = (World)objects[0];
+                entities = (List<Entity>)objects[1];
+                inventories = (List<Inventory>)objects[2];
+                foreach (Entity entity in entities) {
+                    if (entity is Player) { //It's the player!
+                        player = (Player) entity;
+                    }
+                }
+                player.registerHandlers();
+            } catch (Exception e) {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
+            } finally {
+                fs.Close();
+            }
+            working = false;
+        }
+
+        private void label3_Click(object sender, EventArgs e) {
+            serializeGame();
+        }
+
+        private void label4_Click(object sender, EventArgs e) {
+            unserializeGame();
         }
     }
 }
