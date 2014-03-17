@@ -227,6 +227,8 @@ namespace OpenTerraria {
                 return;
             }
             try {
+                PausePanel.Visible = !GameTimer.Enabled;
+                PausePanel.Left = this.Width / 2 - PausePanel.Width / 2;
                 totalRenders++;
                 //Bitmap b = new Bitmap(this.Width, this.Height);
                 //Graphics g = Graphics.FromImage(b);
@@ -306,12 +308,7 @@ namespace OpenTerraria {
                     indicator.draw(offg);
                 }
                 if (!GameTimer.Enabled) {
-                    Size pauseMenuSize = new Size(200, 300);
-                    Point pauseMenuLocation = new Point(this.Width / 2 - pauseMenuSize.Width / 2, this.Height / 3 - pauseMenuSize.Height / 2);
-                    offg.FillRectangle(createBrush(Reference.guiColor), new Rectangle(pauseMenuLocation, pauseMenuSize));
-                    Point pausedLocation = Util.addPoints(pauseMenuLocation, new Point((int)(pauseMenuSize.Width / 2 - offg.MeasureString("Paused", getNormalFont(14)).Width / 2), 25));
-                    offg.DrawString("Paused", getNormalFont(14), createBrush(Color.White), pausedLocation);
-
+                    
                 }
                 //Have all the external drawers do their drawing thing
                 drawEventDispatcher.dispatch();
@@ -388,6 +385,10 @@ namespace OpenTerraria {
 
         private void RenderTimer_Tick(object sender, EventArgs e) {
             paint();
+        }
+
+        private void label2_Click(object sender, EventArgs e) {
+            Application.Exit();
         }
     }
 }
