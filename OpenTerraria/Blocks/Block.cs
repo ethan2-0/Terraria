@@ -10,14 +10,12 @@ namespace OpenTerraria.Blocks {
     [Serializable]
     public class Block : HandlerForEvent{
         public BlockPrototype prototype;
-        public Bitmap image;
         public Point location;
         public int lightLevel;
         public int emittedLightLevel;
         public Block(BlockPrototype prototype, Point location) {
             this.prototype = prototype;
             this.location = location;
-            this.image = prototype.getStartingImage();
             this.emittedLightLevel = prototype.emittedLightLevel;
             if (prototype.emittedLightLevel > 0) { //We emit light!
                 LightingEngine.fullLightingUpdateEventDispatcher.registerHandler(this);
@@ -31,8 +29,8 @@ namespace OpenTerraria.Blocks {
             Point p = new Point(location.X / 20, location.Y / 20);
             return p;
         }
-        public void handle(EventDispatcher dispatcher) {
-            if (dispatcher == LightingEngine.fullLightingUpdateEventDispatcher) { //We're done loading!
+        public virtual void handle(EventDispatcher dispatcher) {
+            if (dispatcher == LightingEngine.fullLightingUpdateEventDispatcher) { //Lighting update
                 updateLighting();
             }
         }
@@ -83,14 +81,11 @@ namespace OpenTerraria.Blocks {
                 return;
             }
             Point renderLocation = Util.subtractPoints(location, MainForm.getInstance().viewOffset);
-            g.DrawImage(image, renderLocation);
+            g.DrawImage(getImage(), renderLocation);
             if (lightLevel > 10) {
                 int i;
             }
             Color color = Color.FromArgb((int) (255 - (((double) lightLevel) / 30 * 255)), 0, 0, 0);
-            if (prototype == BlockPrototype.oreCoal) {
-                int i;
-            }
             g.FillRectangle(MainForm.createBrush(color), new Rectangle(renderLocation, new Size(20, 20)));
         }
         public static Block createNewBlock(BlockPrototype prototype, Point location) {
@@ -100,7 +95,7 @@ namespace OpenTerraria.Blocks {
             return 999;
         }
         public virtual Bitmap getImage() {
-            return prototype.getStartingImage();
+            return prototype.getImage();
         }
         public virtual String getName() {
             return prototype.name;

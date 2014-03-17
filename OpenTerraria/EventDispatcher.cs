@@ -5,7 +5,7 @@ using System.Text;
 
 namespace OpenTerraria {
     public class EventDispatcher {
-        List<HandlerForEvent> handlers;
+        public List<HandlerForEvent> handlers;
         public EventDispatcher() {
             handlers = new List<HandlerForEvent>();
         }

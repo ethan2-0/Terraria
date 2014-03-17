@@ -88,7 +88,7 @@ namespace OpenTerraria.Blocks {
             if (block == null) {
                 return;
             }
-            if (block.prototype == BlockPrototype.air) {
+            if (block.prototype.id == "OpenTerraria:Air") {
                 w.blocks[cursorBlock.X][cursorBlock.Y].prepareForRemoval();
                 w.blocks[cursorBlock.X][cursorBlock.Y] = Block.createNewBlock(this, new Point(cursorBlock.X * 20, cursorBlock.Y * 20));
                 w.updateSkyLightForColumn(cursorBlock.X);

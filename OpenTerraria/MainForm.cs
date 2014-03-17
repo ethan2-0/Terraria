@@ -444,6 +444,11 @@ namespace OpenTerraria {
                     }
                 }
                 player.registerHandlers();
+                LightingEngine.fullLightingUpdateEventDispatcher.handlers.Clear();
+                foreach (Block b in world.blockList) {
+                    b.setEmittedLightLevel(b.emittedLightLevel);
+                }
+                LightingEngine.doFullLightingUpdate();
             } catch (Exception e) {
                 System.Diagnostics.Debug.WriteLine(e.ToString());
             } finally {
