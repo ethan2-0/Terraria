@@ -8,8 +8,8 @@ namespace OpenTerraria.Entities {
     [Serializable]
     public class EnemyMeleeCreature : Creature {
         public Entity entityBeingTracked = null;
-        public EnemyMeleeCreature(String imageName, Point location, Size hitBox, int inventorySize)
-            : base(imageName, location, hitBox, inventorySize) {
+        public EnemyMeleeCreature(String imageName, Point location, Size hitBox, int inventorySize, String name)
+            : base(imageName, location, hitBox, inventorySize, name) {
 
         }
         public override void update() {

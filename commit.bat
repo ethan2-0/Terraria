@@ -6,6 +6,8 @@ copy OpenTerraria.Launcher\dist\org.eclipse.egit.github.core-2.1.5.jar OpenTerra
 echo Creating update zip...
 echo Say Yes to the prompt
 del Bin\*
+echo Deleting unneccisary files...
+del OpenTerraria\bin\Debug\save.bin
 echo Copying files...
 xcopy OpenTerraria\bin\Debug Bin
 xcopy OpenTerraria\bin\Debug\images Bin\images
@@ -23,4 +25,5 @@ copy Bin\updatezip.zip .
 echo Git stuff...
 git add -A
 git commit -m %1
+echo You will be prompted for your username and password.
 git push -u origin master

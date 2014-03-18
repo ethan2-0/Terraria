@@ -34,6 +34,10 @@ namespace OpenTerraria.Blocks {
             Recepie recepie1 = new Recepie(input1, output1);
             recepies.Add(recepie1);
 
+            Dictionary<InventoryItem, int> input5 = new Dictionary<InventoryItem, int>();
+            input5.Add(BlockPrototype.ironOre, 1);
+            recepies.Add(new Recepie(input5, new KeyValuePair<InventoryItem, int>(ItemTemplate.ironBar.createNew(), 1)));
+
             craftingManager = new CraftingManager(recepies);
         }
         public override void use() {

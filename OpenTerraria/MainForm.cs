@@ -34,6 +34,10 @@ namespace OpenTerraria {
         public List<DamageIndicator> damageIndicators;
         Bitmap cursor;
         public EventDispatcher drawEventDispatcher = new EventDispatcher();
+        /// <summary>
+        /// Obsolete.
+        /// </summary>
+        [Obsolete]
         public EventDispatcher doneLoadingEventDispatcher = new EventDispatcher();
         public long totalRenders = 0;
         public CraftingManager inventoryCraftingManager;
@@ -310,6 +314,15 @@ namespace OpenTerraria {
                             }
                         } catch (IndexOutOfRangeException e) {
                             continue;
+                        }
+                    }
+                }
+                //Entity tooltip
+                foreach (Entity e in entities) {
+                    if (e is Creature) {
+                        if (new Rectangle(e.location, e.hitBox).Contains(getCursorWorldLocation())) {
+                            Creature c = (Creature)e;
+                            offg.DrawString(c.name + ": " + c.health + "/" + c.getMaxHealth(), getNormalFont(13), createBrush(Color.DarkOrange), getCursorPos());
                         }
                     }
                 }

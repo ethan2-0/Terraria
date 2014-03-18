@@ -136,6 +136,8 @@ namespace OpenTerraria {
                     } else {
                         if (random.Next(40) > 38) {
                             blocks[i] = BlockPrototype.oreCoal;
+                        } else if (random.Next(100) > 98) {
+                            blocks[i] = BlockPrototype.ironOre;
                         } else {
                             blocks[i] = BlockPrototype.stone;
                         }

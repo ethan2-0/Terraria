@@ -14,7 +14,7 @@ namespace OpenTerraria.Entities {
         public Inventory hotbar;
         public int hotbarSelectedIndex = 1;
         public String swordSide = "";
-        public Player(Point location) : base("player.png", location, new Size(20, 40), 40) {
+        public Player(Point location) : base("player.png", location, new Size(20, 40), 40, "Player") {
             registerHandlers();
             hotbar = new Inventory(10);
             hotbar.addItem(ItemTool.createPickaxe(), 1);
@@ -22,6 +22,7 @@ namespace OpenTerraria.Entities {
             hotbar.addItem(new ItemSword(), 1);
             hotbar.addItem(BlockPrototype.torch, 50);
             hotbar.addItem(BlockPrototype.furnace, 1);
+            hotbar.addItem(BlockPrototype.computer, 1);
         }
         public void registerHandlers() {
             MainForm.getInstance().KeyDown += new System.Windows.Forms.KeyEventHandler(Player_KeyDown);
@@ -86,6 +87,13 @@ namespace OpenTerraria.Entities {
                     g.DrawImage(Reference.getImage("sword.png"), Util.addPoints(renderLocation, new Point(15, -5)));
                 }
                 g.Transform = new Matrix();
+            }
+            if (occasionalTicks == 0) {
+                if (health < getMaxHealth()) {
+                    if (Cave.CaveGenerator.random.Next(50) > 45) {
+                        health++;
+                    }
+                }
             }
         }
     }

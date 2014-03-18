@@ -7,3 +7,4 @@ C:\Documents and Settings\Ethan\my documents\visual studio 2010\Projects\OpenTer
 C:\Documents and Settings\Ethan\my documents\visual studio 2010\Projects\OpenTerraria\OpenTerraria\obj\x86\Release\GenerateResource.write.1.tlog
 C:\Documents and Settings\Ethan\my documents\visual studio 2010\Projects\OpenTerraria\OpenTerraria\obj\x86\Release\OpenTerraria.exe
 C:\Documents and Settings\Ethan\my documents\visual studio 2010\Projects\OpenTerraria\OpenTerraria\obj\x86\Release\OpenTerraria.pdb
+C:\Documents and Settings\Ethan\my documents\visual studio 2010\Projects\OpenTerraria\OpenTerraria\obj\x86\Release\OpenTerraria.LoadingForm.resources

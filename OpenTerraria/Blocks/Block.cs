@@ -13,12 +13,28 @@ namespace OpenTerraria.Blocks {
         public Point location;
         public int lightLevel;
         public int emittedLightLevel;
+        public bool registeredLightingUpdate = false;
         public Block(BlockPrototype prototype, Point location) {
             this.prototype = prototype;
             this.location = location;
             this.emittedLightLevel = prototype.emittedLightLevel;
             if (prototype.emittedLightLevel > 0) { //We emit light!
                 LightingEngine.fullLightingUpdateEventDispatcher.registerHandler(this);
+            }
+            MainForm.getInstance().Load += new EventHandler(Block_Load);
+        }
+
+        void Block_Load(object sender, EventArgs e) {
+            MainForm.getInstance().GameTimer.Tick += new EventHandler(GameTimer_Tick);
+        }
+
+        void GameTimer_Tick(object sender, EventArgs e) {
+            if (!registeredLightingUpdate && prototype.emittedLightLevel > 0) { //We emit light!
+                LightingEngine.fullLightingUpdateEventDispatcher.registerHandler(this);
+                registeredLightingUpdate = true;
+            } else if(registeredLightingUpdate) {
+                LightingEngine.fullLightingUpdateEventDispatcher.unregisterHandler(this);
+                registeredLightingUpdate = false;
             }
         }
         public Point getWorldLocation() {
@@ -54,7 +70,7 @@ namespace OpenTerraria.Blocks {
                     }
                 }
             } else {
-                LightingEngine.fullLightingUpdateEventDispatcher.unregisterHandler(this);
+                //LightingEngine.fullLightingUpdateEventDispatcher.unregisterHandler(this);
             }
         }
         public virtual void setEmittedLightLevel(int level) {
