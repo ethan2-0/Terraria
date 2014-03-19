@@ -33,7 +33,7 @@ namespace OpenTerraria.Entities {
             MainForm.getInstance().entities.Remove(this);
         }
         public virtual void jump() {
-            if (isOnGround) {
+            if (ticksSinceOnGround <= 5) {
                 momentum.Y = -8;
             }
         }
