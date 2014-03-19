@@ -18,6 +18,9 @@ namespace OpenTerraria {
         public static Point convertToPoint(PointF p) {
             return new Point((int)p.X, (int)p.Y);
         }
+        public static double distanceBetween(Point p1, Point p2) {
+            return Math.Sqrt(Math.Pow(Math.Abs(p1.X - p2.X), 2) + Math.Pow(Math.Abs(p1.Y - p2.Y), 2));
+        }
         public static int indexOf(Object o, List<Object> list) {
             for (int i = 0; i < list.Count; i++) {
                 if (list[i] == o) {

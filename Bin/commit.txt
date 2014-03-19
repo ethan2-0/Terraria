@@ -1,1 +1,1 @@
-"Bugfixes" 
+"Range limit on pickaxes and block placing [STABLE]" 

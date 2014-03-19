@@ -15,7 +15,7 @@ namespace OpenTerraria.Blocks {
         public static BlockPrototype stone = new BlockPrototype("stone.png", "OpenTerraria:Stone", "Stone", true, 999);
         public static BlockPrototype dirt = new BlockPrototype("dirt.png", "OpenTerraria:Dirt", "Dirt", true, 999);
         public static BlockPrototype leaves = new BlockPrototype("leaves.png", "OpenTerraria:Leaves", "Leaves", false, 999);
-        public static BlockPrototype log = new BlockPrototype("log.png", "OpenTerraria:Log", "Wood", true, 999);
+        public static BlockPrototype log = new BlockPrototype("log.png", "OpenTerraria:Log", "Wood", false, 999);
         public static BlockPrototype planks = new BlockPrototype("planks.png", "OpenTerraria:Planks", "Wooden Planks", true, 999);
         public static BlockPrototype oreCoal = new BlockPrototype("coalOre.png", "OpenTerraria:CoalOre", "Coal Ore", true, 255);
         public static BlockPrototype torch = new BlockPrototype("torch.png", "OpenTerraria:Torch", "Torch", false, 499);
@@ -90,6 +90,9 @@ namespace OpenTerraria.Blocks {
             if (block == null) {
                 return;
             }
+            if(Util.distanceBetween(block.location, mainform.player.location) > 200) {
+                return;
+            }
             if (block.prototype.id == "OpenTerraria:Air") {
                 w.blocks[cursorBlock.X][cursorBlock.Y].prepareForRemoval();
                 w.blocks[cursorBlock.X][cursorBlock.Y] = Block.createNewBlock(this, new Point(cursorBlock.X * 20, cursorBlock.Y * 20));
@@ -97,9 +100,7 @@ namespace OpenTerraria.Blocks {
             }
             Inventory inventory = MainForm.getInstance().getParentInventory(item);
             inventory.removeAmount(this, 1);
-            //if (emittedLightLevel > 0) {
-                LightingEngine.doFullLightingUpdate(false);
-            //}
+            LightingEngine.doFullLightingUpdate(false);
         }
         public virtual Block createNew(Point location) {
             return new Block(this, location);

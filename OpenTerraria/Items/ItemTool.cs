@@ -21,6 +21,9 @@ namespace OpenTerraria.Items {
             Point cursorLocation = MainForm.getInstance().getCursorBlockLocation();
             if(cursorLocation.X < instance.world.blocks.Count() && cursorLocation.Y < instance.world.blocks[5].Count()) {
                 if (instance.world.getBlockAt(cursorLocation.X, cursorLocation.Y) != null && instance.world.getBlockAt(cursorLocation.X, cursorLocation.Y).prototype.breakableBy == toolType) {
+                    if(Util.distanceBetween(MainForm.getInstance().getCursorWorldLocation(), MainForm.getInstance().player.location) > 200) {
+                        return;
+                    }
                     instance.player.inventory.addItem(instance.world.blocks[cursorLocation.X][cursorLocation.Y].prototype, 1);
                     bool shouldDoFullUpdate = false;
                     shouldDoFullUpdate = true;
