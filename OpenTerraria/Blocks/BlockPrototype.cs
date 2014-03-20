@@ -35,8 +35,17 @@ namespace OpenTerraria.Blocks {
         private int maxStackSize;
         private Bitmap startingImage;
         public String name;
+        /// <summary>
+        /// The tool the block is breakable by. Blocks that are supposed to be
+        /// unbreakable have "visualstudio2010" in this feild. Tools that are
+        /// not supposed to break anything have "visualstudio2013" in this feild.
+        /// </summary>
         public String breakableBy = "pickaxe";
         public bool solid;
+        /// <summary>
+        /// The hardness of the block. Number of hits it can take.
+        /// </summary>
+        public int hardness;
         /// <summary>
         /// The emitted light level. Weird things could happen if it gets over 15.
         /// </summary>
@@ -46,12 +55,13 @@ namespace OpenTerraria.Blocks {
         /// </summary>
         /// <param name="imageName">The image path, including .png. For example, grass.png.</param>
         /// <param name="id">The ID of the block. For example, OpenTerraria:Grass. Case sensitive.</param>
-        public BlockPrototype(String imageName, String id, String name, bool solid, int maxStack) {
+        public BlockPrototype(String imageName, String id, String name, bool solid, int maxStack, int hardness = 20) {
             this.id = id;
             this.startingImage = Reference.getImage(imageName);
             this.name = name;
             this.solid = solid;
             this.maxStackSize = maxStack;
+            this.hardness = hardness;
         }
         public String getID() {
             return id;

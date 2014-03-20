@@ -47,6 +47,7 @@ namespace OpenTerraria {
         public static Bitmap background;
         public bool craftingShown = false;
         public bool working = false;
+        public bool mouseDown = false;
         public MainForm() {
             random = new Random();
             damageIndicators = new List<DamageIndicator>();
@@ -81,6 +82,11 @@ namespace OpenTerraria {
             input4.Add(BlockPrototype.oreCoal, 1);
             recepies.Add(new Recepie(input4, new KeyValuePair<InventoryItem, int>(BlockPrototype.torch, 4)));
 
+            Dictionary<InventoryItem, int> input5 = new Dictionary<InventoryItem, int>();
+            input5.Add(ItemTemplate.stick.createNew(), 2);
+            input5.Add(ItemTemplate.ironBar.createNew(), 4);
+            recepies.Add(new Recepie(input4, new KeyValuePair<InventoryItem, int>(ItemTool.createPickaxe(PickaxeType.PICKAXE_IRON), 1)));
+
             inventoryCraftingManager = new CraftingManager(recepies);
 
             this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
@@ -90,8 +96,18 @@ namespace OpenTerraria {
             this.KeyPress += new KeyPressEventHandler(MainForm_KeyPress);
             this.MouseClick += new MouseEventHandler(MainForm_MouseClick);
             this.MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
+            this.MouseDown += new MouseEventHandler(MainForm_MouseDown);
+            this.MouseUp += new MouseEventHandler(MainForm_MouseUp);
 
             LightingEngine.doFullLightingUpdate();
+        }
+
+        void MainForm_MouseUp(object sender, MouseEventArgs e) {
+            mouseDown = false;
+        }
+
+        void MainForm_MouseDown(object sender, MouseEventArgs e) {
+            mouseDown = true;
         }
 
         public void MainForm_MouseWheel(object sender, MouseEventArgs e) {
@@ -139,8 +155,6 @@ namespace OpenTerraria {
             return null;
         }
         void MainForm_MouseClick(object sender, MouseEventArgs e) {
-            //First try to use the item on the hotbar
-            
             //See if the owner of the click is an Inventory
             bool foundIt = false;
             foreach (Inventory inventory in inventories) {

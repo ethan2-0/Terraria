@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using OpenTerraria.Entities;
 using System.Drawing;
+using OpenTerraria.Blocks;
 
 namespace OpenTerraria.Items {
     [Serializable]
     public class ItemSword : ItemTool {
-        public ItemSword() : base("Sword", "sword.png", "visualstudio2013") {
+        public ItemSword() : base("Sword", "sword.png", "visualstudio2013", PickaxeType.PICKAXE_STARTING) {
             
         }
         public override void use(ItemInInventory item) {

@@ -17,7 +17,7 @@ namespace OpenTerraria.Entities {
         public Player(Point location) : base("player.png", location, new Size(20, 40), 40, "Player") {
             registerHandlers();
             hotbar = new Inventory(10);
-            hotbar.addItem(ItemTool.createPickaxe(), 1);
+            hotbar.addItem(ItemTool.createPickaxe(PickaxeType.PICKAXE_STARTING), 1);
             hotbar.addItem(new ItemBow(), 1);
             hotbar.addItem(new ItemSword(), 1);
             hotbar.addItem(BlockPrototype.torch, 50);

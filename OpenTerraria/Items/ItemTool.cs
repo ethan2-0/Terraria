@@ -8,9 +8,27 @@ using OpenTerraria.Blocks;
 namespace OpenTerraria.Items {
     [Serializable]
     public class ItemTool : Item {
-        String toolType;
-        public ItemTool(String name, String imagename, String toolType) : base(name, imagename) {
+        public String toolType;
+        public PickaxeType type;
+        public ItemTool(String name, String imagename, String toolType, PickaxeType type) : base(type.name + " " + name, imagename) {
             this.toolType = toolType;
+            this.type = type;
+            MainForm.getInstance().Load += new EventHandler(ItemTool_Load);
+        }
+
+        void ItemTool_Load(object sender, EventArgs e) {
+            MainForm.getInstance().GameTimer.Tick += new EventHandler(GameTimer_Tick);
+        }
+
+        void GameTimer_Tick(object sender, EventArgs e) {
+            if (MainForm.getInstance().mouseDown) {
+                if (MainForm.getInstance().movingItem != null && this == MainForm.getInstance().movingItem.item) {
+                    MainForm.getInstance().movingItem.use();
+                }
+                if (this == MainForm.getInstance().player.hotbar.items[MainForm.getInstance().player.hotbarSelectedIndex].item) {
+                    MainForm.getInstance().player.hotbar.items[MainForm.getInstance().player.hotbarSelectedIndex].use();
+                }
+            }
         }
         public override int getMaxStackSize() {
             return 1;
@@ -22,6 +40,10 @@ namespace OpenTerraria.Items {
             if(cursorLocation.X < instance.world.blocks.Count() && cursorLocation.Y < instance.world.blocks[5].Count()) {
                 if (instance.world.getBlockAt(cursorLocation.X, cursorLocation.Y) != null && instance.world.getBlockAt(cursorLocation.X, cursorLocation.Y).prototype.breakableBy == toolType) {
                     if(Util.distanceBetween(MainForm.getInstance().getCursorWorldLocation(), MainForm.getInstance().player.location) > 200) {
+                        return;
+                    }
+                    if (instance.world.getBlockAt(cursorLocation.X, cursorLocation.Y).prototype.hardness > instance.world.getBlockAt(cursorLocation.X, cursorLocation.Y).brokenness) {
+                        instance.world.getBlockAt(cursorLocation.X, cursorLocation.Y).brokenness += type.hardness;
                         return;
                     }
                     instance.player.inventory.addItem(instance.world.blocks[cursorLocation.X][cursorLocation.Y].prototype, 1);
@@ -37,8 +59,8 @@ namespace OpenTerraria.Items {
                 }
             }
         }
-        public static ItemTool createPickaxe() {
-            return new ItemTool("Pickaxe", "pickaxe.png", "pickaxe");
+        public static ItemTool createPickaxe(PickaxeType type) {
+            return new ItemTool("Pickaxe", "pickaxe.png", "pickaxe", type);
         }
     }
 }

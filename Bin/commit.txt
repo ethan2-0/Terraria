@@ -1,1 +1,1 @@
-"Range limit on pickaxes and block placing [STABLE]" 
+"Blocks now take time to break" 

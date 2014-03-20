@@ -14,6 +14,7 @@ namespace OpenTerraria.Blocks {
         public int lightLevel;
         public int emittedLightLevel;
         public bool registeredLightingUpdate = false;
+        public int brokenness = 0;
         public Block(BlockPrototype prototype, Point location) {
             this.prototype = prototype;
             this.location = location;
@@ -39,7 +40,7 @@ namespace OpenTerraria.Blocks {
         }
         public Point getWorldLocation() {
             if (location.X % 20 != 0 || location.Y % 20 != 0) {
-                //We're mn not on the grid.
+                //We're not on the grid.
                 throw new Exception("I'm not on the grid!");
             }
             Point p = new Point(location.X / 20, location.Y / 20);
@@ -101,8 +102,14 @@ namespace OpenTerraria.Blocks {
             if (lightLevel > 10) {
                 int i;
             }
-            Color color = Color.FromArgb((int) (255 - (((double) lightLevel) / 30 * 255)), 0, 0, 0);
+            double newBrokenness = (((double)brokenness) / ((double)prototype.hardness));
+            newBrokenness = (newBrokenness > 255 ? 255 : newBrokenness);
+            Color color = Color.FromArgb((int)(255 - (((double)lightLevel) / 30 * 255)), 0, 0, 0);
             g.FillRectangle(MainForm.createBrush(color), new Rectangle(renderLocation, new Size(20, 20)));
+            if (newBrokenness > 0) {
+                Color color2 = Color.FromArgb((int)(newBrokenness * 255), 255, 0, 0);
+                g.FillRectangle(MainForm.createBrush(color2), new Rectangle(renderLocation, new Size(20, 20)));
+            }
         }
         public static Block createNewBlock(BlockPrototype prototype, Point location) {
             return prototype.createNew(location);
