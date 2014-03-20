@@ -15,6 +15,7 @@ namespace OpenTerraria.Blocks {
         public int emittedLightLevel;
         public bool registeredLightingUpdate = false;
         public int brokenness = 0;
+        public int occasionalTicks = 0;
         public Block(BlockPrototype prototype, Point location) {
             this.prototype = prototype;
             this.location = location;
@@ -36,6 +37,12 @@ namespace OpenTerraria.Blocks {
             } else if(registeredLightingUpdate) {
                 LightingEngine.fullLightingUpdateEventDispatcher.unregisterHandler(this);
                 registeredLightingUpdate = false;
+            }
+            occasionalTicks++;
+            if (occasionalTicks > 20) {
+                if (brokenness > 0) {
+                    brokenness--;
+                }
             }
         }
         public Point getWorldLocation() {
