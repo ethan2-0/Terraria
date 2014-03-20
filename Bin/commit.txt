@@ -1,1 +1,1 @@
-"Improved block breaking" 
+"Added ore generation, but it's not enabled by default" 

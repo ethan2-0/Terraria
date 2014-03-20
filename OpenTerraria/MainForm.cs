@@ -85,7 +85,7 @@ namespace OpenTerraria {
             Dictionary<InventoryItem, int> input5 = new Dictionary<InventoryItem, int>();
             input5.Add(ItemTemplate.stick.createNew(), 2);
             input5.Add(ItemTemplate.ironBar.createNew(), 4);
-            recepies.Add(new Recepie(input4, new KeyValuePair<InventoryItem, int>(ItemTool.createPickaxe(PickaxeType.PICKAXE_IRON), 1)));
+            recepies.Add(new Recepie(input5, new KeyValuePair<InventoryItem, int>(ItemTool.createPickaxe(PickaxeType.PICKAXE_IRON), 1)));
 
             inventoryCraftingManager = new CraftingManager(recepies);
 

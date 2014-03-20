@@ -110,7 +110,7 @@ namespace OpenTerraria.Blocks {
                 int i;
             }
             double newBrokenness = (((double)brokenness) / ((double)prototype.hardness));
-            newBrokenness = (newBrokenness > 255 ? 255 : newBrokenness);
+            newBrokenness = (newBrokenness > 1 ? 1 : newBrokenness);
             Color color = Color.FromArgb((int)(255 - (((double)lightLevel) / 30 * 255)), 0, 0, 0);
             g.FillRectangle(MainForm.createBrush(color), new Rectangle(renderLocation, new Size(20, 20)));
             if (newBrokenness > 0) {

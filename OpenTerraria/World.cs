@@ -11,9 +11,10 @@ using OpenTerraria.Cave;
 namespace OpenTerraria {
     [Serializable]
     public class World {
+        public static Dictionary<BlockPrototype, int> veinBlocks = new Dictionary<BlockPrototype, int>();
         public Block[][] blocks;
         /// <summary>
-        /// A list of blocks. Note that it is not 100% accurate.
+        /// A list of blocks. Note that it is not 100% accurate (although close).
         /// </summary>
         public List<Block> blockList;
         public int width, height;
@@ -134,13 +135,13 @@ namespace OpenTerraria {
                     } else if (blocksDown < 8) {
                         blocks[i] = BlockPrototype.dirt;
                     } else {
-                        if (random.Next(40) > 38) {
+                        /*if (random.Next(40) > 38) {
                             blocks[i] = BlockPrototype.oreCoal;
                         } else if (random.Next(100) > 98) {
                             blocks[i] = BlockPrototype.ironOre;
-                        } else {
+                        } else {*/
                             blocks[i] = BlockPrototype.stone;
-                        }
+                        //}
                     }
                 }
                 for (int i = 0; i < blocks.Count(); i++) {
@@ -202,6 +203,57 @@ namespace OpenTerraria {
                     }
                 }
             }*/
+            if (false) { //Ore generation is disabled
+                veinBlocks.Add(BlockPrototype.oreCoal, 3);
+                veinBlocks.Add(BlockPrototype.dirt, 10);
+                veinBlocks.Add(BlockPrototype.ironOre, 2);
+                int ind = 0;
+                LoadingForm lf = new LoadingForm();
+                lf.Show();
+                int blocksToGo = world.Count();
+                foreach (BlockPrototype[] blocks in world) {
+                    lf.setProgress("Generating Ores...", (int)((((double)ind) / ((double)blocksToGo)) * 100D));
+                    ind++;
+                    if (ind % 50 != 0) {
+                        continue;
+                    }
+                    for (int i = 0; i < blocks.Count(); i++) {
+                        if (CaveGenerator.random.Next(200) < 199) {
+                            continue;
+                        }
+                        BlockPrototype generatedOre = null;
+                        int num = CaveGenerator.random.Next(veinBlocks.Count);
+                        int k = 0;
+                        foreach (KeyValuePair<BlockPrototype, int> pair in veinBlocks) {
+                            k++;
+                            if (k >= num) {
+                                generatedOre = pair.Key;
+                                break;
+                            }
+                        }
+                        if (generatedOre == null) {
+                            continue;
+                        }
+                        if (blocks[i] == BlockPrototype.stone) {
+                            for (int j = 0; j < veinBlocks[generatedOre]; j++) {
+                                int xDiff = CaveGenerator.random.Next(20) - 10;
+                                int yDiff = CaveGenerator.random.Next(10) - 5;
+                                try {
+                                    //if (i < 2 || world[ind + xDiff - 1][i + yDiff] == generatedOre || world[ind + xDiff + 1][i + yDiff] == generatedOre || world[ind + xDiff][i + yDiff - 1] == generatedOre || world[ind + xDiff][i + yDiff + 1] == generatedOre) {
+                                    world[ind + xDiff][i + yDiff] = generatedOre;
+                                    /*} else {
+                                        j--;
+                                        continue;
+                                    }*/
+                                } catch (IndexOutOfRangeException e) {
+                                    break;
+                                }
+                            }
+                        }
+                        i += 25;
+                    }
+                }
+            }
             CaveGenerator.generateCaves(world);
             return world;
         }
