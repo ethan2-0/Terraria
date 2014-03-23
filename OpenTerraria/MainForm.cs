@@ -359,7 +359,9 @@ namespace OpenTerraria {
             }
         }
         public Point getCursorPos() {
-            return Util.subtractPoints(MousePosition, Util.addPoints(this.DesktopLocation, new Point(4, 30)));
+            //return Util.subtractPoints(MousePosition, Util.addPoints(this.DesktopLocation, new Point(4, 30)));
+            Point p = Cursor.Position;
+            return this.PointToClient(p);
         }
         public static Pen createPen(Color color) {
             return new Pen(createBrush(color));
