@@ -18,6 +18,7 @@ namespace OpenTerraria.Entities {
             health -= amount;
             if (amount > 0) {
                 DamageIndicator indicator = new DamageIndicator(location, amount.ToString());
+                Particle.spawnParticlesAround(Util.addPoints(location, new Point(hitBox.Width / 2, hitBox.Height / 2)), Color.FromArgb(255, 255, 38, 41), amount / 2);
             }
         }
         public override void update() {
@@ -31,6 +32,7 @@ namespace OpenTerraria.Entities {
         }
         public virtual void die() {
             MainForm.getInstance().entities.Remove(this);
+            Particle.spawnParticlesAround(Util.addPoints(location, new Point(hitBox.Width / 2, hitBox.Height / 2)), Color.FromArgb(255, 255, 38, 41), 50);
         }
         public virtual void jump() {
             if (ticksSinceOnGround <= 5) {

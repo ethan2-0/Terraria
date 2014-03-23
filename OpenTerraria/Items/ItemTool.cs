@@ -44,12 +44,16 @@ namespace OpenTerraria.Items {
                     }
                     if (instance.world.getBlockAt(cursorLocation.X, cursorLocation.Y).prototype.hardness > instance.world.getBlockAt(cursorLocation.X, cursorLocation.Y).brokenness) {
                         instance.world.getBlockAt(cursorLocation.X, cursorLocation.Y).brokenness += type.hardness;
+                        Particle.spawnParticlesAround(Util.addPoints(instance.world.blocks[cursorLocation.X][cursorLocation.Y].location, new Point(10, 10)), instance.world.blocks[cursorLocation.X][cursorLocation.Y].prototype.color, 1);
                         return;
                     }
                     instance.player.inventory.addItem(instance.world.blocks[cursorLocation.X][cursorLocation.Y].prototype, 1);
                     bool shouldDoFullUpdate = false;
                     shouldDoFullUpdate = true;
                     instance.world.blocks[cursorLocation.X][cursorLocation.Y].prepareForRemoval();
+                    DamageIndicator indicator = new DamageIndicator(instance.world.blocks[cursorLocation.X][cursorLocation.Y].location, instance.world.blocks[cursorLocation.X][cursorLocation.Y].getName());
+                    //DamageIndicator indicator2 = new DamageIndicator(instance.world.blocks[cursorLocation.X][cursorLocation.Y].location, "■", Color.Brown);
+                    Particle.spawnParticlesAround(Util.addPoints(instance.world.blocks[cursorLocation.X][cursorLocation.Y].location, new Point(10, 10)), instance.world.blocks[cursorLocation.X][cursorLocation.Y].prototype.color, 30);
                     instance.world.blocks[cursorLocation.X][cursorLocation.Y] = Block.createNewBlock(BlockPrototype.air, new Point(cursorLocation.X * 20, cursorLocation.Y * 20));
                     if (shouldDoFullUpdate) {
                         LightingEngine.doFullLightingUpdate(false);

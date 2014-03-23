@@ -1,1 +1,1 @@
-"Added ore generation, but it's not enabled by default" 
+"Added particle effects [STABLE]" 

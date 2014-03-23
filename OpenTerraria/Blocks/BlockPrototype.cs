@@ -10,17 +10,17 @@ namespace OpenTerraria.Blocks {
     [Serializable]
     public class BlockPrototype : InventoryItem {
         #region Declaring constant BlockPrototypes
-        public static BlockPrototype grass = new BlockPrototype("grass.png", "OpenTerraria:Grass", "Grass", true, 999);
-        public static BlockPrototype air = new BlockPrototype("air.png", "OpenTerraria:Air", "Air", false, 999);
-        public static BlockPrototype stone = new BlockPrototype("stone.png", "OpenTerraria:Stone", "Stone", true, 999);
-        public static BlockPrototype dirt = new BlockPrototype("dirt.png", "OpenTerraria:Dirt", "Dirt", true, 999);
-        public static BlockPrototype leaves = new BlockPrototype("leaves.png", "OpenTerraria:Leaves", "Leaves", false, 999);
-        public static BlockPrototype log = new BlockPrototype("log.png", "OpenTerraria:Log", "Wood", false, 999);
-        public static BlockPrototype planks = new BlockPrototype("planks.png", "OpenTerraria:Planks", "Wooden Planks", true, 999);
-        public static BlockPrototype oreCoal = new BlockPrototype("coalOre.png", "OpenTerraria:CoalOre", "Coal Ore", true, 255);
-        public static BlockPrototype torch = new BlockPrototype("torch.png", "OpenTerraria:Torch", "Torch", false, 499);
+        public static BlockPrototype grass = new BlockPrototype("grass.png", "OpenTerraria:Grass", "Grass", true, 999, Color.FromArgb(84, 55, 27), 10);
+        public static BlockPrototype air = new BlockPrototype("air.png", "OpenTerraria:Air", "Air", false, 999, Color.Transparent);
+        public static BlockPrototype stone = new BlockPrototype("stone.png", "OpenTerraria:Stone", "Stone", true, 999, Color.FromArgb(102, 102, 102));
+        public static BlockPrototype dirt = new BlockPrototype("dirt.png", "OpenTerraria:Dirt", "Dirt", true, 999, Color.FromArgb(84, 55, 27), 8);
+        public static BlockPrototype leaves = new BlockPrototype("leaves.png", "OpenTerraria:Leaves", "Leaves", false, 999, Color.FromArgb(32, 76, 10));
+        public static BlockPrototype log = new BlockPrototype("log.png", "OpenTerraria:Log", "Wood", false, 999, Color.FromArgb(56, 43, 26));
+        public static BlockPrototype planks = new BlockPrototype("planks.png", "OpenTerraria:Planks", "Wooden Planks", true, 999, Color.FromArgb(173, 133, 84));
+        public static BlockPrototype oreCoal = new BlockPrototype("coalOre.png", "OpenTerraria:CoalOre", "Coal Ore", true, 255, Color.FromArgb(102, 102, 102));
+        public static BlockPrototype torch = new BlockPrototype("torch.png", "OpenTerraria:Torch", "Torch", false, 499, Color.Transparent, 1);
         public static BlockPrototype furnace = new BlockPrototypeFurnace("furnace.png", "OpenTerraria:Furnace", "Furnace", true, 999);
-        public static BlockPrototype ironOre = new BlockPrototype("ironOre.png", "OpenTerraria:IronOre", "Iron Ore", true, 99);
+        public static BlockPrototype ironOre = new BlockPrototype("ironOre.png", "OpenTerraria:IronOre", "Iron Ore", true, 99, Color.FromArgb(102, 102, 102));
         public static BlockPrototype computer = new BlockPrototypeComputer("computer.png", "OpenTerraria:Computer", "Computer", false, 99);
         #endregion
         static BlockPrototype() {
@@ -50,12 +50,14 @@ namespace OpenTerraria.Blocks {
         /// The emitted light level. Weird things could happen if it gets over 15.
         /// </summary>
         public int emittedLightLevel = 0;
+        public Color color;
         /// <summary>
         /// Create a new BlockPrototype with the specified image path and name.
         /// </summary>
         /// <param name="imageName">The image path, including .png. For example, grass.png.</param>
         /// <param name="id">The ID of the block. For example, OpenTerraria:Grass. Case sensitive.</param>
-        public BlockPrototype(String imageName, String id, String name, bool solid, int maxStack, int hardness = 20) {
+        public BlockPrototype(String imageName, String id, String name, bool solid, int maxStack, Color color, int hardness = 20) {
+            this.color = color;
             this.id = id;
             this.startingImage = Reference.getImage(imageName);
             this.name = name;
