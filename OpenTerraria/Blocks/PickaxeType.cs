@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace OpenTerraria.Blocks {
+    [Serializable]
     public class PickaxeType {
         #region Declaring constant PickaxeTypes
         public static PickaxeType PICKAXE_IRON = new PickaxeType("Iron", 5);

@@ -203,7 +203,7 @@ namespace OpenTerraria {
                     }
                 }
             }*/
-            if (false) { //Ore generation is disabled
+            /*if (false) { //Ore generation is disabled
                 veinBlocks.Add(BlockPrototype.oreCoal, 3);
                 veinBlocks.Add(BlockPrototype.dirt, 10);
                 veinBlocks.Add(BlockPrototype.ironOre, 2);
@@ -244,7 +244,7 @@ namespace OpenTerraria {
                                     /*} else {
                                         j--;
                                         continue;
-                                    }*/
+                                    }* / //<-- I made this not an uncomment for technical reasons
                                 } catch (IndexOutOfRangeException e) {
                                     break;
                                 }
@@ -253,7 +253,21 @@ namespace OpenTerraria {
                         i += 25;
                     }
                 }
-            }
+            }*/
+            /*veinBlocks.Add(BlockPrototype.oreCoal, 3);
+            veinBlocks.Add(BlockPrototype.dirt, 10);
+            veinBlocks.Add(BlockPrototype.ironOre, 2);
+            for (int i = 0; i < world.Count(); i++) {
+                for (int j = 0; j < world[i].Count(); j++) {
+                    if (random.Next(100) > 98) {
+                        //Decide which block to place
+                        int total = 0;
+                        foreach (BlockPrototype prototype in veinBlocks) {
+
+                        }
+                    }
+                }
+            }*/
             CaveGenerator.generateCaves(world);
             return world;
         }

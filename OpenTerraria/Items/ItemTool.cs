@@ -25,7 +25,7 @@ namespace OpenTerraria.Items {
                 if (MainForm.getInstance().movingItem != null && this == MainForm.getInstance().movingItem.item) {
                     MainForm.getInstance().movingItem.use();
                 }
-                if (this == MainForm.getInstance().player.hotbar.items[MainForm.getInstance().player.hotbarSelectedIndex].item) {
+                if (MainForm.getInstance().player.hotbar.items[MainForm.getInstance().player.hotbarSelectedIndex].item != null && this == MainForm.getInstance().player.hotbar.items[MainForm.getInstance().player.hotbarSelectedIndex].item) {
                     MainForm.getInstance().player.hotbar.items[MainForm.getInstance().player.hotbarSelectedIndex].use();
                 }
             }
