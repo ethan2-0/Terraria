@@ -71,6 +71,8 @@
     <Compile Include="Cave\CaveGenerator.cs" />
     <Compile Include="CraftingManager.cs" />
     <Compile Include="DamageIndicator.cs" />
+    <Compile Include="Entities\Boss.cs" />
+    <Compile Include="Entities\BossWhale.cs" />
     <Compile Include="Entities\Creature.cs" />
     <Compile Include="Entities\EnemyMeleeCreature.cs" />
     <Compile Include="Entities\Entity.cs" />

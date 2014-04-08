@@ -17,6 +17,7 @@ namespace OpenTerraria.Entities {
         public void damage(int amount) {
             health -= amount;
             if (amount > 0) {
+                Reference.playSoundAsync("hit2.wav");
                 DamageIndicator indicator = new DamageIndicator(location, amount.ToString());
                 Particle.spawnParticlesAround(Util.addPoints(location, new Point(hitBox.Width / 2, hitBox.Height / 2)), Color.FromArgb(255, 255, 38, 41), amount / 2);
             }
