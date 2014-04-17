@@ -32,5 +32,8 @@ namespace OpenTerraria {
         public static int indexOf(Object o, Object[] objects) {
             return indexOf(o, new List<Object>(objects));
         }
+        public static Point absoluteValueOf(Point p) {
+            return new Point(Math.Abs(p.X), Math.Abs(p.Y));
+        }
     }
 }

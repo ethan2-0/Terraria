@@ -48,6 +48,9 @@ namespace OpenTerraria {
         public bool craftingShown = false;
         public bool working = false;
         public bool mouseDown = false;
+        public bool linux = false;
+        public bool waitingForInitialClick = false;
+        public Point cursorOffset = Point.Empty;
         public MainForm() {
             random = new Random();
             damageIndicators = new List<DamageIndicator>();
@@ -61,8 +64,26 @@ namespace OpenTerraria {
             Zombie zombie = new Zombie(Util.addPoints(player.location, new Point(50, 0)));
             Zombie zombie2 = new Zombie(Util.addPoints(player.location, new Point(100, 0)));
             Zombie zombie3 = new Zombie(Util.addPoints(player.location, new Point(150, 0)));
+
+            //Get cursor position, and ask whether or not they use a Unix-like.
+            if (false) {//MessageBox.Show("Are you running the game on a non-Windows system using the Wine compatibility layer?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes) {
+                linux = true;
+                MessageBox.Show("So that the game knows where your mouse cursor is, please click the top-left of the INSIDE of the window when the game starts. For example, if the following was the window, you would click where the ^ is." +
+                    "\n+========+" +
+                    "\n|^                    |" +
+                    "\n|                       |" +
+                    "\n|                       |" +
+                    "\n|                       |" +
+                    "\n|                       |" +
+                    "\n|                       |" +
+                    "\n+========+", "Locate your cursor");
+                waitingForInitialClick = true;
+            }
+
+            //Windows Forms stuff
             InitializeComponent();
 
+            //Initialize Recipies
             List<Recepie> recepies = new List<Recepie>();
             Dictionary<InventoryItem, int> input = new Dictionary<InventoryItem, int>();
             input.Add(BlockPrototype.log, 1);
@@ -155,6 +176,14 @@ namespace OpenTerraria {
             return null;
         }
         void MainForm_MouseClick(object sender, MouseEventArgs e) {
+            //See if we're doing the initial locating click
+            if(waitingForInitialClick) {
+                Point p = Util.subtractPoints(MousePosition, this.DesktopLocation);
+                waitingForInitialClick = false;
+                cursorOffset = Util.absoluteValueOf(Util.subtractPoints(p, e.Location)); //Get the difference between what we thought it was and what it acutally was
+                //Util.absoluteValueOf(Util.subtractPoints(e.Location, this.DesktopLocation));
+                return;
+            }
             //See if the owner of the click is an Inventory
             bool foundIt = false;
             foreach (Inventory inventory in inventories) {
@@ -360,8 +389,12 @@ namespace OpenTerraria {
         }
         public Point getCursorPos() {
             //return Util.subtractPoints(MousePosition, Util.addPoints(this.DesktopLocation, new Point(4, 30)));
-            Point p = Cursor.Position;
-            return this.PointToClient(p);
+            if (linux) {
+                return Util.subtractPoints(MousePosition, Util.addPoints(this.DesktopLocation, cursorOffset));
+            } else {
+                Point p = Cursor.Position;
+                return this.PointToClient(p);
+            }
         }
         public static Pen createPen(Color color) {
             return new Pen(createBrush(color));

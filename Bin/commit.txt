@@ -1,1 +1,1 @@
-"Updated Readme" 
+"Attempt at fixing issue #1, now even more mysterious error. This change should not be visible to the end user, as I have removed the dialog box." 
