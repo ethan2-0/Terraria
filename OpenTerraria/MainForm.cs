@@ -379,6 +379,7 @@ namespace OpenTerraria {
                 //Have all the external drawers do their drawing thing
                 drawEventDispatcher.dispatch();
                 //Finishing off the double buffering
+                //Never mind, this has been moved elsewhere...
                 graphics.DrawImage(screen, new Point(0, 0));
                 //graphics.DrawImage(b, new Point(0, 0));
                 //b.Dispose();
