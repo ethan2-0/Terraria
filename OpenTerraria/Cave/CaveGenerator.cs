@@ -25,7 +25,7 @@ namespace OpenTerraria.Cave {
                     y += random.Next(15, world[xStart].Count() / 2);
                     for (int x = xStart; x <= xEnd; x++) {
                         int rand = random.Next(3);
-                        if (rand == 2) { //There's a tendancy to go down
+                        if (rand == 2) { //There's a tendancy to go down - Not anymore (I think)
                             y--;
                         } else if(y == 1) {
                             y++;

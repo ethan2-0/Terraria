@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing;
 using OpenTerraria.Entities;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
 
 namespace OpenTerraria.Blocks {
     [Serializable]
