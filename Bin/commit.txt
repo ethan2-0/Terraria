@@ -1,1 +1,1 @@
-"Added sand and glass, but sand doesn't fall." 
+"Fixed issue #5, but introduced issue #6 in the process." 

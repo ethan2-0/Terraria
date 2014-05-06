@@ -50,13 +50,18 @@ namespace OpenTerraria.Blocks {
                 int i = 0;
             }
             if (prototype.falls) {
-                Block below = getBlockAtRelativePosition(0, 1);
+                Block below = MainForm.getInstance().world.blocks[getWorldLocation().X][getWorldLocation().Y + 1];
                 if (below.prototype.getID().Equals(BlockPrototype.air.getID())) { //There's nothing below us!
                     MainForm.getInstance().world.blocks[getWorldLocation().X][getWorldLocation().Y + 1] = this; //We go down there ...
-                    MainForm.getInstance().world.blocks[getWorldLocation().X][getWorldLocation().Y] = null; // ...and remove the existing block down there.
+                    MainForm.getInstance().world.blocks[getWorldLocation().X][getWorldLocation().Y] = BlockPrototype.air.createNew(location); //...and remove the existing block down there ...
+                    location = Util.addPoints(location, new Point(0, 20)); //... and then update our internal representation of our positon ...
+                    MainForm.getInstance().world.updateSkyLightForColumn(getWorldLocation().X);
                 }
             }
         }
+        /// <summary>
+        /// Doesn't work...?
+        /// </summary>
         public Block getBlockAtRelativePosition(int x, int y) {
             Point worldLocation = getWorldLocation();
             int newX = worldLocation.X + x;
