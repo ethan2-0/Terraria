@@ -1,1 +1,1 @@
-"Fixed issue #5, but introduced issue #6 in the process." 
+"Enabled sand generation" 

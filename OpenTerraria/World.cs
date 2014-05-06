@@ -84,7 +84,6 @@ namespace OpenTerraria {
                 if (random.Next(20) > 18) {
                     sandTime = (random.Next(10));
                 }
-                sandTime = 0;
                 if (sandTime > 0) {
                     sandTime--;
                     blocks[level] = BlockPrototype.sand;
