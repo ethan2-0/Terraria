@@ -38,6 +38,10 @@ namespace OpenTerraria.Blocks {
             input5.Add(BlockPrototype.ironOre, 1);
             recepies.Add(new Recepie(input5, new KeyValuePair<InventoryItem, int>(ItemTemplate.ironBar.createNew(), 1)));
 
+            Dictionary<InventoryItem, int> input2 = new Dictionary<InventoryItem, int>();
+            input2.Add(BlockPrototype.stone, 1);
+            recepies.Add(new Recepie(input2, new KeyValuePair<InventoryItem, int>(BlockPrototype.glass, 1)));
+
             craftingManager = new CraftingManager(recepies);
         }
         public override void use() {

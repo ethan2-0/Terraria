@@ -65,6 +65,7 @@ namespace OpenTerraria {
             Random random = new Random();
             int index = 0;
             int timesSinceLastTree = 0;
+            int sandTime = 0;
             foreach (BlockPrototype[] blocks in world) {
                 index++;
                 int rand = random.Next(18);
@@ -80,7 +81,16 @@ namespace OpenTerraria {
                 if (level < 20) {
                     level = 40;
                 }
-                blocks[level] = BlockPrototype.grass;
+                if (random.Next(20) > 18) {
+                    sandTime = (random.Next(10));
+                }
+                sandTime = 0;
+                if (sandTime > 0) {
+                    sandTime--;
+                    blocks[level] = BlockPrototype.sand;
+                } else {
+                    blocks[level] = BlockPrototype.grass;
+                }
                 int blocksDown = 0;
                 for (int i = level; i < height; i++) {
                     blocksDown++;
@@ -132,6 +142,8 @@ namespace OpenTerraria {
                         } catch (IndexOutOfRangeException e) {
                             //It happens, but we'll end up with a pretty messed up tree
                         }
+                    } else if (sandTime > 0 && blocksDown < 4 && random.Next(100) > 20) {
+                        blocks[i] = BlockPrototype.sand;
                     } else if (blocksDown < 8) {
                         blocks[i] = BlockPrototype.dirt;
                     } else {
@@ -140,7 +152,7 @@ namespace OpenTerraria {
                         } else if (random.Next(100) > 98) {
                             blocks[i] = BlockPrototype.ironOre;
                         } else {*/
-                            blocks[i] = BlockPrototype.stone;
+                        blocks[i] = BlockPrototype.stone;
                         //}
                     }
                 }
@@ -280,7 +292,7 @@ namespace OpenTerraria {
             Block[] column = blocks[across];
             int intensity = 30;
             for (int i = 0; i < column.Count(); i++) {
-                if (!column[i].prototype.solid) {
+                if (!column[i].prototype.isSolid()) {
                     column[i].setLightLevel(intensity);
                 } else {
                     intensity -= 6;
@@ -339,7 +351,7 @@ namespace OpenTerraria {
             MainForm instance = MainForm.getInstance();
             if (block != null) {
                 BlockPrototype prototype = block.getPrototype();
-                return prototype.solid;
+                return prototype.isSolid();
             } else {
                 return false;
             }

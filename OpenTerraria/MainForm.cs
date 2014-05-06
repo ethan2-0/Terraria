@@ -59,18 +59,18 @@ namespace OpenTerraria {
             instance = this;
             cursor = Reference.getImage("cursor.png");
             viewOffset = new Point(0, 0);
-            world = World.createWorld(500, 500);
             player = new Player(new Point(9000, 0));
             Zombie zombie = new Zombie(Util.addPoints(player.location, new Point(50, 0)));
             Zombie zombie2 = new Zombie(Util.addPoints(player.location, new Point(100, 0)));
             Zombie zombie3 = new Zombie(Util.addPoints(player.location, new Point(150, 0)));
 
+            //An attempt to fix Wine compatability. My theory as to why not: Using the Windows cursor position method on linux before messagebox is done.
             //Get cursor position, and ask whether or not they use a Unix-like.
             if (false) {//MessageBox.Show("Are you running the game on a non-Windows system using the Wine compatibility layer?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes) {
                 linux = true;
                 MessageBox.Show("So that the game knows where your mouse cursor is, please click the top-left of the INSIDE of the window when the game starts. For example, if the following was the window, you would click where the ^ is." +
                     "\n+========+" +
-                    "\n|^                    |" +
+                    "\n|X                   |" +
                     "\n|                       |" +
                     "\n|                       |" +
                     "\n|                       |" +
@@ -82,6 +82,8 @@ namespace OpenTerraria {
 
             //Windows Forms stuff
             InitializeComponent();
+            //Generate World
+            world = World.createWorld(500, 500);
 
             //Initialize Recipies
             List<Recepie> recepies = new List<Recepie>();

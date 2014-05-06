@@ -25,10 +25,11 @@ namespace OpenTerraria.Blocks {
                 LightingEngine.fullLightingUpdateEventDispatcher.registerHandler(this);
             }
             MainForm.getInstance().Load += new EventHandler(Block_Load);
+            MainForm.getInstance().GameTimer.Tick += new EventHandler(GameTimer_Tick);
         }
 
         void Block_Load(object sender, EventArgs e) {
-            MainForm.getInstance().GameTimer.Tick += new EventHandler(GameTimer_Tick);
+            
         }
 
         void GameTimer_Tick(object sender, EventArgs e) {
@@ -45,6 +46,22 @@ namespace OpenTerraria.Blocks {
                     brokenness--;
                 }
             }
+            if (prototype == BlockPrototype.sand) {
+                int i = 0;
+            }
+            if (prototype.falls) {
+                Block below = getBlockAtRelativePosition(0, 1);
+                if (below.prototype.getID().Equals(BlockPrototype.air.getID())) { //There's nothing below us!
+                    MainForm.getInstance().world.blocks[getWorldLocation().X][getWorldLocation().Y + 1] = this; //We go down there ...
+                    MainForm.getInstance().world.blocks[getWorldLocation().X][getWorldLocation().Y] = null; // ...and remove the existing block down there.
+                }
+            }
+        }
+        public Block getBlockAtRelativePosition(int x, int y) {
+            Point worldLocation = getWorldLocation();
+            int newX = worldLocation.X + x;
+            int newY = worldLocation.X + x;
+            return MainForm.getInstance().world.blocks[newX][newY];
         }
         public Point getWorldLocation() {
             if (location.X % 20 != 0 || location.Y % 20 != 0) {
