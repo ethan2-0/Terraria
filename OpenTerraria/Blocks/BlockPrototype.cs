@@ -11,16 +11,16 @@ namespace OpenTerraria.Blocks {
     public class BlockPrototype : InventoryItem {
         #region Declaring constant BlockPrototypes
         public static BlockPrototype grass = new BlockPrototype("grass.png", "OpenTerraria:Grass", "Grass", true, 999, Color.FromArgb(84, 55, 27), 10);
-        public static BlockPrototype air = new BlockPrototype("air.png", "OpenTerraria:Air", "Air", false, 999, Color.Transparent);
-        public static BlockPrototype glass = new BlockPrototype("glass.png", "OpenTerraria:Glass", "Glass", true, 999, Color.White, 10);
+        public static BlockPrototype air = new BlockPrototype("air.png", "OpenTerraria:Air", "Air", false, 999, Color.Transparent).setLightBlocking(false);
+        public static BlockPrototype glass = new BlockPrototype("glass.png", "OpenTerraria:Glass", "Glass", true, 999, Color.White, 10).setLightBlocking(false);
         public static BlockPrototype sand = new BlockPrototype("sand.png", "OpenTerraria:Sand", "Sand", true, 999, Color.FromArgb(255, 229, 180), 10, true);
         public static BlockPrototype stone = new BlockPrototype("stone.png", "OpenTerraria:Stone", "Stone", true, 999, Color.FromArgb(102, 102, 102));
         public static BlockPrototype dirt = new BlockPrototype("dirt.png", "OpenTerraria:Dirt", "Dirt", true, 999, Color.FromArgb(84, 55, 27), 8);
-        public static BlockPrototype leaves = new BlockPrototype("leaves.png", "OpenTerraria:Leaves", "Leaves", false, 999, Color.FromArgb(32, 76, 10));
+        public static BlockPrototype leaves = new BlockPrototype("leaves.png", "OpenTerraria:Leaves", "Leaves", false, 999, Color.FromArgb(32, 76, 10)).setLightBlocking(false);
         public static BlockPrototype log = new BlockPrototype("log.png", "OpenTerraria:Log", "Wood", false, 999, Color.FromArgb(56, 43, 26));
         public static BlockPrototype planks = new BlockPrototype("planks.png", "OpenTerraria:Planks", "Wooden Planks", true, 999, Color.FromArgb(173, 133, 84));
         public static BlockPrototype oreCoal = new BlockPrototype("coalOre.png", "OpenTerraria:CoalOre", "Coal Ore", true, 255, Color.FromArgb(102, 102, 102));
-        public static BlockPrototype torch = new BlockPrototype("torch.png", "OpenTerraria:Torch", "Torch", false, 499, Color.Transparent, 1);
+        public static BlockPrototype torch = new BlockPrototype("torch.png", "OpenTerraria:Torch", "Torch", false, 499, Color.Transparent, 1).setLightBlocking(false);
         public static BlockPrototype furnace = new BlockPrototypeFurnace("furnace.png", "OpenTerraria:Furnace", "Furnace", true, 999);
         public static BlockPrototype ironOre = new BlockPrototype("ironOre.png", "OpenTerraria:IronOre", "Iron Ore", true, 99, Color.FromArgb(102, 102, 102));
         public static BlockPrototype computer = new BlockPrototypeComputer("computer.png", "OpenTerraria:Computer", "Computer", false, 99);
@@ -34,6 +34,7 @@ namespace OpenTerraria.Blocks {
         /// This feild should <b>NEVER</b> be changed, or accessed directly. Use getID() instead.
         /// </summary>
         private String id;
+        public bool lightBlocking = true;
         private int maxStackSize;
         private Bitmap startingImage;
         public String name;
@@ -68,6 +69,10 @@ namespace OpenTerraria.Blocks {
             this.maxStackSize = maxStack;
             this.hardness = hardness;
             this.falls = falls;
+        }
+        public BlockPrototype setLightBlocking(bool lightBlocking) {
+            this.lightBlocking = lightBlocking;
+            return this;
         }
         public bool isSolid() {
             return solid;

@@ -24,7 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            this.GameTimer = new System.Windows.Forms.Timer(this.components);
+            this.PhysicsTimer = new System.Windows.Forms.Timer(this.components);
             this.RenderTimer = new System.Windows.Forms.Timer(this.components);
             this.PausePanel = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
@@ -35,11 +35,11 @@
             this.PausePanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // GameTimer
+            // PhysicsTimer
             // 
-            this.GameTimer.Enabled = true;
-            this.GameTimer.Interval = 50;
-            this.GameTimer.Tick += new System.EventHandler(this.GameTimer_Tick);
+            this.PhysicsTimer.Enabled = true;
+            this.PhysicsTimer.Interval = 50;
+            this.PhysicsTimer.Tick += new System.EventHandler(this.GameTimer_Tick);
             // 
             // RenderTimer
             // 
@@ -138,7 +138,7 @@
 
         #endregion
 
-        public System.Windows.Forms.Timer GameTimer;
+        public System.Windows.Forms.Timer PhysicsTimer;
         public System.Windows.Forms.Timer RenderTimer;
         private System.Windows.Forms.Panel PausePanel;
         private System.Windows.Forms.Label label2;

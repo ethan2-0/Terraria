@@ -166,7 +166,7 @@ namespace OpenTerraria {
         }
         void MainForm_KeyPress(object sender, KeyPressEventArgs e) {
             if (e.KeyChar == (char)Keys.Escape) {
-                GameTimer.Enabled = !GameTimer.Enabled;
+                PhysicsTimer.Enabled = !PhysicsTimer.Enabled;
             }
         }
         public Inventory getParentInventory(ItemInInventory item) {
@@ -280,7 +280,7 @@ namespace OpenTerraria {
             }
             try {
                 //Updating components
-                PausePanel.Visible = !GameTimer.Enabled;
+                PausePanel.Visible = !PhysicsTimer.Enabled;
                 PausePanel.Left = this.Width / 2 - PausePanel.Width / 2;
                 WorkingBar.Width = this.Width;
                 WorkingBar.Visible = working;
@@ -375,7 +375,7 @@ namespace OpenTerraria {
                 foreach (DamageIndicator indicator in damageIndicators) {
                     indicator.draw(offg);
                 }
-                if (!GameTimer.Enabled) {
+                if (!PhysicsTimer.Enabled) {
                     
                 }
                 //Have all the external drawers do their drawing thing

@@ -13,7 +13,7 @@ namespace OpenTerraria.Blocks {
         public bool craftingWindowShown = false;
         public BlockFurnace(Point location, BlockPrototypeFurnace prototype) : base(prototype, location) {
             initCraftingManager();
-            MainForm.getInstance().GameTimer.Tick += new EventHandler(GameTimer_Tick);
+            MainForm.getInstance().PhysicsTimer.Tick += new EventHandler(GameTimer_Tick);
         }
 
         void GameTimer_Tick(object sender, EventArgs e) {

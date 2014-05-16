@@ -23,7 +23,7 @@ namespace OpenTerraria.Entities {
             hotbar.addItem(BlockPrototype.torch, 50);
             hotbar.addItem(BlockPrototype.furnace, 1);
             hotbar.addItem(BlockPrototype.computer, 1);
-            hotbar.addItem(BlockPrototype.sand, 50);
+            hotbar.addItem(BlockPrototype.glass, 50);
         }
         public void registerHandlers() {
             MainForm.getInstance().KeyDown += new System.Windows.Forms.KeyEventHandler(Player_KeyDown);

@@ -17,7 +17,7 @@ namespace OpenTerraria.Items {
         }
 
         void ItemTool_Load(object sender, EventArgs e) {
-            MainForm.getInstance().GameTimer.Tick += new EventHandler(GameTimer_Tick);
+            MainForm.getInstance().PhysicsTimer.Tick += new EventHandler(GameTimer_Tick);
         }
 
         void GameTimer_Tick(object sender, EventArgs e) {
@@ -25,7 +25,7 @@ namespace OpenTerraria.Items {
                 if (MainForm.getInstance().movingItem != null && this == MainForm.getInstance().movingItem.item) {
                     MainForm.getInstance().movingItem.use();
                 }
-                if (MainForm.getInstance().player.hotbar.items[MainForm.getInstance().player.hotbarSelectedIndex].item != null && this == MainForm.getInstance().player.hotbar.items[MainForm.getInstance().player.hotbarSelectedIndex].item) {
+                if (MainForm.getInstance().player.hotbar.items[MainForm.getInstance().player.hotbarSelectedIndex] != null && MainForm.getInstance().player.hotbar.items[MainForm.getInstance().player.hotbarSelectedIndex].item != null && this == MainForm.getInstance().player.hotbar.items[MainForm.getInstance().player.hotbarSelectedIndex].item) {
                     MainForm.getInstance().player.hotbar.items[MainForm.getInstance().player.hotbarSelectedIndex].use();
                 }
             }

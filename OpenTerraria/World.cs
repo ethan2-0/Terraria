@@ -291,7 +291,7 @@ namespace OpenTerraria {
             Block[] column = blocks[across];
             int intensity = 30;
             for (int i = 0; i < column.Count(); i++) {
-                if (!column[i].prototype.isSolid()) {
+                if (!column[i].prototype.lightBlocking) {
                     column[i].setLightLevel(intensity);
                 } else {
                     intensity -= 6;

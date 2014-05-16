@@ -25,7 +25,7 @@ namespace OpenTerraria.Blocks {
                 LightingEngine.fullLightingUpdateEventDispatcher.registerHandler(this);
             }
             MainForm.getInstance().Load += new EventHandler(Block_Load);
-            MainForm.getInstance().GameTimer.Tick += new EventHandler(GameTimer_Tick);
+            MainForm.getInstance().PhysicsTimer.Tick += new EventHandler(GameTimer_Tick);
         }
 
         void Block_Load(object sender, EventArgs e) {

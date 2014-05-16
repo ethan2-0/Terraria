@@ -18,12 +18,22 @@ namespace OpenTerraria.Entities {
         public int momentumLockTicks = 0;
         public Point momentumLock;
         public long ticksSinceOnGround = 0;
+        private Entity mount = null;
         public Entity(String imageName, Point location, Size hitBox) {
             this.image = Reference.getImage(imageName);
             this.location = location;
             this.hitBox = hitBox;
             momentum = new Point(0, 0);
             MainForm.getInstance().entities.Add(this);
+        }
+        public bool isMounted() {
+            return (mount != null);
+        }
+        public Entity getMount() {
+            return mount;
+        }
+        public void setMount(Entity mount) {
+            this.mount = mount;
         }
         public virtual void draw(Graphics g) {
             g.DrawImage(image, Util.subtractPoints(location, MainForm.getInstance().viewOffset));
