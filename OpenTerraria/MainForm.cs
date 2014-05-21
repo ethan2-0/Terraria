@@ -34,6 +34,7 @@ namespace OpenTerraria {
         public List<DamageIndicator> damageIndicators;
         Bitmap cursor;
         public EventDispatcher drawEventDispatcher = new EventDispatcher();
+        public int rendersThisSecond = 0;
         /// <summary>
         /// Obsolete.
         /// </summary>
@@ -51,6 +52,7 @@ namespace OpenTerraria {
         public bool linux = false;
         public bool waitingForInitialClick = false;
         public Point cursorOffset = Point.Empty;
+        public float fps = 0;
         public MainForm() {
             random = new Random();
             damageIndicators = new List<DamageIndicator>();
@@ -122,7 +124,7 @@ namespace OpenTerraria {
             this.MouseDown += new MouseEventHandler(MainForm_MouseDown);
             this.MouseUp += new MouseEventHandler(MainForm_MouseUp);
 
-            LightingEngine.doFullLightingUpdate();
+            LightingEngine.doFullLightingUpdate(true);
         }
 
         void MainForm_MouseUp(object sender, MouseEventArgs e) {
@@ -272,6 +274,7 @@ namespace OpenTerraria {
             paint();
         }
         public void paint() {
+            rendersThisSecond++;
             if (LightingEngine.updating) {
                 return;
             }
@@ -323,7 +326,7 @@ namespace OpenTerraria {
                 }
                 //Debug Menu
                 if (debugMenu) {
-                    offg.DrawString("OpenTerraria " + player.ToString() + " Ground: " + player.isOnGround + " ViewOffset: " + viewOffset.ToString() + " CursorPos:" + getCursorPos().ToString(), getNormalFont(8), blackBrush, new Point(0, 20));
+                    offg.DrawString("OpenTerraria " + player.ToString() + " Ground: " + player.isOnGround + " ViewOffset: " + viewOffset.ToString() + " CursorPos:" + getCursorPos().ToString() + " FPS: " + fps, getNormalFont(8), blackBrush, new Point(0, 20));
                     //offg.FillRectangle(createBrush(Color.Black), new Rectangle(getCursorPos(), new Size(20, 20)));
                     //offg.DrawImage(cursor, getCursorPos());
                     //Cursor.Hide();
@@ -528,6 +531,11 @@ namespace OpenTerraria {
 
         private void label4_Click(object sender, EventArgs e) {
             unserializeGame();
+        }
+
+        private void FPSTimer_Tick(object sender, EventArgs e) {
+            fps = rendersThisSecond;
+            rendersThisSecond = 0;
         }
     }
 }

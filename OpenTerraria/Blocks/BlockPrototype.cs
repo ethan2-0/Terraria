@@ -11,7 +11,7 @@ namespace OpenTerraria.Blocks {
     public class BlockPrototype : InventoryItem {
         #region Declaring constant BlockPrototypes
         public static BlockPrototype grass = new BlockPrototype("grass.png", "OpenTerraria:Grass", "Grass", true, 999, Color.FromArgb(84, 55, 27), 10);
-        public static BlockPrototype air = new BlockPrototype("air.png", "OpenTerraria:Air", "Air", false, 999, Color.Transparent).setLightBlocking(false);
+        public static BlockPrototype air = new BlockPrototype("air.png", "OpenTerraria:Air", "Air", false, 999, Color.Transparent).setLightBlocking(false).setDraws(false);
         public static BlockPrototype glass = new BlockPrototype("glass.png", "OpenTerraria:Glass", "Glass", true, 999, Color.White, 10).setLightBlocking(false);
         public static BlockPrototype sand = new BlockPrototype("sand.png", "OpenTerraria:Sand", "Sand", true, 999, Color.FromArgb(255, 229, 180), 10, true);
         public static BlockPrototype stone = new BlockPrototype("stone.png", "OpenTerraria:Stone", "Stone", true, 999, Color.FromArgb(102, 102, 102));
@@ -56,6 +56,10 @@ namespace OpenTerraria.Blocks {
         public int emittedLightLevel = 0;
         public Color color;
         /// <summary>
+        /// Whether or not the texture is drawn. Light is still drawn.
+        /// </summary>
+        public bool draws;
+        /// <summary>
         /// Create a new BlockPrototype with the specified image path and name.
         /// </summary>
         /// <param name="imageName">The image path, including .png. For example, grass.png.</param>
@@ -69,9 +73,15 @@ namespace OpenTerraria.Blocks {
             this.maxStackSize = maxStack;
             this.hardness = hardness;
             this.falls = falls;
+
+            draws = true;
         }
         public BlockPrototype setLightBlocking(bool lightBlocking) {
             this.lightBlocking = lightBlocking;
+            return this;
+        }
+        public BlockPrototype setDraws(bool draws) {
+            this.draws = draws;
             return this;
         }
         public bool isSolid() {

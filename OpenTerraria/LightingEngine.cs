@@ -33,7 +33,6 @@ namespace OpenTerraria {
             bool useLoadingForm = shouldUseLoadingForm;
             foreach (Block block in MainForm.getInstance().world.blockList) {
                 block.lightLevel = 0;
-                //block.emittedLightLevel = block.prototype.emittedLightLevel;
             }
             MainForm.getInstance().world.updateSkyLighting();
             fullLightingUpdateEventDispatcher.dispatch();

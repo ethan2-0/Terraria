@@ -293,6 +293,7 @@ namespace OpenTerraria {
             for (int i = 0; i < column.Count(); i++) {
                 if (!column[i].prototype.lightBlocking) {
                     column[i].setLightLevel(intensity);
+                    column[i].setEmittedLightLevel(intensity);
                 } else {
                     intensity -= 6;
                     if (intensity <= 0) {

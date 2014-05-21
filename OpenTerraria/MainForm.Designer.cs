@@ -32,6 +32,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.WorkingBar = new System.Windows.Forms.ProgressBar();
+            this.FPSTimer = new System.Windows.Forms.Timer(this.components);
             this.PausePanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -118,6 +119,12 @@
             this.WorkingBar.TabIndex = 1;
             this.WorkingBar.Visible = false;
             // 
+            // FPSTimer
+            // 
+            this.FPSTimer.Enabled = true;
+            this.FPSTimer.Interval = 1000;
+            this.FPSTimer.Tick += new System.EventHandler(this.FPSTimer_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -146,6 +153,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ProgressBar WorkingBar;
+        private System.Windows.Forms.Timer FPSTimer;
 
     }
 }
